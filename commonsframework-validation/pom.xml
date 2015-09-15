@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.singno.commonsframework</groupId>
+		<artifactId>commonsframework</artifactId>
+		<version>4.0.0-RELEASES</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>commonsframework-validation</artifactId>
+	<name>commonsframework-validation</name>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- 其它模块 -->
+		<dependency>
+			<groupId>cn.singno.commonsframework</groupId>
+			<artifactId>commonsframework-base-bean</artifactId>
+		</dependency>
+		
+		<!-- commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<!-- guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+	
+		<!-- hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<!-- commons-validator -->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+		</dependency>
+		<!-- oro -->
+		<dependency>
+			<groupId>oro</groupId>
+			<artifactId>oro</artifactId>
+		</dependency>
+	</dependencies>
+</project>

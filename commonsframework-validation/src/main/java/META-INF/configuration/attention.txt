@@ -1,0 +1,41 @@
+1. 注释的位置
+@Validated
+跟@Service一起注释在ServiceImpl类
+
+@Valid 
+注释在Service类
+
+否则无效
+
+2. 扫描注解
+
+ <!-- Annotation自动注册Bean，在springMvc中只扫描@Controller注解 -->
+<context:component-scan base-package="cn.singno" use-default-filters="false">
+    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:include-filter type="annotation" expression="org.springframework.validation.annotation.Validated"/>
+</context:component-scan>
+
+3. 测试时，Service测试无效，Controlle测试有效
+
+// 无效
+@Test
+public void testSave()
+{
+	try
+	{
+		User user = null;//usernew User();
+		userService.save(user);
+	} catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+};
+
+// 有效
+@Test
+	public void testVerification2() throws Exception
+	{
+		Map<String, Object> params = Maps.newHashMap();
+		ResultActions resultActions = super.getResultActionsByPost("/test/2", params);
+		logger.debug(resultActions.andReturn().getResponse().getContentAsString());
+	}

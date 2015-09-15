@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.singno.commonsframework</groupId>
+		<artifactId>commonsframework</artifactId>
+		<version>4.0.0-RELEASES</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>commonsframework-scheduling</artifactId>
+	<name>commonsframework-scheduling</name>
+	<packaging>jar</packaging>
+
+
+	<dependencies>
+		<!-- spring-context-support -->
+        <dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-context-support</artifactId>  
+        </dependency>
+  		<!-- quartz -->
+        <dependency>  
+            <groupId>org.quartz-scheduler</groupId>  
+            <artifactId>quartz</artifactId>  
+        </dependency>
+        <!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+	</dependencies>
+</project>

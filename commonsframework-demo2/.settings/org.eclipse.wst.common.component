@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="commonsframework-demo2">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="commonsframework-base-bean-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-base-bean/commonsframework-base-bean">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-base-utils-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-base-utils/commonsframework-base-utils">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-web-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-web/commonsframework-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-data-jpa-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-data-jpa/commonsframework-data-jpa">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-cache-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-cache/commonsframework-cache">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-validation-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-validation/commonsframework-validation">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-scheduling-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-scheduling/commonsframework-scheduling">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-MQ-metaQ-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-MQ-metaQ/commonsframework-MQ-metaQ">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-security-shiro-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-security-shiro/commonsframework-security-shiro">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-office-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-office/commonsframework-office">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commonsframework-lightApp-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-lightApp/commonsframework-lightApp">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/commonsframework-demo2/src/main/webapp/WEB-INF/classes"/>
+        <property name="context-root" value="/commonsframework"/>
+    </wb-module>
+</project-modules>

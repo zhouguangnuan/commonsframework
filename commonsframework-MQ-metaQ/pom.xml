@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.singno.commonsframework</groupId>
+		<artifactId>commonsframework</artifactId>
+		<version>4.0.0-RELEASES</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>commonsframework-MQ-metaQ</artifactId>
+	<name>commonsframework-MQ-metaQ</name>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- spring-context -->
+		<!-- <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency> -->
+  
+		<!-- log -->
+		<!-- <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency> -->
+
+		<!-- metamorphosis（metaQ） -->
+		<!-- 1.4.3及以上版本的java客户端只能连接1.4.3及以上版本的MetaQ服务器 -->
+		<dependency>
+			<groupId>com.taobao.metamorphosis</groupId>
+			<artifactId>metamorphosis-client-extension</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.sgroschupf</groupId>
+					<artifactId>zkclient</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.zookeeper</groupId>
+  					<artifactId>zookeeper</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- zkclient -->
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+
+	</dependencies>
+</project>

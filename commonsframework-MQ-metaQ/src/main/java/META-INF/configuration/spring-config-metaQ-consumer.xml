@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+	
+	<bean id="zKConfig" class="com.taobao.metamorphosis.utils.ZkUtils.ZKConfig">
+		<constructor-arg type="java.lang.String" value="192.168.1.5:2181"/>
+		<constructor-arg type="int" value="30000"/>
+		<constructor-arg type="int" value="30000"/>
+		<constructor-arg type="int" value="5000"/>
+	</bean>
+	<bean id="metaClientConfig" class="com.taobao.metamorphosis.client.MetaClientConfig">
+		<property name="zkConfig" ref="zKConfig" />
+	</bean>
+	<!-- 消息会话工厂 -->
+	<bean id="messageSessionFactory" class="com.taobao.metamorphosis.client.MetaMessageSessionFactory">
+		<constructor-arg ref="metaClientConfig" />
+	</bean>
+
+	<!-- 消费者配置 -->
+	<bean id="consumerConfig1" class="com.taobao.metamorphosis.client.consumer.ConsumerConfig">
+		<!-- 分组名称，必须，表示该消费者所在分组，同一分组的消费者正常情况下不会接收重复消息，共同消费某一topic -->
+		<constructor-arg type="java.lang.String" value="example1" />
+		<!-- 获取消息的线程数，默认cpu个 -->
+		<!-- <property name="fetchRunnerCount" value="" /> -->
+ 		<!-- 同步获取消息的默认超时时间，默认10秒，单位毫秒 -->
+		<!-- <property name="fetchTimeoutInMills" value="10000" /> -->
+		<!-- 当获取消息失败的时候（包括get miss或者任何异常情况)会延迟获取，此值设置最大的延迟时间，单位毫秒 -->
+		<!-- <property name="maxDelayFetchTimeInMills" value="5000" /> -->
+		<!-- 同一条消息在处理失败情况下最大重试次数，默认5次，超过就跳过这条消息并记录 -->
+		<property name="maxFetchRetries" value="5" />
+	</bean>
+	<!-- 消息监听器 -->
+	<bean id="messageListener1" class="cn.singno.commonsframework.messageListener.MessageListener1" />
+	
+	<!-- 消息消费者工厂：完成消息订阅 -->
+	<bean  id="consumerFactory" class="cn.singno.commonsframework.MQ.metaQ.ConsumerFactory" init-method="init" >
+		<property name="messageSessionFactory" ref="messageSessionFactory" />
+		<property name="consumerInfos">
+			<list>
+				<bean class="cn.singno.commonsframework.MQ.metaQ.ConsumerInfo">
+					<!-- 订阅的topic -->
+					<property name="topic" value="topic_test1" />
+					<!-- 订阅每次接收的最大数据大小,不能超过1M -->
+					<property name="maxSize" value="1048576" />
+					<!-- 消息监听器 -->
+					<property name="messageListener" ref="messageListener1" />
+					<!-- 消费者配置 -->
+					<property name="consumerConfig" ref="consumerConfig1" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

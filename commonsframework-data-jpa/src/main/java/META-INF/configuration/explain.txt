@@ -1,0 +1,19 @@
+PageRequest pageRequest = new PageRequest(int page, int size, Sort sort)// 分页请求
+
+page// 当前页（0表示第一页）
+size// 分页尺码（每页显示的记录数）
+
+===================================================================================
+
+Page<User> pageResult// 分页结果
+
+content:[]// list<User> 分页列表内容
+firstPage:true// 是否是第一页
+lastPage:false// 是否是最后一页
+number:0// 当前页（0表示第一页）
+numberOfElements:1// 当前分页的记录数（<=size）
+size:1// 分页尺码（每页显示的记录数）
+sort:{}// 排序对象（封装排序信息）
+totalElements:2// 总记录数
+totalPages:2// 总页数
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       ">
+       
+	<!-- 加载属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:email.properties" />
+	
+	<!-- Spring邮件发送 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>${mailserver.host}</value>
+		</property>
+		<property name="username">
+			<value>${mailserver.username}</value>
+		</property>
+		<property name="password">
+			<value>${mailserver.password}</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">${mailserver.transport.protocol}</prop>
+				<prop key="mail.store.protocol">${mailserver.store.protocol}</prop>
+				<prop key="mail.smtp.class">${mailserver.smtp.class}</prop>
+				<prop key="mail.smtp.host">${mailserver.smtp.host}</prop>
+				<prop key="mail.smtp.auth">${mailserver.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${mailserver.smtp.timeout}</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 发送邮件的帮助类（封装简化了邮件发送的aip调用） -->
+	<bean id="sendMailHelper" class="cn.singno.commonsframework.utils.SendMailHelper">
+		<constructor-arg ref="mailSender" />
+	</bean>
+	
+	
+</beans>

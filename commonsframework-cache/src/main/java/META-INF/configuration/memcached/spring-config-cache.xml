@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+       ">
+
+	<!-- 加载spring-memcached配置文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:memcached.properties" />
+	
+	<!-- 启用 @cache 注解 -->
+	<cache:annotation-driven cache-manager="springCacheManager" key-generator="keyGenerator" />
+	<bean id="keyGenerator" class="cn.singno.commonsframework.cache.keyGenerator.MyKeyGenerator" />
+
+	<!-- 配置memcached的缓存服务器 -->
+	<bean id="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">   
+		<constructor-arg>
+			<list>
+				<bean class="java.net.InetSocketAddress">
+					<constructor-arg value="${memcached.server1.host}" />
+					<constructor-arg value="${memcached.server1.port}" />
+				</bean>
+				<!-- <bean class="java.net.InetSocketAddress">
+					<constructor-arg value="${memcached.server2.host}" />
+					<constructor-arg value="${memcached.server2.port}" />
+				</bean> -->
+			</list>
+		</constructor-arg>
+		<!-- 缓存服务器权重，生产环境下根据内存大小进行分配 -->
+        <constructor-arg>
+            <list>
+                <value>${memcached.server1.weight}</value>
+                <!-- <value>${memcached.server2.weight}</value> -->
+            </list>
+        </constructor-arg>
+        <!-- nio连接池大小 -->
+        <property name="connectionPoolSize" value="${memcached.connectionPoolSize}"></property>
+        <!-- 协议工厂，net.rubyeye.xmemcached.command.BinaryCommandFactory,TextCommandFactory(默认),KestrelCommandFactory -->
+        <property name="commandFactory">
+			<bean class="net.rubyeye.xmemcached.command.TextCommandFactory" />
+		</property>
+		<!--分布策略，一致性哈希net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator或者ArraySessionLocator(默认)-->
+		<property name="sessionLocator">
+			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator" />
+		</property>
+		<!--序列化转换器，默认使用net.rubyeye.xmemcached.transcoders.SerializingTranscoder-->
+		<property name="transcoder">
+			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+		</property>
+		<!-- IoBuffer分配器，默认为net.rubyeye.xmemcached.buffer.SimpleBufferAllocator，可选CachedBufferAllocator(不推荐) -->
+		<property name="bufferAllocator">
+            <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"></bean>
+        </property>
+        <!-- 开启failure模式时（true为启用，默认不启用），某个memcached节点挂掉时，会查找下一个可用的memcached节点继续使用 -->
+        <property name="failureMode" value="${memcached.failureMode}"/>
+	</bean>
+	<bean id="memcachedClient" factory-bean="memcachedClientBuilder" factory-method="build" destroy-method="shutdown" />
+	
+	<!-- spring cache 事务支持缓存管理器 -->
+	<bean id="springCacheManager" class="cn.singno.commonsframework.cache.memcached.MemcachedCacheManager">
+		<property name="memcachedClient" ref="memcachedClient" />
+		<!-- 配置缓存时间 -->
+		<property name="cacheExpConfig" value="classpath:cacheExpConfig.properties"/>
+	</bean>
+</beans>

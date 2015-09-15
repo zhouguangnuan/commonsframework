@@ -1,0 +1,15 @@
+ehcache：
+1. 在使用 @Cacheable(value = "user")时，如果不加 condition = "#result != null"，会将方法的空的返回结果也缓存起来。
+@Cacheable(value = "user", condition = "#result != null")
+   
+
+
+
+memcache：
+1. 不能缓存null，和没有实现序列号接口的对象。
+
+
+// ===================================================================
+
+service层方法嵌套调用时，cache只会操作最外层的service方法。（只读取最外层service方法的缓存值，只缓存最外层service方法的返回值）
+

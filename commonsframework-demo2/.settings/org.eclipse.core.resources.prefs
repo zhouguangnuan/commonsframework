@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/ValidationMessages.properties=UTF-8
+encoding//src/main/resources/cacheExpConfig.properties=UTF-8
+encoding//src/main/resources/cookie.properties=UTF-8
+encoding//src/main/resources/dbconfig.properties=UTF-8
+encoding//src/main/resources/email.properties=UTF-8
+encoding//src/main/resources/log4j.properties=UTF-8
+encoding//src/main/resources/memcached.properties=UTF-8
+encoding//src/main/resources/quartz.properties=UTF-8
+encoding//src/main/resources/spring-mvc.properties=UTF-8
+encoding//src/main/resources/spring-mvc.xml=UTF-8
+encoding/<project>=UTF-8

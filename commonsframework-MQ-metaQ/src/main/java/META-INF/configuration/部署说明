@@ -1,0 +1,7 @@
+1. 启动 zookeeper 服务
+zookeeper-3.3.6\bin\zkServer.cmd
+
+2. 启动 metamorphosis 服务
+metamorphosis-server-wrapper\bin\metaServer.bat
+
+3. 开启应用程序

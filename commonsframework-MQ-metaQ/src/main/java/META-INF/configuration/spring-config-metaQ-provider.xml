@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+	
+	<bean id="zKConfig" class="com.taobao.metamorphosis.utils.ZkUtils.ZKConfig">
+		<constructor-arg type="java.lang.String" value="192.168.1.5:2181"/>
+		<constructor-arg type="int" value="30000"/>
+		<constructor-arg type="int" value="30000"/>
+		<constructor-arg type="int" value="5000"/>
+	</bean>
+	<bean id="metaClientConfig" class="com.taobao.metamorphosis.client.MetaClientConfig">
+		<property name="zkConfig" ref="zKConfig" />
+	</bean>
+	<!-- 消息会话工厂 -->
+	<bean id="messageSessionFactory" class="com.taobao.metamorphosis.client.MetaMessageSessionFactory">
+		<constructor-arg ref="metaClientConfig" />
+	</bean>
+
+	<!-- 消息生产者工厂：完成消息主题发布 -->
+	<bean id="producerFactory" class="cn.singno.commonsframework.MQ.metaQ.ProducerFactory" init-method="init">
+		<property name="messageSessionFactory" ref="messageSessionFactory" />
+		<property name="producers">
+			<list>
+				<bean class="cn.singno.commonsframework.MQ.metaQ.ProducerInfo">
+					<!-- 发布的topic -->
+					<property name="topics">
+						<set>
+							<value>topic_test1</value>
+						</set>
+					</property>
+				</bean>
+				<!-- <bean class="cn.singno.commonsframework.MQ.metaQ.ProducerInfo">
+					发布的topic
+					<property name="topics">
+						<set>
+							<value>topic_test2</value>
+						</set>
+					</property>
+				</bean> -->
+			</list>
+		</property>
+	</bean>
+</beans>

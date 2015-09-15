@@ -1,0 +1,8 @@
+策略一：缓存key不固定，没法清除指定缓存时（大多情况采用）
+增、删、改操作，清空缓存组：@CacheEvict(value = "user", allEntries = true)// value：缓存组名称
+查询操作，添加查询结果到缓存：@Cacheable(value = "users")
+
+
+策略二：能保证所有的缓存都可以获得key将其清除时（一般比较简单的业务情况采用）
+增、删、改操作，清空缓存组：@CacheEvict(value = "user", key = "#refrenceId")// value：缓存组名称
+查询操作，添加查询结果到缓存：@Cacheable(value = "users", key = "#refrenceId")
