@@ -32,7 +32,7 @@ public class WxMessageHandlerController {
 	@RequestMapping(value="/message/handler", method=RequestMethod.GET)
 	public void validationAccessWx(HttpServletRequest request, HttpServletResponse response)
 	{
-		// 11
+		// 1122
 		WeiXinUtils.accessWx(request, response);
 	}
 	 
