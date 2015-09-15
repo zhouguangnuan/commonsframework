@@ -19,7 +19,7 @@ public class R_e_quickmarkMsg extends ReceiveMsg {
 	private String event;// 事件类型
 	
 //	用户未关注时，进行关注后的事件推送：qrscene_为前缀，后面为二维码的参数值
-//	用户已关注时的事件推送：一个32位无符号整数，即创建二维码时的二维码scene_id
+//	用户已关注时的事件推送：一个32位无符号整数，即创建二维码时的二维码scene_id（具体看微信api）
 	private String eventKey;// 事件KEY值
 	
 	private String Ticket;// 二维码的ticket，可用来换取二维码图片

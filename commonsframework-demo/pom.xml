@@ -88,6 +88,11 @@
 			<groupId>cn.singno.commonsframework</groupId>
 			<artifactId>commonsframework-office</artifactId>
 		</dependency>
+		<!-- lightApp -->
+		<dependency>
+			<groupId>cn.singno.commonsframework</groupId>
+			<artifactId>commonsframework-lightApp</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-dbcp</groupId>

@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import net.sf.json.xml.XMLSerializer;
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -54,9 +57,9 @@ public final class WeiXinUtils {
 	private static String AppID = "wx118f38edf229af0a";// (应用ID)
 	private static String AppSecret = "cb70e6fc7c882f29679a3bf15039f47c";// (应用密钥)
 	
-	private static final String Token = "singno1314ainana";// 令牌
+	private static String Token = "singno1314ainana";// 令牌
 	
-	private static final String App_Service_Admin = "60.190.32.54";// (app应用服务器域名) 
+	private static String App_Service_Admin = "123.56.162.129";// (app应用服务器域名) 
 	
 	/*********************************************** 微信接口地址 ***********************************************/
 	private static final String get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={0}";
@@ -68,22 +71,22 @@ public final class WeiXinUtils {
 		for (WxCodeEnum wxCodeEnum : wxCodeEnums)
 		{
 			WxCodeInfo.put(wxCodeEnum.getCode(), wxCodeEnum);
+		} 
+		try 
+		{
+			Configuration config = new PropertiesConfiguration("lightApp.properties");
+			AppID = config.getString("wx.appId");
+			AppSecret = config.getString("wx.appSecret");
+			App_Service_Admin = config.getString("wx.app.service.admin");
+			Token = config.getString("wx.token");
+			if (StringUtils.isBlank(AppID) || StringUtils.isBlank(AppSecret) || StringUtils.isBlank(Token))
+			{
+				throw new RuntimeException("lightApp.properties config error");
+			}
+		} catch (ConfigurationException e)
+		{
+			throw new RuntimeException("lightApp.properties not find");
 		}
-//		try
-//		{
-//			Configuration config = new PropertiesConfiguration("lightApp.properties");
-//			AppID = config.getString("wx.appId");
-//			AppSecret = config.getString("wx.appSecret");
-//			App_Service_Admin = config.getString("wx.app.service.admin");
-//			Token = config.getString("wx.token");
-//			if (StringUtils.isBlank(AppID) || StringUtils.isBlank(AppSecret) || StringUtils.isBlank(Token))
-//			{
-//				throw new RuntimeException("lightApp.properties config error");
-//			}
-//		} catch (ConfigurationException e)
-//		{
-//			throw new RuntimeException("lightApp.properties not find");
-//		}
 	}
 	/*************************************************************************************************************************/
 	
@@ -210,8 +213,8 @@ public final class WeiXinUtils {
 	{
 		if (isWxMsg(request))
 		{
-			// 随机字符串  
-		        String echostr = request.getParameter("echostr");  
+			// 随机字符串   
+		    String echostr = request.getParameter("echostr");  
 			writeToResponse(response, echostr);
 			logger.info("接入微信公众平台成功");
 			return;

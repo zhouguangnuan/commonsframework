@@ -36,7 +36,10 @@
         <dependent-module archiveName="commonsframework-office-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-office/commonsframework-office">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="commonsframework-lightApp-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-lightApp/commonsframework-lightApp">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/commonsframework-demo/src/main/webapp/src/main/java"/>
-        <property name="context-root" value="/ROOT"/>
+        <property name="context-root" value="/demo"/>
     </wb-module>
 </project-modules>
