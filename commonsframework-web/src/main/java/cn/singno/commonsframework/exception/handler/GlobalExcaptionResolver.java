@@ -26,6 +26,7 @@ import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 
 import cn.singno.commonsframework.bean.JsonResult;
 import cn.singno.commonsframework.constants.DefaultDescribableEnum;
+import cn.singno.commonsframework.exception.AuthenticationException;
 import cn.singno.commonsframework.exception.BusinessException;
 import cn.singno.commonsframework.exception.ConstraintViolationException;
 import cn.singno.commonsframework.exception.DescribableException;
@@ -93,16 +94,14 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 	 * @throws IOException
 	 * @author 周光暖
 	 */
-	private ModelAndView handleException(Exception ex,
-			HttpServletRequest request, HttpServletResponse response,
-			Object handler) throws IOException
+	private ModelAndView handleException(Exception ex, HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException
 	{
 		if (isAjax(ex, request, response, handler))
 		{
-			return handleAjaxeException(ex, response);
+			return handleAjaxeException(ex, request, response);
 		} else
 		{
-			return handleCommonException(ex, response);
+			return handleCommonException(ex, request, response);
 		}
 	}
 
@@ -115,8 +114,7 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 	 * @throws IOException
 	 * @author 周光暖
 	 */
-	private ModelAndView handleAjaxeException(Exception ex,
-			HttpServletResponse response) throws IOException
+	private ModelAndView handleAjaxeException(Exception ex,HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		HttpMessageConverter<Object> messageConverter = getJsonMessageConverter();
 		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
@@ -135,19 +133,20 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 	 * @throws IOException
 	 * @author 周光暖
 	 */
-	private ModelAndView handleCommonException(Exception ex,
-			HttpServletResponse response) throws IOException
+	protected ModelAndView handleCommonException(Exception ex,HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		int state = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 		if (ex instanceof BindException)
 		{
 			state = HttpServletResponse.SC_NOT_FOUND;
 		}
+		if (ex instanceof AuthenticationException)
+		{
+			state = HttpServletResponse.SC_UNAUTHORIZED;
+		}
 		response.sendError(state, JSON.toJSONString(getExceptionJsonMessage(ex)));
 		return new ModelAndView();
-		// return new ModelAndView("forward:/error/error_mobile.jsp",
-		// "jsonMessage", getExceptionJsonMessage(ex));
-	}
+	} 
 
 	/**
 	 * 判断是否为 ajax 请求
@@ -182,7 +181,7 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 	 * @author 周光暖
 	 * @param ex
 	 */
-	private JsonResult getExceptionJsonMessage(Exception ex)
+	protected JsonResult getExceptionJsonMessage(Exception ex)
 	{
 		DescribableException describableException = null;
 		if (ex instanceof UnauthorizedException)
@@ -230,7 +229,7 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 		
 		if (null == describableException)
 		{
-			describableException = new BusinessException(DefaultDescribableEnum.SYSTEM_ERROR);
+			describableException = new BusinessException(DefaultDescribableEnum.SYSTEM_ERROR, "请稍后重试");
 		}
 		return new JsonResult(describableException.getCode(), ExceptionUtils.description(describableException));
 	}

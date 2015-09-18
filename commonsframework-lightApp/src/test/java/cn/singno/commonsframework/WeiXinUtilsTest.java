@@ -8,18 +8,13 @@
  */
 package cn.singno.commonsframework;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Date;
 
-import net.sf.json.JSONObject;
-
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import cn.singno.commonsframework.utils.WeiXinUtils;
-import cn.singno.commonsframework.weixin.msg.receive.ReceiveMsg;
-import cn.singno.commonsframework.weixin.msg.receive.common.R_c_textMsg;
-import cn.singno.commonsframework.weixin.msg.send.passiveReply.S_pr_textMsg;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * <p>名称：WeiXinUtilsTest.java</p>
@@ -33,6 +28,7 @@ import cn.singno.commonsframework.weixin.msg.send.passiveReply.S_pr_textMsg;
  */
 public class WeiXinUtilsTest
 {
+	
 	@Test
 	public void testParse() throws Exception
 	{
@@ -54,5 +50,33 @@ public class WeiXinUtilsTest
 //		
 //		String xmlStr = WeiXinUtils.toXmlStr(msg);
 //		System.out.println(xmlStr);
+	}
+	
+	@Test
+	public void testGetAccessToken() throws Exception {
+		System.out.println(WeiXinUtils.getAccessToken());
+	}
+	
+	@Test
+	public void testGetAuthToken() throws Exception 
+	{
+		String code = "031ac79df644d47b07d66fa2268d697e"; 
+		JSONObject jsonObject = WeiXinUtils.getAuthToken(code);
+		System.out.println(jsonObject.toString());
+	}
+	
+	@Test
+	public void testGetUserinfo() throws Exception {
+		String access_token = "OezXcEiiBSKSxW0eoylIeOYkSU4hgXa-HbNLTsIHnBhDXGtQ9E6BUsRwawqijxf4rSvdGAXUj07f6STxXD13kwbypn2MwuLZ24cW9XWYuTGzYqj_zjmQIrOHz6Iu5We58E45934SPvozL7P9AVErIA"; 
+		String openid = "oJ6pEw7ML27fvjNuSEAncgyh1f70"; 
+		JSONObject jsonObject = WeiXinUtils.getUserInfo(access_token, openid);
+		System.out.println(jsonObject.toString()); 
+	}
+	
+	@Test
+	public void testname() throws Exception {
+		String scene_str = "abc123";
+		String ticket = WeiXinUtils.creaetSceneQRcode(scene_str);
+		System.out.println(ticket); 
 	}
 }

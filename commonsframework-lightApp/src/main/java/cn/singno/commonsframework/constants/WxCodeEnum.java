@@ -14,6 +14,8 @@ public enum WxCodeEnum implements Describable
 {
 	SYSTEM_BUSY(-1, "系统繁忙，此时请开发者稍候再试"),
 	SUCCESS(0, "请求成功"),
+	ERROR_CUSTOM_001(001, "没有响应参数"),
+	ERROR_CUSTOM_002(002, "参数不能为空"),
 	ERROR_40001(40001, "获取access_token时AppSecret错误，或者access_token无效。请开发者认真比对AppSecret的正确性，或查看是否正在为恰当的公众号调用接口"),	
 	ERROR_40002(40002, "不合法的凭证类型"),
 	ERROR_40003(40003, "不合法的OpenID，请开发者确认OpenID（该用户）是否已关注公众号，或是否是其他公众号的OpenID"),

@@ -22,10 +22,10 @@ import cn.singno.commonsframework.constants.Describable;
 public enum ResultStateEnum implements Describable
 {
 	// 120000-129999
-	SUCCESS(120000, "成功"),
+	SUCCESS(1, "成功"),
 	FAIL(120001, "失敗"),
 	SYSTEM_ERROR(120002, "系统异常"),
-	AUTHORIZED_ERROR(120003, "没有权限"),
+	AUTHORIZED_ERROR(120003, "用户认证异常"),
 	PARAMES_ERROR(120004, "参数异常"),
 	UPLOAD_ERROR(120005, "文件上传异常"),
 	DOWNLOAD_ERROR(120006, "文件下载异常"),
@@ -33,7 +33,8 @@ public enum ResultStateEnum implements Describable
 	DES_ERROR(120008, "异或码校验失败"), 
 	LEN_ERROR(120009, "数据长度校验失败"), 
 	NUL_ERROR(120010,"缺少参数或参数为空"),
-	EXISTS_EMOJI(120011,"输入的内容里存在系统不支持的字符")
+	EXISTS_EMOJI(120011,"输入的内容里存在系统不支持的字符"),
+	CLINET_UNAUTO_ERROR(120012, "客户端没有接口权限"),
 	;
 	
 	private Integer code;

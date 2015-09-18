@@ -30,6 +30,31 @@ public abstract class DescribableException extends RuntimeException {
 
 	/**
 	 * 构造器
+	 * <pre></pre>
+	 * 
+	 * @param describable
+	 */
+	public DescribableException(Number code, String message) {
+		super();
+		this.code = code;
+		this.message = message;
+	}
+	
+	/**
+	 * 构造器
+	 * <pre></pre>
+	 * 
+	 * @param describable
+	 */
+	public DescribableException(Number code, String message, String detail) {
+		super();
+		this.code = code;
+		this.message = message;
+		this.detail = detail;
+	}
+	
+	/**
+	 * 构造器
 	 * 
 	 * <pre></pre>
 	 * 

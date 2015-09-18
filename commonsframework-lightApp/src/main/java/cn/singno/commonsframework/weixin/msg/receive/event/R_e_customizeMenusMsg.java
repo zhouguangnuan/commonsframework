@@ -14,11 +14,11 @@ import cn.singno.commonsframework.weixin.msg.receive.ReceiveMsg;
  */
 public class R_e_customizeMenusMsg extends ReceiveMsg {
 	
-//	 点击菜单拉取消息时的事件推送：CLICK
+//	 点击菜单点击时的事件推送：CLICK
 //	点击菜单跳转链接时的事件推送：VIEW
 	private String event;// 事件类型
 	
-//	 点击菜单拉取消息时的事件推送：与自定义菜单接口中KEY值对应
+//	 点击菜单点击时的事件推送：与自定义菜单接口中KEY值对应
 //	点击菜单跳转链接时的事件推送：设置的跳转URL
 	private String eventKey;// 事件KEY值
 

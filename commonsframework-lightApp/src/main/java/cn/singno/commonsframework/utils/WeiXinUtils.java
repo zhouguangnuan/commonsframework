@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -15,17 +16,24 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import net.sf.json.xml.XMLSerializer;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.entity.EntityBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.log4j.Logger;
 
 import cn.singno.commonsframework.constants.DefaultSystemConst;
 import cn.singno.commonsframework.constants.WxCodeEnum;
 import cn.singno.commonsframework.constants.WxConst.Event;
 import cn.singno.commonsframework.constants.WxConst.MsgType;
+import cn.singno.commonsframework.exception.BusinessException;
 import cn.singno.commonsframework.exception.WxException;
 import cn.singno.commonsframework.weixin.msg.receive.ReceiveMsg;
 import cn.singno.commonsframework.weixin.msg.receive.common.R_c_imageMsg;
@@ -51,18 +59,30 @@ public final class WeiXinUtils {
 	private static final Logger logger = Logger.getLogger(WeiXinUtils.class);
 	
 	/*********************************************** 微信接参全局返回码说明 ***********************************************/
-	private static final Map<Integer, WxCodeEnum> WxCodeInfo;
+	public static final Map<Integer, WxCodeEnum> WxCodeInfo;
 	
-	/*********************************************** 微信接参数常量 ***********************************************/
-	private static String AppID = "wx118f38edf229af0a";// (应用ID)
-	private static String AppSecret = "cb70e6fc7c882f29679a3bf15039f47c";// (应用密钥)
+	/*********************************************** 微信接参数 ***********************************************/
+	private static final String AppID;// (应用ID)
+	private static final String AppSecret;// (应用密钥)
 	
-	private static String Token = "singno1314ainana";// 令牌
+	private static final String Token;// 令牌
 	
-	private static String App_Service_Admin = "123.56.162.129";// (app应用服务器域名) 
+	private static final String App_Service_Admin;// (app应用服务器域名) 
+	
+	private static AccessToken accessToken;
 	
 	/*********************************************** 微信接口地址 ***********************************************/
-	private static final String get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={0}";
+	// 获取access_token
+	private static final String get_access_token = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={0}&secret={1}";
+	
+	// 通过code换取网页授权access_token 
+	private static final String get_auth_token = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code";
+	
+	// 拉取用户信息(需scope为 snsapi_userinfo)
+	private static final String get_userinfo = "https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang=zh_CN";
+	
+	// 检验授权凭证（access_token）是否有效
+	private static final String verifyAuthToken = "https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}";
 	
 	static
 	{
@@ -75,11 +95,11 @@ public final class WeiXinUtils {
 		try 
 		{
 			Configuration config = new PropertiesConfiguration("lightApp.properties");
-			AppID = config.getString("wx.appId");
-			AppSecret = config.getString("wx.appSecret");
-			App_Service_Admin = config.getString("wx.app.service.admin");
-			Token = config.getString("wx.token");
-			if (StringUtils.isBlank(AppID) || StringUtils.isBlank(AppSecret) || StringUtils.isBlank(Token))
+			AppID = config.getString("wx.appId").trim();
+			AppSecret = config.getString("wx.appSecret").trim();
+			App_Service_Admin = config.getString("wx.app.service.admin").trim();
+			Token = config.getString("wx.token").trim();
+			if (StringUtils.isBlank(AppID) || StringUtils.isBlank(AppSecret) || StringUtils.isBlank(Token)|| StringUtils.isBlank(App_Service_Admin))
 			{
 				throw new RuntimeException("lightApp.properties config error");
 			}
@@ -136,21 +156,91 @@ public final class WeiXinUtils {
 	 */
 	public static String getAccessToken()
 	{
+		if(null != accessToken && !accessToken.isExpires()){
+			return accessToken.getAccess_token();
+		}
+		
 		String url = MessageFormat.format(get_access_token, AppID, AppSecret);
 		String jsonResult = HttpUtils.get(url);
 		com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(jsonResult);
-		Object access_token = jsonObject.get("access_token"); 
-		if (null == access_token)
-		{
-			Integer code = jsonObject.getInteger("errcode");
-			WxCodeEnum wxCodeEnum = WxCodeInfo.get(code);
-			throw new WxException(wxCodeEnum);
-		}
+		assertSuccess(jsonObject);
+		Object access_token = jsonObject.getString("access_token"); 
+		accessToken = new AccessToken(access_token.toString(), jsonObject.getLong("expires_in"));  
 		return access_token.toString();
 	}
 	
+	/**
+	 * 描述：通过code换取网页授权access_token 
+	 * @param code
+	 * @return
+	 * {
+	 *	   "access_token":"ACCESS_TOKEN",
+	 *	   "expires_in":7200,
+	 *	   "refresh_token":"REFRESH_TOKEN",
+	 *	   "openid":"OPENID",
+	 *	   "scope":"SCOPE"
+	 *	}
+	 */
+	public static com.alibaba.fastjson.JSONObject getAuthToken(String code)
+	{
+		if(StringUtils.isBlank(code)){
+			return null; 
+		}
+		String url = MessageFormat.format(get_auth_token, AppID, AppSecret, code);
+		String jsonResult = HttpUtils.get(url);
+		com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(jsonResult);
+		assertSuccess(jsonObject);
+		return jsonObject;
+	}
 	
+	/**
+	 * 拉取用户信息(需scope为 snsapi_userinfo)
+	 * @param access_token	网页授权access_token 
+	 * @param openid		
+	 * @return
+	 * {
+	 *	   "openid":" OPENID",
+	 *	   " nickname": NICKNAME,
+	 *	   "sex":"1",
+	 *	   "province":"PROVINCE"
+	 *	   "city":"CITY",
+	 *	   "country":"COUNTRY",
+	 *	    "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46", 
+	 *		"privilege":[
+	 *		"PRIVILEGE1"
+	 *		"PRIVILEGE2"
+	 *	    ],
+	 *	    "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+	 *	}
+	 */
+	public static com.alibaba.fastjson.JSONObject getUserInfo(String access_token, String openid)
+	{
+		if(StringUtils.isBlank(access_token) || StringUtils.isBlank(openid))
+		{
+			return null; 
+		}
+		String url = MessageFormat.format(get_userinfo, access_token, openid);
+		String jsonResult = HttpUtils.get(url);
+		com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(jsonResult);
+		assertSuccess(jsonObject);
+		return jsonObject;
+	}
 	
+	/**
+	 * 检验授权凭证（access_token）是否有效
+	 * @param openId			必填
+	 * @param access_token		必填
+	 */
+	public static void verifyAuthToken(String access_token, String openid)
+	{
+		AssertUtils.notNull(access_token, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "access_token"));
+		AssertUtils.notNull(openid, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "openid")); 
+		
+		String url = MessageFormat.format(verifyAuthToken, access_token, openid);
+		String jsonResult = HttpUtils.get(url);
+		com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(jsonResult);
+		assertSuccess(jsonObject);
+	}
 	
 	/**
 	 * <p>描述：判断是否来自微信的消息</p>
@@ -222,7 +312,23 @@ public final class WeiXinUtils {
 		logger.info("接入微信公众平台失败");
 	}
 	
-	
+	/**
+	 * 创建场景二维码
+	 * @param scene_str		场景参数
+	 * @return
+	 */
+	public static String creaetSceneQRcode(String scene_str)
+	{
+		String body = "{\"action_name\":\"QR_LIMIT_STR_SCENE\",\"action_info\":{\"scene\":{\"scene_str\":\"" + scene_str + "\"}}}";
+		String url_get_quickmarkTicket = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + getAccessToken();
+		HttpEntity entity = EntityBuilder.create().setText(body).setContentType(ContentType.APPLICATION_JSON).build();
+		String result=  HttpUtils.post(url_get_quickmarkTicket, entity);
+		
+		com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(result);
+		assertSuccess(jsonObject);
+		String sceneQRcodeUrl = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" + jsonObject.getString("ticket");
+		return sceneQRcodeUrl;
+	}
 	
 	
 	
@@ -300,7 +406,9 @@ public final class WeiXinUtils {
 				switch (EnumUtils.getEnum(Event.class, jsonObject.getString("Event")))
 				{
 					case subscribe:// 订阅事件
-						if (null != jsonObject.get("EventKey")) {
+						Object EventKey = jsonObject.get("EventKey");
+						if (null!=EventKey && StringUtils.startsWith(EventKey.toString(), "qrscene")) 
+						{
 							receiveMsg = (R_e_quickmarkMsg) toBean(jsonObject, R_e_quickmarkMsg.class);
 						}
 						else {
@@ -308,7 +416,8 @@ public final class WeiXinUtils {
 						}
 						break;
 					case unsubscribe:// 取消订阅事件
-						receiveMsg = (R_e_subscribeMsg) toBean(jsonObject, R_e_unsubscribeMsg.class);
+						receiveMsg = (R_e_unsubscribeMsg) toBean(jsonObject, R_e_unsubscribeMsg.class);
+						break;
 					case SCAN:// 扫描二维码事件
 						receiveMsg = (R_e_quickmarkMsg) toBean(jsonObject, R_e_quickmarkMsg.class);
 						break;
@@ -340,5 +449,74 @@ public final class WeiXinUtils {
 			return null;
 		}
 		return XmlUtils.formatXml(msg.toDocument(), DefaultSystemConst.DEFAULT_UNICODE, false);
+	}
+	
+	/**
+	 * 抛出微信异常
+	 * @param jsonResult
+	 */
+	private static void assertSuccess(com.alibaba.fastjson.JSONObject jsonObject)
+	{
+		AssertUtils.notNull(jsonObject, new WxException(WxCodeEnum.ERROR_CUSTOM_001));
+		
+		Object errcode = jsonObject.get("errcode");
+		if(null!=errcode && ObjectUtils.notEqual(0, (Integer)errcode))
+		{
+			WxCodeEnum wxCodeEnum = WxCodeInfo.get((Integer)errcode);
+			if(null != wxCodeEnum)
+			{
+				throw new WxException(wxCodeEnum);
+			}
+			else{
+				throw new WxException((Integer)errcode, jsonObject.getString("errmsg"));
+			}
+		}
+	}
+	
+	/**
+	 * 公众号的全局唯一票据
+	 * @author Administrator
+	 */
+	private static class AccessToken{
+		
+		private String access_token;
+		private Long expires_in;// 单位秒
+		private Long getTime;// 单位秒
+		
+		public AccessToken(String access_token, Long expires_in) {
+			super();
+			this.access_token = access_token;
+			this.expires_in = expires_in;
+			this.getTime = System.currentTimeMillis()/1000;
+		}
+		
+		public String getAccess_token() {
+			return access_token;
+		}
+		public void setAccess_token(String access_token) {
+			this.access_token = access_token;
+		}
+		public Long getExpires_in() {
+			return expires_in;
+		}
+		public void setExpires_in(Long expires_in) {
+			this.expires_in = expires_in;
+		}
+		public Long getGetTime() {
+			return getTime;
+		}
+		public void setGetTime(Long getTime) {
+			this.getTime = getTime;
+		}
+		
+		public Boolean isExpires(){
+			Long now = System.currentTimeMillis()/1000;
+			Long delay = 20L;
+			
+			if(now - this.getTime > this.expires_in - delay){
+				return Boolean.TRUE;
+			}
+			return Boolean.FALSE;
+		}
 	}
 }

@@ -11,7 +11,8 @@ package cn.singno.commonsframework.module.app.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -96,14 +97,8 @@ public class EasyuiTestController
 			map.put("email", "zhouguangnuan@yeah.net_"+i+"_"+page+"");
 			list.add(map); 
 		}
-		
-		JsonResult<Map<String, String>> jsonResult = new JsonResult<Map<String, String>>(DefaultDescribableEnum.SUCCESS); 
-		jsonResult.setTotalElements(totalElements);
-		jsonResult.setTotalPages(totalPages);
-		jsonResult.setPageSize(size);
-		jsonResult.setCurrentPage(page);
-//		jsonResult.setRows(list);
-		jsonResult.setObject(list); 
+		 
+		JsonResult jsonResult = new JsonResult(DefaultDescribableEnum.SUCCESS, new PageImpl<Map<String, String>>(list)); 
 		return jsonResult;
 	};
 	

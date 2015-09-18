@@ -47,7 +47,7 @@ public class JsonpTestControll
 		Map map = Maps.newHashMap(); 
 		map.put("src1", src1);
 		map.put("src2", src2);
-		jsonResult.setObject(map);
+		jsonResult.setData(map);
 		return jsonResult; 
 	}
 	

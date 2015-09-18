@@ -22,5 +22,9 @@ import cn.singno.commonsframework.constants.DefaultSystemConst;
  */
 public class SystemConst extends DefaultSystemConst
 {
-
+	public static class ClientType
+	{
+		public static final Integer MOBILE_APP = 1;// 原生app客户端
+		public static final Integer MOBILE_WX = 2;// 微信客户端
+	}
 }

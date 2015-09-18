@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <dependent-module archiveName="commonsframework-base-bean-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-base-bean/commonsframework-base-bean">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -38,6 +39,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/commonsframework-demo2/src/main/webapp/WEB-INF/classes"/>
-        <property name="context-root" value="/commonsframework"/>
+        <property name="context-root" value="/demo2"/>
     </wb-module>
 </project-modules>

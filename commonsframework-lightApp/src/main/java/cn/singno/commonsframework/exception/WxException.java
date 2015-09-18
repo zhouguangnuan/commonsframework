@@ -16,6 +16,14 @@ import cn.singno.commonsframework.constants.Describable;
 @SuppressWarnings("all")
 public class WxException extends DescribableException
 {
+	public WxException(Number code, String message) {
+		super(code, message);
+	}
+	
+	public WxException(Number code, String message, String detail) {
+		super(code, message, detail);
+	}
+	
 	public WxException(Describable describableInfo) {
 		super(describableInfo);
 	}

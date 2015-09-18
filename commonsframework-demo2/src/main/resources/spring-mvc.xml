@@ -81,12 +81,34 @@
     </mvc:annotation-driven >
 	
     <!-- 拦截器 -->
-    <!-- <mvc:interceptors>
-    	<mvc:interceptor >
-    		<mvc:mapping path="**"/>
-    		<ref bean="***"/>
-    	</mvc:interceptor>
-    </mvc:interceptors> -->
+    <mvc:interceptors>
+    	<!-- 请求记录拦截器 -->
+    	<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="cn.singno.commonsframework.interceptor.RequestRecordInterceptor" />
+		</mvc:interceptor>
+		<!-- 安全控制拦截器 -->
+    	<mvc:interceptor>
+			<mvc:mapping path="/mobile/app/**"/>
+			<bean class="cn.singno.commonsframework.interceptor.AppSecurityInterceptor" />
+		</mvc:interceptor>
+    	<mvc:interceptor>
+			<mvc:mapping path="/mobile/wx/**"/>
+			<bean class="cn.singno.commonsframework.interceptor.WxSecurityInterceptor" />
+		</mvc:interceptor>
+    	<mvc:interceptor>
+			<mvc:mapping path="/mobile/web/**"/> 
+			<mvc:mapping path="/web/**"/>
+			<mvc:mapping path="/admin/**"/>
+			<bean class="cn.singno.commonsframework.interceptor.WebSecurityInterceptor" />
+		</mvc:interceptor>
+		<!-- 用户认证拦截器 -->
+    	<mvc:interceptor>
+			<mvc:mapping path="/*/user/**"/> 
+			<mvc:mapping path="/*/*/user/**"/> 
+			<bean class="cn.singno.commonsframework.interceptor.AuthenticationInterceptor" />
+		</mvc:interceptor>
+    </mvc:interceptors>
     
     <!-- 对静态资源文件的访问控制  -->
     <mvc:default-servlet-handler/>
@@ -94,7 +116,7 @@
     <mvc:resources mapping="/log/**" location="/log/"/> -->
     
     <!-- 全局异常处理器 -->
-    <bean id="globalExcaptionResolver" class=" cn.singno.commonsframework.exception.handler.GlobalExcaptionResolver">
+    <bean id="globalExcaptionResolver" class=" cn.singno.commonsframework.exception.handler.MyGlobalExcaptionResolver">
     	<property name="jsonMessageConverter" ref="fastJsonHttpMessageConverter" />
     	<property name="order" value="1"/>
     </bean>

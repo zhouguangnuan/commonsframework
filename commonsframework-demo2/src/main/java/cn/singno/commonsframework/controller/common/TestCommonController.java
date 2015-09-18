@@ -11,13 +11,23 @@ import cn.singno.commonsframework.utils.NetworkUtils;
 
 import com.alibaba.druid.support.http.util.IPAddress;
 
+/**
+ * 通用接口
+ */
 @Controller
 @RequestMapping("/common")
-public class TestController
+public class TestCommonController
 {
 	@RequestMapping(value="/test1", method=RequestMethod.GET)
 	@ResponseBody
 	public Object test1(String str)
+	{
+		return str;
+	}
+	
+	@RequestMapping(value="/user/test2", method=RequestMethod.GET)
+	@ResponseBody
+	public Object test2(String str)
 	{
 		return str;
 	}
