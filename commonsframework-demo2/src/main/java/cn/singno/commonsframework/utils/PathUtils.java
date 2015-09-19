@@ -21,11 +21,11 @@ public class PathUtils
 		return Boolean.FALSE;
 	}
 	
-	public static Boolean isWxURI(HttpServletRequest request)
+	public static Boolean isWebURI(HttpServletRequest request)
 	{
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
-		if(StringUtils.startsWith(requestURI, contextPath + "/mobile/wx"))
+		if(StringUtils.startsWith(requestURI, contextPath + "/mobile/web") || StringUtils.startsWith(requestURI, contextPath + "/web"))
 		{ 
 			return Boolean.TRUE;
 		}

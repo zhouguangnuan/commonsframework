@@ -34,6 +34,7 @@ import cn.singno.commonsframework.exception.DescribableException;
 import cn.singno.commonsframework.utils.ConstraintValidateUtils;
 import cn.singno.commonsframework.utils.ExceptionUtils;
 import cn.singno.commonsframework.utils.PathUtils;
+import cn.singno.commonsframework.utils.WeiXinUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
@@ -73,8 +74,8 @@ public class MyGlobalExcaptionResolver extends GlobalExcaptionResolver
 		if(PathUtils.isAppURI(request))
 		{
 			request.setAttribute("ClientType", SystemConst.ClientType.MOBILE_APP);
-		}
-		else if(PathUtils.isWxURI(request))
+		} 
+		else if(WeiXinUtils.comeFromWxBrowser(request))
 		{
 			request.setAttribute("ClientType", SystemConst.ClientType.MOBILE_WX);
 		}

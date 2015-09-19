@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 import net.sf.json.xml.XMLSerializer;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -26,14 +24,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.log4j.Logger;
 
 import cn.singno.commonsframework.constants.DefaultSystemConst;
 import cn.singno.commonsframework.constants.WxCodeEnum;
+import cn.singno.commonsframework.constants.WxConst;
 import cn.singno.commonsframework.constants.WxConst.Event;
 import cn.singno.commonsframework.constants.WxConst.MsgType;
-import cn.singno.commonsframework.exception.BusinessException;
+import cn.singno.commonsframework.constants.WxConst.QRcodeType;
 import cn.singno.commonsframework.exception.WxException;
 import cn.singno.commonsframework.weixin.msg.receive.ReceiveMsg;
 import cn.singno.commonsframework.weixin.msg.receive.common.R_c_imageMsg;
@@ -43,8 +41,11 @@ import cn.singno.commonsframework.weixin.msg.receive.common.R_c_textMsg;
 import cn.singno.commonsframework.weixin.msg.receive.common.R_c_videoMsg;
 import cn.singno.commonsframework.weixin.msg.receive.common.R_c_voiceMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_customizeMenusMsg;
+import cn.singno.commonsframework.weixin.msg.receive.event.R_e_locationSelectMsg;
+import cn.singno.commonsframework.weixin.msg.receive.event.R_e_picMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_quickmarkMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_reportLocationMsg;
+import cn.singno.commonsframework.weixin.msg.receive.event.R_e_scancodePushMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_subscribeMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_unsubscribeMsg;
 import cn.singno.commonsframework.weixin.msg.receive.other.R_o_voiceRecognitionMsg;
@@ -83,6 +84,12 @@ public final class WeiXinUtils {
 	
 	// 检验授权凭证（access_token）是否有效
 	private static final String verifyAuthToken = "https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}";
+	
+	// 添加客服帐号
+	private static final String add_kfaccount = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token={0}";
+	
+	// 发生模板消息
+	private static final String send_temple_msg = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
 	
 	static
 	{
@@ -146,6 +153,57 @@ public final class WeiXinUtils {
 	}
 	
 	/**
+	 * 发送模板消息
+	 * @param msgBody
+	 * 
+	 * {{first.DATA}}
+	 *	项目名称：{{keyword1.DATA}}
+	 *	姓名：{{keyword2.DATA}}
+	 *	检查日期：{{keyword3.DATA}}
+	 * {{remark.DATA}}
+	 * 
+	 * 
+	 * POST数据示例如下：
+	 * {
+     *     "template_id": "nNtnhJQSUp-3qJMj-NwVGWqitKokp5Yx4O_vt8EQ02g",
+     *     "touser": "oJ6pEw7ML27fvjNuSEAncgyh1f70",
+     *     "topcolor": "#FF0000",
+     *     "data": {
+     *         "remark": {
+     *             "value": "欢迎再次购买！",
+     *             "color": "#173177"
+     *         },
+     *         "keyword1": {
+     *             "value": "体检报告",
+     *             "color": "#173177"
+     *         },
+     *         "keyword2": {
+     *             "value": "周光暖",
+     *             "color": "#173177"
+     *         },
+     *         "first": {
+     *             "value": "检查报告提醒",
+     *             "color": "#173177"
+     *         },
+     *         "keyword3": {
+     *             "value": "2015-12-12",
+     *             "color": "#173177"
+     *         }
+	 *     }
+	 * }
+	 */
+	public static String sendTempleMsg(Object msgBody)
+	{
+		String msgBody_jsonStr = JSON.toJSONString(msgBody);
+		String url = MessageFormat.format(send_temple_msg, getAccessToken());
+		HttpEntity entity = EntityBuilder.create().setText(msgBody_jsonStr).setContentType(ContentType.APPLICATION_JSON).build();
+		String result=  HttpUtils.post(url, entity);
+		com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(result);
+		assertSuccess(jsonObject);
+		return jsonObject.getString("msgid");
+	}
+	
+	/**
 	 * <p>描述：获取access token</p>
 	 * <pre>
 	 * 	微信接口的返回说明：
@@ -154,7 +212,7 @@ public final class WeiXinUtils {
 	 * </pre>
 	 * @return
 	 */
-	public static String getAccessToken()
+	public synchronized static String getAccessToken()
 	{
 		if(null != accessToken && !accessToken.isExpires()){
 			return accessToken.getAccess_token();
@@ -314,12 +372,40 @@ public final class WeiXinUtils {
 	
 	/**
 	 * 创建场景二维码
-	 * @param scene_str		场景参数
+	 * @param qRcodeType	场景二维码类型(1：临时，2：永久，3：永久_字符串参数)	
+	 * @param scene_id		临时二维码时为32位非0整型，永久二维码时最大值为100000（目前参数只支持1--100000）
+	 * @param scene_str		字符串类型，长度限制为1到64
 	 * @return
 	 */
-	public static String creaetSceneQRcode(String scene_str)
+	public static String creaetSceneQRcode(QRcodeType qRcodeType, Integer scene_id, String scene_str)
 	{
-		String body = "{\"action_name\":\"QR_LIMIT_STR_SCENE\",\"action_info\":{\"scene\":{\"scene_str\":\"" + scene_str + "\"}}}";
+		AssertUtils.notNull(qRcodeType, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "场景二维码类型"));
+		
+		switch (qRcodeType) 
+		{
+			case QR_SCENE:
+				AssertUtils.notNull(scene_id, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "场景ID"));
+				if(scene_id==0 || scene_id.toString().length()>32)
+				{
+					throw new WxException(WxCodeEnum.ERROR_CUSTOM_003, "场景ID为32位非0整型");
+				}
+				break;
+			case QR_LIMIT_SCENE:
+				AssertUtils.notNull(scene_id, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "场景ID"));
+				if(scene_id<1 || scene_id>100000)
+				{
+					throw new WxException(WxCodeEnum.ERROR_CUSTOM_003, "场景ID范围必须在（1--100000）");
+				}
+				break;
+			case QR_LIMIT_STR_SCENE:
+				AssertUtils.notNull(scene_str, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "场景ID"));
+				if(scene_str.length()>64){
+					throw new WxException(WxCodeEnum.ERROR_CUSTOM_003, "场景ID（字符串）为1到64位");
+				}
+				break;
+		}
+		
+		String body = "{\"action_name\":\"" + qRcodeType + "\",\"action_info\":{\"scene\":{\"scene_str\":\"" + scene_str + "\"}}}";
 		String url_get_quickmarkTicket = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + getAccessToken();
 		HttpEntity entity = EntityBuilder.create().setText(body).setContentType(ContentType.APPLICATION_JSON).build();
 		String result=  HttpUtils.post(url_get_quickmarkTicket, entity);
@@ -330,7 +416,28 @@ public final class WeiXinUtils {
 		return sceneQRcodeUrl;
 	}
 	
-	
+	/***************************************************** 客服接口 （未测试） *********************************************************/
+	/**
+	 * 添加客服账号
+	 * @param kf_account	完整客服账号，格式为：账号前缀@公众号微信号
+	 * @param nickname		客服昵称，最长6个汉字或12个英文字符
+	 * @param password		客服账号登录密码，格式为密码明文的32位加密MD5值
+	 */
+	public static void addKfaccount(String kf_account, String nickname, String password)
+	{
+		AssertUtils.notNull(kf_account, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "客服账号"));
+		AssertUtils.notNull(nickname, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "昵称"));
+		AssertUtils.notNull(password, new WxException(WxCodeEnum.ERROR_CUSTOM_002, "登录密码"));
+		
+		String body = "{\"kf_account\":\""+ kf_account +"\",\"nickname\":\""+ nickname +"\",\"password\":\""+ password +"\"}";
+		HttpEntity entity = EntityBuilder.create().setText(body).setContentType(ContentType.APPLICATION_JSON).build();
+		String accessToken = getAccessToken();
+		String url = MessageFormat.format(add_kfaccount, accessToken);
+		String result=  HttpUtils.post(url, entity);
+		com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSON.parseObject(result);
+		assertSuccess(jsonObject);
+	}
+	/***************************************************** 客服接口 （未测试）  *********************************************************/
 	
 	// ===================================================================================
 	
@@ -373,6 +480,8 @@ public final class WeiXinUtils {
 	{  
 		ReceiveMsg receiveMsg = null;
 		JSONObject jsonObject = (JSONObject) new XMLSerializer().readFromStream(in);
+		logger.debug(jsonObject.toString());
+		
 		switch (EnumUtils.getEnum(MsgType.class, jsonObject.getString("MsgType"))) 
 		{
 			case text:// 文本消息
@@ -402,7 +511,12 @@ public final class WeiXinUtils {
 			case link:// 链接消息
 				receiveMsg = (R_c_linkMsg) toBean(jsonObject, R_c_linkMsg.class);
 				break;
-			case event:// 事件消息
+			case event:// 事件
+				Event Enum_Event = EnumUtils.getEnum(Event.class, jsonObject.getString("Event"));
+				if(null == Enum_Event){
+					logger.error(jsonObject.getString("Event") + " 工具方法没有注册该事件，需要修复bug");
+					return null;
+				}
 				switch (EnumUtils.getEnum(Event.class, jsonObject.getString("Event")))
 				{
 					case subscribe:// 订阅事件
@@ -418,17 +532,35 @@ public final class WeiXinUtils {
 					case unsubscribe:// 取消订阅事件
 						receiveMsg = (R_e_unsubscribeMsg) toBean(jsonObject, R_e_unsubscribeMsg.class);
 						break;
-					case SCAN:// 扫描二维码事件
-						receiveMsg = (R_e_quickmarkMsg) toBean(jsonObject, R_e_quickmarkMsg.class);
-						break;
-					case LOCATION:// 上报地理位置事件
-						receiveMsg = (R_e_reportLocationMsg) toBean(jsonObject, R_e_reportLocationMsg.class);
-						break;
 					case CLICK:// 自定义菜单拉取消息事件
 						receiveMsg = (R_e_customizeMenusMsg) toBean(jsonObject, R_e_customizeMenusMsg.class);
 						break;
 					case VIEW:// 自定义菜单链接跳转事件
 						receiveMsg = (R_e_customizeMenusMsg) toBean(jsonObject, R_e_customizeMenusMsg.class);
+						break;
+					case SCAN:// 扫描二维码事件（微信客户端）
+						receiveMsg = (R_e_quickmarkMsg) toBean(jsonObject, R_e_quickmarkMsg.class);
+						break;
+					case scancode_push:// 扫码推事件（微信公众号自定义菜单）
+						receiveMsg = (R_e_scancodePushMsg) toBean(jsonObject, R_e_scancodePushMsg.class);
+						break;
+					case scancode_waitmsg:// 扫码推事件且弹出“消息接收中”提示框（微信公众号自定义菜单）
+						receiveMsg = (R_e_scancodePushMsg) toBean(jsonObject, R_e_scancodePushMsg.class);
+						break;
+					case pic_sysphoto:// 弹出系统拍照发图（微信公众号自定义菜单）
+						receiveMsg = (R_e_picMsg) toBean(jsonObject, R_e_picMsg.class);
+						break;
+					case pic_photo_or_album:// 弹出拍照或者相册发图（微信公众号自定义菜单）
+						receiveMsg = (R_e_picMsg) toBean(jsonObject, R_e_picMsg.class);
+						break;
+					case pic_weixin:// 弹出微信相册发图器（微信公众号自定义菜单）
+						receiveMsg = (R_e_picMsg) toBean(jsonObject, R_e_picMsg.class);
+						break;
+					case LOCATION:// 上报地理位置事件
+						receiveMsg = (R_e_reportLocationMsg) toBean(jsonObject, R_e_reportLocationMsg.class);
+						break;
+					case location_select:// 弹出地理位置选择器
+						receiveMsg = (R_e_locationSelectMsg) toBean(jsonObject, R_e_locationSelectMsg.class);
 						break;
 				}
 		} 

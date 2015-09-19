@@ -22,8 +22,6 @@ public class WebSecurityInterceptor  implements HandlerInterceptor
 	{
 		logger.debug("============================ web接口安全认证拦截器  ================================");
 		// TODO N web 防止CSRF攻击，等web安全控制
-		String str = null;
-		System.out.println(str.toString());
 		return Boolean.TRUE; 
 	}
 

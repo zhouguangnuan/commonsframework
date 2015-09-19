@@ -18,6 +18,7 @@ import cn.singno.commonsframework.weixin.msg.receive.common.R_c_textMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_customizeMenusMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_quickmarkMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_reportLocationMsg;
+import cn.singno.commonsframework.weixin.msg.receive.event.R_e_scancodePushMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_subscribeMsg;
 import cn.singno.commonsframework.weixin.msg.receive.event.R_e_unsubscribeMsg;
 import cn.singno.commonsframework.weixin.msg.send.SendMsg;
@@ -66,8 +67,6 @@ public class WxMessageHandlerController {
 		// 接收到的消息
 		ReceiveMsg receiveMsg = WeiXinUtils.receiveMsg(request);
 		SendMsg sendMsg = null;
-		
-		logger.debug(JSON.toJSONString(receiveMsg));
 		
 		if (receiveMsg instanceof R_c_textMsg) {
 			logger.debug("=========================== 文本消息 ============================");
@@ -126,6 +125,9 @@ public class WxMessageHandlerController {
 		}
 		else if(receiveMsg instanceof R_e_quickmarkMsg){
 			logger.debug("=========================== 扫描带参数二维码事件 ============================");
+		}
+		else if(receiveMsg instanceof R_e_scancodePushMsg){
+			logger.debug("=========================== 扫码推事件 ============================");
 		}
 		else if(receiveMsg instanceof R_e_reportLocationMsg){
 			logger.debug("=========================== 上报地理位置事件  ============================");

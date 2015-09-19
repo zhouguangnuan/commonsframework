@@ -9,12 +9,17 @@
 package cn.singno.commonsframework;
 
 
-import org.apache.log4j.Logger;
+import java.util.Map;
+
 import org.junit.Test;
 
+import cn.singno.commonsframework.constants.WxConst.QRcodeType;
 import cn.singno.commonsframework.utils.WeiXinUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 /**
  * <p>名称：WeiXinUtilsTest.java</p>
@@ -74,9 +79,43 @@ public class WeiXinUtilsTest
 	}
 	
 	@Test
-	public void testname() throws Exception {
+	public void testCreaetSceneQRcode() throws Exception {
 		String scene_str = "abc123";
-		String ticket = WeiXinUtils.creaetSceneQRcode(scene_str);
+		String ticket = WeiXinUtils.creaetSceneQRcode(QRcodeType.QR_LIMIT_STR_SCENE, null, scene_str);
 		System.out.println(ticket); 
+	}
+	
+	@Test
+	public void testAddKfaccount() throws Exception 
+	{
+//		{
+//		     "kf_account" : "test1@test",
+//		     "nickname" : "客服1",
+//		     "password" : "pswmd5",
+//		}
+		// kf_account  @  后面的账号 要到微信公众平台设置的  而不是微信账号ID
+		String kf_account = "singno@singno_world";
+		String nickname = "singnoWorld";
+		String password = "1314ainana";
+		WeiXinUtils.addKfaccount(kf_account, nickname, password);
+	}
+	
+	
+	@Test
+	public void testSendTempleMsg() throws Exception {
+		Map<String, Object> msgBody = Maps.newHashMap();
+		Map<String, Object> data = Maps.newHashMap();
+		msgBody.put("touser", "oJ6pEw7ML27fvjNuSEAncgyh1f70");
+		msgBody.put("template_id", "nNtnhJQSUp-3qJMj-NwVGWqitKokp5Yx4O_vt8EQ02g");
+		msgBody.put("topcolor", "#FF0000");
+		msgBody.put("data", data);
+		data.put("first", ImmutableMap.of("value", "检查报告提醒", "color", "#173177"));
+		data.put("keyword1", ImmutableMap.of("value", "体检报告", "color", "#173177"));
+		data.put("keyword2", ImmutableMap.of("value", "周光暖", "color", "#173177"));
+		data.put("keyword3", ImmutableMap.of("value", "2015-12-12", "color", "#173177"));
+		data.put("remark", ImmutableMap.of("value", "欢迎再次购买！", "color", "#173177")); 
+		
+		String msgid = WeiXinUtils.sendTempleMsg(msgBody);
+		System.out.println(msgid);
 	}
 }

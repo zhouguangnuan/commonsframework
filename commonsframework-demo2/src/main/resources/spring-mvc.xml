@@ -94,6 +94,7 @@
 		</mvc:interceptor>
     	<mvc:interceptor>
 			<mvc:mapping path="/mobile/wx/**"/>
+			<mvc:exclude-mapping path="/mobile/wx/message/handler"/>
 			<bean class="cn.singno.commonsframework.interceptor.WxSecurityInterceptor" />
 		</mvc:interceptor>
     	<mvc:interceptor>

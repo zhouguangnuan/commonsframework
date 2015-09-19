@@ -45,19 +45,20 @@ public class AuthenticationInterceptor  implements HandlerInterceptor
 			if(null == code){
 				throw new AuthenticationException(ResultStateEnum.AUTHORIZED_ERROR);
 			}
+			return Boolean.TRUE;
 		}
-		else if(PathUtils.isWxURI(request))
-		{
+		else if(WeiXinUtils.comeFromWxBrowser(request))
+		{   
 			// 有免登陆机制
 			String code = request.getParameter("code");
 			JSONObject authToken = WeiXinUtils.getAuthToken(code);
-//			{                                     
-//			   "access_token":"ACCESS_TOKEN",    
-//			   "expires_in":7200,                
-//			   "refresh_token":"REFRESH_TOKEN",  
-//			   "openid":"OPENID",                
-//			   "scope":"SCOPE"                   
-//			}
+//				{                                     
+//				   "access_token":"ACCESS_TOKEN",    
+//				   "expires_in":7200,                
+//				   "refresh_token":"REFRESH_TOKEN",  
+//				   "openid":"OPENID",                
+//				   "scope":"SCOPE"                   
+//				}
 			if(null == authToken)
 			{
 				throw new AuthenticationException(ResultStateEnum.AUTHORIZED_ERROR);
@@ -67,29 +68,29 @@ public class AuthenticationInterceptor  implements HandlerInterceptor
 			
 			// 注册用户新消息
 			JSONObject wxUserInfo = WeiXinUtils.getUserInfo(authToken.getString("access_token"), openid);
-//			{
-//			   "openid":"OPENID",
-//			   "nickname": NICKNAME,
-//			   "sex":"1",
-//			   "province":"PROVINCE"
-//			   "city":"CITY",
-//			   "country":"COUNTRY",
-//			   "headimgurl":"http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46", 
-//			   "privilege":[
-//				"PRIVILEGE1"
-//				"PRIVILEGE2"
-//			    ],
-//			   "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
-//			}
+//				{
+//				   "openid":"OPENID",
+//				   "nickname": NICKNAME,
+//				   "sex":"1",
+//				   "province":"PROVINCE"
+//				   "city":"CITY",
+//				   "country":"COUNTRY",
+//				   "headimgurl":"http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46", 
+//				   "privilege":[
+//					"PRIVILEGE1"
+//					"PRIVILEGE2"
+//				    ],
+//				   "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
+//				}
 			user = new User();
 			user.setName(wxUserInfo.getString("nickname"));
 			user.setHeadimgurl(wxUserInfo.getString("headimgurl"));
 			user.setSex(wxUserInfo.getInteger("sex"));
 			
 			SessionUtils.setCurrentUser(request, user);
+			return Boolean.TRUE;
 		}
-		
-		return Boolean.TRUE;
+		throw new AuthenticationException(ResultStateEnum.AUTHORIZED_ERROR);
 	}
 
 	@Override

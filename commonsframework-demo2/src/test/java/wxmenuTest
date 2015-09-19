@@ -6,17 +6,17 @@
                 {
                     "type": "view",
                     "name": "微官网",
-                    "url": "http://123.56.162.129/demo2/mobile/wx/wgw_view"
+                    "url": "http://123.56.162.129/demo2/mobile/web/wgw_view"
                 }, 
                 {
                     "type": "view",
                     "name": "医院简介",
-                    "url": "http://123.56.162.129/demo2/mobile/wx/yyjj_view"
+                    "url": "http://123.56.162.129/demo2/mobile/web/yyjj_view"
                 },
                 {
                     "type": "view",
                     "name": "名医推荐",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/mytj_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/mytj_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 },
                 {
                     "type": "click",
@@ -31,27 +31,27 @@
                 {
                     "type": "view",
                     "name": "我要挂号",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/yygh_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/yygh_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 },
                 {
                     "type": "view",
                     "name": "到院签到",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/dyqd_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/dyqd_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 },
                 {
                     "type": "view",
                     "name": "我的排队",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/wdpd_view&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/wdpd_view&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect"
 				},
                 {
                     "type": "view",
                     "name": "我要付钱",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/wyfq_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/wyfq_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 },
                 {
                     "type": "view",
                     "name": "报告查询",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/bgcx_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/bgcx_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 }
             ]
         },
@@ -61,17 +61,17 @@
                 {
                     "type": "view",
                     "name": "就诊历史",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/jzls_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/jzls_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 },
                 {
                     "type": "view",
                     "name": "就诊人管理",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/jzrlb_view?searchType=1&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/jzrlb_view?searchType=1&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 },
                 {
                     "type": "view",
                     "name": "我的满意度",
-                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/wx/user/wdmyd_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf25d9360fd6daf66&redirect_uri=http://123.56.162.129/demo2/mobile/web/user/wdmyd_view&response_type=code&scope=snsapi_base&state=1#wechat_redirect"
                 }
             ]
         }

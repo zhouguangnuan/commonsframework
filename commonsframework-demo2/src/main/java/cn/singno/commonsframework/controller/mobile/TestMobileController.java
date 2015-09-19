@@ -27,7 +27,7 @@ public class TestMobileController
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.GET,value={
-		"/wx/wgw_view",
+		"/web/wgw_view",
 	})
 	public String wgw_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -47,7 +47,7 @@ public class TestMobileController
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/yyjj_view",
+		"/web/yyjj_view",
 	})
 	public String yyjj_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -61,7 +61,7 @@ public class TestMobileController
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/mytj_view",
+		"/web/mytj_view",
 	})
 	public String mytj_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -75,7 +75,7 @@ public class TestMobileController
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/yygh_view",
+		"/web/yygh_view",
 	})
 	public String yygh_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -89,7 +89,7 @@ public class TestMobileController
 	 * @return
 	 */ 
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/dyqd_view",
+		"/web/dyqd_view",
 	})
 	public String dyqd_view(HttpServletRequest request, Model model)
 	{
@@ -112,7 +112,7 @@ public class TestMobileController
 	 * @return
 	 */ 
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/wdpd_view",
+		"/web/wdpd_view",
 	})
 	public String wdpd_view(HttpServletRequest request, Model model)
 	{
@@ -135,7 +135,7 @@ public class TestMobileController
 	 * @return
 	 */ 
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/wyfq_view",
+		"/web/wyfq_view",
 	})
 	public String wyfq_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -149,7 +149,7 @@ public class TestMobileController
 	 * @return
 	 */ 
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/bgcx_view"
+		"/web/bgcx_view"
 	})
 	public String bgcx_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -163,7 +163,7 @@ public class TestMobileController
 	 * @return
 	 */ 
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/jzls_view"
+		"/web/jzls_view"
 	})
 	public String jzls_view(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -178,7 +178,6 @@ public class TestMobileController
 	 */  
 	@RequestMapping(method=RequestMethod.GET, value={
 		"/app/jzrlb_view",
-		"/wx/jzrlb_view",
 		"/web/jzrlb_view",
 	})
 	public String jzrlb_view(HttpServletRequest request, HttpServletResponse response)
@@ -193,7 +192,7 @@ public class TestMobileController
 	 * @return
 	 */  
 	@RequestMapping(method=RequestMethod.GET, value={
-		"/wx/user/wdmyd_view",
+		"/web/user/wdmyd_view",
 		"/app/user/wdmyd_view",
 	})
 	public String wdmyd_view(HttpServletRequest request, HttpServletResponse response)
