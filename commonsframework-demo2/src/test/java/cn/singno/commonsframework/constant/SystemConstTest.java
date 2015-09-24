@@ -8,7 +8,10 @@
  */
 package cn.singno.commonsframework.constant;
 
+import org.apache.http.client.methods.HttpPost;
 import org.junit.Test;
+
+import cn.singno.commonsframework.utils.HttpUtils;
 
 /**
  * <p>名称：SystemConstTest.java</p>
@@ -26,5 +29,18 @@ public class SystemConstTest
 	public void testname() throws Exception
 	{
 		System.err.println("111");
+	}
+	
+	@Test 
+	public void testname2() throws Exception 
+	{
+		String url = "http://123.56.162.129/demo2/admin/test1?str=111";
+		HttpPost request = new HttpPost(url);
+//		HttpGet request = new HttpGet(url);
+		
+		request.setHeader("CSRFtoken", "4d2dbc88704dd12dc41db34a3836d42c");
+		
+		String result=  HttpUtils.executeRequest(request, null);
+		System.out.println(result);
 	}
 }

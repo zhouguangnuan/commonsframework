@@ -321,7 +321,7 @@ public class HttpUtils
        * @param charsetName 编码
        * @return String 响应内容
        */
-	private static String executeRequest(HttpRequestBase request, String charsetName)
+	public static String executeRequest(HttpRequestBase request, String charsetName)
 	{
 		String responseText = null;
 		try
@@ -365,7 +365,7 @@ public class HttpUtils
        * @param request HttpRequestBase
        * @return String 响应内容
        */
-	private static String exectueRequest(HttpRequestBase request)
+	public static String exectueRequest(HttpRequestBase request)
 	{
 		return executeRequest(request, null);
 	}

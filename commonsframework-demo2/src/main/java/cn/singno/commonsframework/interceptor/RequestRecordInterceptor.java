@@ -28,6 +28,7 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 		logger.debug("============================ 请求记录拦截器  ================================");
 		System.out.println("uri:     " + request.getRequestURI());
 		System.out.println("params:     " + JSON.toJSONString(request.getParameterMap()));
+		
 		return true; 
 	}
 

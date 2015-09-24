@@ -35,6 +35,7 @@ public enum ResultStateEnum implements Describable
 	NUL_ERROR(120010,"缺少参数或参数为空"),
 	EXISTS_EMOJI(120011,"输入的内容里存在系统不支持的字符"),
 	CLINET_UNAUTO_ERROR(120012, "客户端没有接口权限"),
+	CSRF_VERIFY_ERROR(120013, "CSRF非法请求"),
 	;
 	
 	private Integer code;
