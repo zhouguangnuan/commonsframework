@@ -54,6 +54,22 @@ public class CookieTestControllerTest
 		System.out.println(result);
 	}
 	
+	@Test
+	public void testname3() throws Exception
+	{
+		// CSRF_TOKEN →62dac9f2ff0e774acf01440b75da1449
+		String uri = "http://123.56.162.129/demo2/admin/test1?str=111";
+		
+		HttpGet httpGet = new HttpGet(uri);
+		httpGet.setHeader("CSRF_TOKEN", "62dac9f2ff0e774acf01440b75da1449");
+		HttpResponse response = httpClient.execute(httpGet);
+		
+		HttpEntity entity = response.getEntity();
+		String result = EntityUtils.toString(entity, Charsets.UTF_8);
+		httpGet.releaseConnection();
+		System.out.println(result);
+	}
+	
 	
 	
 	

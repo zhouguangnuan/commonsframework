@@ -14,8 +14,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.log4j.Logger;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -39,16 +37,7 @@ public class FreeMarkerUtils
 {
 	private static final Logger logger = Logger.getLogger(FreeMarkerUtils.class);
 
-	private static FreeMarkerConfigurer freeMarkerConfigurer;
-
-	public static FreeMarkerConfigurer getFreeMarkerConfigurer()
-	{
-		if (null==freeMarkerConfigurer)
-		{
-			freeMarkerConfigurer = SpringUtils.getBean("freeMarkerConfigurer");
-		}
-		return freeMarkerConfigurer;
-	}
+	private static FreeMarkerConfigurer freeMarkerConfigurer = SpringUtils.getBean("freeMarkerConfigurer");
 
 	/**
 	 * 根据Freemarker模板名称及容器对象获取模板内容
@@ -61,7 +50,7 @@ public class FreeMarkerUtils
 	{
 		try
 		{
-			Configuration configuration = getFreeMarkerConfigurer().getConfiguration();
+			Configuration configuration = freeMarkerConfigurer.getConfiguration();
 			Template t = configuration.getTemplate(templateName);
 			return FreeMarkerTemplateUtils.processTemplateIntoString(t, dataMap);
 		} catch (TemplateException e)
@@ -87,7 +76,7 @@ public class FreeMarkerUtils
 	 */
 	public static void createTemplate(String templateName, String targetHtmlPath, Map<String, Object> dataMap)
 	{
-		Configuration configuration = getFreeMarkerConfigurer().getConfiguration();
+		Configuration configuration = freeMarkerConfigurer.getConfiguration();
 		try
 		{
 			// 指定模版路径

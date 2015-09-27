@@ -54,4 +54,6 @@ public class HttpUtilsTest
 		String result = HttpUtils.post(url, map);
 		System.out.println(result);
 	}
+	
+	
 }
