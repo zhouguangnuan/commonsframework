@@ -3,7 +3,7 @@
   type="WEB"
   name="commonsframework-demo2"
   id="myeclipse.1430977903789"
-  context-root="/demo2"
+  context-root="/commonsframework"
   j2ee-spec="1.7"
   archive="commonsframework-demo2.war">
   <attributes>
