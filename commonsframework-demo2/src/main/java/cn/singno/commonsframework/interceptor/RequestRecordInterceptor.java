@@ -33,7 +33,7 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 		logger.debug("============================ 请求记录拦截器  ================================");
 		
 		long beginTime = System.currentTimeMillis();// 开始时间  
-        startTimeThreadLocal.set(beginTime);// 线程绑定变量（该数据只有当前请求的线程可见）
+		startTimeThreadLocal.set(beginTime);// 线程绑定变量（该数据只有当前请求的线程可见）
         
 		logger.info("uri:     " + request.getRequestURI());
 		logger.info("params:     " + JSON.toJSONString(request.getParameterMap()));
@@ -52,10 +52,10 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception
 	{
 		long endTime = System.currentTimeMillis();// 结束时间  
-        long beginTime = startTimeThreadLocal.get();// 得到线程绑定的局部变量（开始时间）  
-        long consumeTime = endTime - beginTime;// 消耗的时间  
-        if(consumeTime > slowFlag) {  
-            //TODO 记录到日志文件  
+	        long beginTime = startTimeThreadLocal.get();// 得到线程绑定的局部变量（开始时间）  
+	        long consumeTime = endTime - beginTime;// 消耗的时间  
+	        if(consumeTime > slowFlag) {  
+	        //TODO 记录到日志文件  
         	
         	logger.info(String.format("%s consume %d millis", request.getRequestURI(), consumeTime)); 
         }

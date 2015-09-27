@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.singno.commonsframework.bean.JsonResult;
 import cn.singno.commonsframework.constants.DefaultDescribableEnum;
-import cn.singno.commonsframework.utils.CookieUtils;
 import cn.singno.commonsframework.utils.HttpUtils;
 
 import com.alibaba.fastjson.JSON;

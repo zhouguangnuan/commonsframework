@@ -7,7 +7,7 @@
 	<version>4.0.0-RELEASES</version>
 	<packaging>pom</packaging>
 	<url>http://commonsframework.singno.cn</url>
-	<description>整合spring + springMVC + JPA + Hibernate 的通用web框架</description>
+	<description>整合spring + springMVC + JPA + Hibernate 的�?用web框架</description>
 
 	<properties>
 		<!-- 项目版本 -->
@@ -143,6 +143,7 @@
 		<module>commonsframework-office</module>
     	<module>commonsframework-lightApp</module>
     	<module>commonsframework-IM</module>
+    <module>commonsframework-demo-freemarker</module>
   </modules>
 
 	<!-- 项目依赖 -->
@@ -597,7 +598,7 @@
 				<artifactId>freemarker</artifactId>
 				<version>${freemarker.version}</version>
 			</dependency>
-			<!-- metamorphosis（metaQ�?-->
+			<!-- metamorphosis（metaQ�?-->
 			<dependency>
 				<groupId>com.taobao.metamorphosis</groupId>
 				<artifactId>metamorphosis-client-extension</artifactId>

@@ -7,10 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.singno.commonsframework.bean.ResponseWrapper;
-
-import com.alibaba.fastjson.JSON;
-
 public class JsonpInterceptor implements HandlerInterceptor 
 {
 	/**
