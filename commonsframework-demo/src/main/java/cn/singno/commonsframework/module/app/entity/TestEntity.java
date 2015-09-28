@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 import cn.singno.commonsframework.bind.annotation.EnumConst;
 import cn.singno.commonsframework.constants.SexEnum;

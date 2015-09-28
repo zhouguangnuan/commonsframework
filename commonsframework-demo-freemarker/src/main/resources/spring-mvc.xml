@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       ">
+    <description>spring全局配置</description>
+    
+    <!-- Annotation自动注册Bean，在springMvc中只扫描@Controller注解 -->
+    <context:component-scan base-package="cn.singno" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.validation.annotation.Validated"/>
+    </context:component-scan>
+    
+    <mvc:annotation-driven/>
+	
+    <!-- 对静态资源文件的访问控制  -->
+    <mvc:default-servlet-handler/>
+    <!-- <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/log/**" location="/log/"/> -->
+    
+    <!-- beans -->
+    <!-- 内部资源视图解析器配置 -->
+    <bean id="viewResolver"	class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="cache" value="true"/>
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="prefix" value=""/>
+		<property name="suffix" value=".ftl" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="allowSessionOverride" value="true" />
+		<property name="requestContextAttribute" value="request"/>
+	</bean>
+    
+</beans>
