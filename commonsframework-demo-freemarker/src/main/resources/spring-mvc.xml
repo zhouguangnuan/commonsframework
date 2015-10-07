@@ -13,15 +13,13 @@
     <!-- Annotation自动注册Bean，在springMvc中只扫描@Controller注解 -->
     <context:component-scan base-package="cn.singno" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.validation.annotation.Validated"/>
     </context:component-scan>
     
     <mvc:annotation-driven/>
 	
     <!-- 对静态资源文件的访问控制  -->
     <mvc:default-servlet-handler/>
-    <!-- <mvc:resources mapping="/static/**" location="/static/"/>
-    <mvc:resources mapping="/log/**" location="/log/"/> -->
+    <!-- <mvc:resources mapping="/static/**" location="/static/"/> -->
     
     <!-- beans -->
     <!-- 内部资源视图解析器配置 -->
