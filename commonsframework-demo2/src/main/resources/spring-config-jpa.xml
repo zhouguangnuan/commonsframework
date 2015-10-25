@@ -14,7 +14,7 @@
        ">
 
 	
-	<!-- 读取jdbc.properties文件 -->
+	<!-- 读取dbconfig.properties文件 -->
 	<context:property-placeholder ignore-unresolvable="true" location="classpath:dbconfig.properties" />
 	
 	<!-- 配置 druid 数据源 -->

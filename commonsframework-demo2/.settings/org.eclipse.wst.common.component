@@ -38,6 +38,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/commonsframework-demo2/src/main/webapp/WEB-INF/classes"/>
-        <property name="context-root" value="/commonsframework"/>
+        <property name="context-root" value="/commonsframework-demo2"/>
     </wb-module>
 </project-modules>

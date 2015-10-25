@@ -28,7 +28,6 @@ import org.apache.log4j.Logger;
 
 import cn.singno.commonsframework.constants.DefaultSystemConst;
 import cn.singno.commonsframework.constants.WxCodeEnum;
-import cn.singno.commonsframework.constants.WxConst;
 import cn.singno.commonsframework.constants.WxConst.Event;
 import cn.singno.commonsframework.constants.WxConst.MsgType;
 import cn.singno.commonsframework.constants.WxConst.QRcodeType;

@@ -101,15 +101,32 @@
 	</dependencies>
 
 	<profiles>
+		<!-- 本地环境 -->
 		<profile>
-			<id>dev</id>
+			<id>local</id>
 			<properties>
-				<db.driver>com.mysql.jdbc.Driver22</db.driver> 
-				<db.driver1>com.mysql.jdbc.Driver22</db.driver1> 
+				<db.driver>com.mysql.jdbc.Driver_dev_22</db.driver>
+				<db.driver1>com.mysql.jdbc.Driver_dev_22</db.driver1>
 			</properties>
 			<activation>
-                     <activeByDefault>true</activeByDefault>
-              </activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<db.driver>com.mysql.jdbc.Driver_test_22</db.driver>
+				<db.driver1>com.mysql.jdbc.Driver_tes_22</db.driver1>
+			</properties>
+		</profile>
+		<!-- 生成环境 -->
+		<profile>
+			<id>pro</id>
+			<properties>
+				<db.driver>com.mysql.jdbc.Driver_test_22</db.driver>
+				<db.driver1>com.mysql.jdbc.Driver_tes_22</db.driver1>
+			</properties>
 		</profile>
 	</profiles>
 
