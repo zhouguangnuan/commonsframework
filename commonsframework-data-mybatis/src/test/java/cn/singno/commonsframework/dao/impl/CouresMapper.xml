@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.singno.commonsframework.dao.CouresMapper">
+        <resultMap id="BaseResultMap" type="cn.singno.commonsframework.entity.Coures">
+                <id column="id" property="id" jdbcType="INTEGER"/>
+                <result column="name" property="name" jdbcType="VARCHAR"/>
+                <result column="required" property="required" jdbcType="BIT"/>
+                <result column="credit" property="credit" jdbcType="INTEGER"/>
+                <result column="teacher_id" property="teacherId" jdbcType="INTEGER"/>
+        </resultMap>
+        <sql id="Base_Column_List">
+                id, name, required, credit, teacher_id
+        </sql>
+        <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+                select
+                <include refid="Base_Column_List"/>
+                from coures
+                where id = #{id,jdbcType=INTEGER}
+        </select>
+        <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+                delete from coures
+                where id = #{id,jdbcType=INTEGER}
+        </delete>
+        <insert id="insert" parameterType="cn.singno.commonsframework.entity.Coures">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into coures (id, name, required,
+                credit, teacher_id)
+                values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{required,jdbcType=BIT},
+                #{credit,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER})
+        </insert>
+        <insert id="insertSelective" parameterType="cn.singno.commonsframework.entity.Coures">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into coures
+
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                        <if test="id != null">
+                                id,
+                        </if>
+                        <if test="name != null">
+                                name,
+                        </if>
+                        <if test="required != null">
+                                required,
+                        </if>
+                        <if test="credit != null">
+                                credit,
+                        </if>
+                        <if test="teacherId != null">
+                                teacher_id,
+                        </if>
+                </trim>
+                <trim prefix="values (" suffix=")" suffixOverrides=",">
+                        <if test="id != null">
+                                #{id,jdbcType=INTEGER},
+                        </if>
+                        <if test="name != null">
+                                #{name,jdbcType=VARCHAR},
+                        </if>
+                        <if test="required != null">
+                                #{required,jdbcType=BIT},
+                        </if>
+                        <if test="credit != null">
+                                #{credit,jdbcType=INTEGER},
+                        </if>
+                        <if test="teacherId != null">
+                                #{teacherId,jdbcType=INTEGER},
+                        </if>
+                </trim>
+        </insert>
+        <update id="updateByPrimaryKeySelective" parameterType="cn.singno.commonsframework.entity.Coures">
+                update coures
+                <set>
+                        <if test="name != null">
+                                name = #{name,jdbcType=VARCHAR},
+                        </if>
+                        <if test="required != null">
+                                required = #{required,jdbcType=BIT},
+                        </if>
+                        <if test="credit != null">
+                                credit = #{credit,jdbcType=INTEGER},
+                        </if>
+                        <if test="teacherId != null">
+                                teacher_id = #{teacherId,jdbcType=INTEGER},
+                        </if>
+                </set>
+                where id = #{id,jdbcType=INTEGER}
+        </update>
+        <update id="updateByPrimaryKey" parameterType="cn.singno.commonsframework.entity.Coures">
+                update coures
+                set name = #{name,jdbcType=VARCHAR},
+                required = #{required,jdbcType=BIT},
+                credit = #{credit,jdbcType=INTEGER},
+                teacher_id = #{teacherId,jdbcType=INTEGER}
+                where id = #{id,jdbcType=INTEGER}
+        </update>
+        <insert id="insertList" parameterType="list">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into coures 
+                        (id, name, required, credit, teacher_id)
+                values 
+                <foreach collection="list" item="item" separator=",">
+                         (#{item.id}, #{item.name}, #{item.required},#{item.credit}, #{item.teacherId}) 
+                </foreach>
+        </insert>
+        <select id="selectAll" resultMap="BaseResultMap">
+                select
+                <include refid="Base_Column_List" />
+                from coures
+        </select>
+        <select id="selectByTeacherId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+                select
+                <include refid="Base_Column_List"/>
+                from coures
+                where teacher_id = #{teacher_id}
+        </select>
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.singno.commonsframework.dao.TeacherMapper">
+        <resultMap id="BaseResultMap" type="cn.singno.commonsframework.entity.Teacher">
+                <id column="id" property="id" jdbcType="INTEGER"/>
+                <result column="name" property="name" jdbcType="VARCHAR"/>
+                <result column="sex" property="sex" jdbcType="SMALLINT"/>
+                <result column="birthday" property="birthday" jdbcType="DATE"/>
+                <result column="work_date" property="workDate" jdbcType="DATE"/>
+                <result column="professional" property="professional" jdbcType="VARCHAR"/>
+        </resultMap>
+        <resultMap id="TeacherModel" type="teacherModel">
+                <association property="teacher" columnPrefix="t_" resultMap="BaseResultMap"/>
+                <association property="proxyClass" columnPrefix="c_" resultMap="cn.singno.commonsframework.dao.ClassMapper.BaseResultMap" />
+                <collection property="couresList" columnPrefix="c2_" javaType="ArrayList" ofType="Coures" resultMap="cn.singno.commonsframework.dao.CouresMapper.BaseResultMap"/>
+        </resultMap>
+        <sql id="Base_Column_List">
+                id, name, sex, birthday, work_date, professional
+        </sql>
+        <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+                select
+                <include refid="Base_Column_List"/>
+                from teacher
+                where id = #{id,jdbcType=INTEGER}
+        </select>
+        <select id="selectAll" resultMap="BaseResultMap">
+                select
+                <include refid="Base_Column_List"/>
+                from teacher
+        </select>
+        <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+                delete from teacher
+                where id = #{id,jdbcType=INTEGER}
+        </delete>
+        <insert id="insert" parameterType="cn.singno.commonsframework.entity.Teacher">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into teacher (id, name, sex,
+                birthday, work_date, professional
+                )
+                values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT},
+                #{birthday,jdbcType=DATE}, #{workDate,jdbcType=DATE}, #{professional,jdbcType=VARCHAR}
+                )
+        </insert>
+        <insert id="insertSelective" parameterType="cn.singno.commonsframework.entity.Teacher">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into teacher
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                        <if test="id != null">
+                                id,
+                        </if>
+                        <if test="name != null">
+                                name,
+                        </if>
+                        <if test="sex != null">
+                                sex,
+                        </if>
+                        <if test="birthday != null">
+                                birthday,
+                        </if>
+                        <if test="workDate != null">
+                                work_date,
+                        </if>
+                        <if test="professional != null">
+                                professional,
+                        </if>
+                </trim>
+                <trim prefix="values (" suffix=")" suffixOverrides=",">
+                        <if test="id != null">
+                                #{id,jdbcType=INTEGER},
+                        </if>
+                        <if test="name != null">
+                                #{name,jdbcType=VARCHAR},
+                        </if>
+                        <if test="sex != null">
+                                #{sex,jdbcType=SMALLINT},
+                        </if>
+                        <if test="birthday != null">
+                                #{birthday,jdbcType=DATE},
+                        </if>
+                        <if test="workDate != null">
+                                #{workDate,jdbcType=DATE},
+                        </if>
+                        <if test="professional != null">
+                                #{professional,jdbcType=VARCHAR},
+                        </if>
+                </trim>
+        </insert>
+        <update id="updateByPrimaryKeySelective" parameterType="cn.singno.commonsframework.entity.Teacher">
+                update teacher
+                <set>
+                        <if test="name != null">
+                                name = #{name,jdbcType=VARCHAR},
+                        </if>
+                        <if test="sex != null">
+                                sex = #{sex,jdbcType=SMALLINT},
+                        </if>
+                        <if test="birthday != null">
+                                birthday = #{birthday,jdbcType=DATE},
+                        </if>
+                        <if test="workDate != null">
+                                work_date = #{workDate,jdbcType=DATE},
+                        </if>
+                        <if test="professional != null">
+                                professional = #{professional,jdbcType=VARCHAR},
+                        </if>
+                </set>
+                where id = #{id,jdbcType=INTEGER}
+        </update>
+        <update id="updateByPrimaryKey" parameterType="cn.singno.commonsframework.entity.Teacher">
+                update teacher
+                set name = #{name,jdbcType=VARCHAR},
+                sex = #{sex,jdbcType=SMALLINT},
+                birthday = #{birthday,jdbcType=DATE},
+                work_date = #{workDate,jdbcType=DATE},
+                professional = #{professional,jdbcType=VARCHAR}
+                where id = #{id,jdbcType=INTEGER}
+        </update>
+        <insert id="insertList" parameterType="list">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into teacher (id, name, sex,birthday, work_date, professional)
+                values
+                <foreach collection="list" item="item" index="index" separator=",">
+                        (#{item.id}, #{item.name}, #{item.sex},#{item.birthday}, #{item.workDate}, #{item.professional})
+                </foreach>
+        </insert>
+        <delete id="deleteList" parameterType="list">
+                delete from teacher
+                where id in
+                <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                        #{item.id}
+                </foreach>
+        </delete>
+        <update id="updateList" parameterType="list">
+                <foreach collection="list" index="index" item="item"  separator=";" open="" close="">
+                        update teacher
+                        <set>
+                                <if test="item.name != null">
+                                        name = #{item.name},
+                                </if>
+                                <if test="item.sex != null">
+                                        sex = #{item.sex},
+                                </if>
+                                <if test="item.birthday != null">
+                                        birthday = #{item.birthday},
+                                </if>
+                                <if test="item.workDate != null">
+                                        work_date = #{item.workDate},
+                                </if>
+                                <if test="item.professional != null">
+                                        professional = #{item.professional},
+                                </if>
+                        </set>
+                        where id = #{item.id}
+                </foreach>
+        </update>
+        <select id="selectModelByPrimaryKey" resultMap="TeacherModel" parameterType="int">
+                select 
+                        t.id as t_id, 
+                        t.name as t_name, 
+                        t.sex as t_sex, 
+                        t.birthday as t_birthday, 
+                        t.work_date as t_work_date, 
+                        t.professional as t_professional, 
+                        c.id as c_id, 
+                        c.name as c_name, 
+                        c.year as c_year, 
+                        c.teacher_id as c_teacher_id,
+                        c2.id as c2_id, 
+                        c2.name as c2_name, 
+                        c2.required as c2_required, 
+                        c2.credit as c2_credit, 
+                        c2.teacher_id as c2_teacher_id
+                from teacher t 
+                        left join class c on t.id=c.teacher_id
+                        left join coures c2 on t.id=c2.teacher_id
+                where t.id=#{id}
+        </select>
+</mapper>

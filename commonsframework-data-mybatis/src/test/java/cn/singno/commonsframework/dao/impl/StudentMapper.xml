@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.singno.commonsframework.dao.StudentMapper">
+        <resultMap id="BaseResultMap" type="cn.singno.commonsframework.entity.Student">
+                <id column="id" property="id" jdbcType="INTEGER"/>
+                <result column="name" property="name" jdbcType="VARCHAR"/>
+                <result column="sex" property="sex" jdbcType="SMALLINT"/>
+                <result column="birthday" property="birthday" jdbcType="DATE"/>
+                <result column="class_id" property="classId" jdbcType="INTEGER"/>
+                <result column="is_delete" property="isDelete" jdbcType="BIT"/>
+        </resultMap>
+        <sql id="Base_Column_List">
+                id, name, sex, birthday, class_id, is_delete
+        </sql>
+        <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+                select
+                <include refid="Base_Column_List"/>
+                from student
+                where id = #{id,jdbcType=INTEGER}
+        </select>
+        <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+                delete from student
+                where id = #{id,jdbcType=INTEGER}
+        </delete>
+        <insert id="insert" parameterType="cn.singno.commonsframework.entity.Student">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id() as id
+                </selectKey>
+                insert into student (id, name, sex,
+                birthday, class_id, is_delete
+                )
+                values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT},
+                #{birthday,jdbcType=DATE}, #{classId,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}
+                )
+        </insert>
+        <insert id="insertSelective" parameterType="cn.singno.commonsframework.entity.Student">
+                <selectKey resultType="int" order="AFTER" keyProperty="id">
+                        select last_insert_id()
+                </selectKey>
+                insert into student
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                        <if test="id != null">
+                                id,
+                        </if>
+                        <if test="name != null">
+                                name,
+                        </if>
+                        <if test="sex != null">
+                                sex,
+                        </if>
+                        <if test="birthday != null">
+                                birthday,
+                        </if>
+                        <if test="classId != null">
+                                class_id,
+                        </if>
+                        <if test="isDelete != null">
+                                is_delete,
+                        </if>
+                </trim>
+                <trim prefix="values (" suffix=")" suffixOverrides=",">
+                        <if test="id != null">
+                                #{id,jdbcType=INTEGER},
+                        </if>
+                        <if test="name != null">
+                                #{name,jdbcType=VARCHAR},
+                        </if>
+                        <if test="sex != null">
+                                #{sex,jdbcType=SMALLINT},
+                        </if>
+                        <if test="birthday != null">
+                                #{birthday,jdbcType=DATE},
+                        </if>
+                        <if test="classId != null">
+                                #{classId,jdbcType=INTEGER},
+                        </if>
+                        <if test="isDelete != null">
+                                #{isDelete,jdbcType=BIT},
+                        </if>
+                </trim>
+        </insert>
+        <update id="updateByPrimaryKeySelective" parameterType="cn.singno.commonsframework.entity.Student">
+                update student
+                <set>
+                        <if test="name != null">
+                                name = #{name,jdbcType=VARCHAR},
+                        </if>
+                        <if test="sex != null">
+                                sex = #{sex,jdbcType=SMALLINT},
+                        </if>
+                        <if test="birthday != null">
+                                birthday = #{birthday,jdbcType=DATE},
+                        </if>
+                        <if test="classId != null">
+                                class_id = #{classId,jdbcType=INTEGER},
+                        </if>
+                        <if test="isDelete != null">
+                                is_delete = #{isDelete,jdbcType=BIT},
+                        </if>
+                </set>
+                where id = #{id,jdbcType=INTEGER}
+        </update>
+        <update id="updateByPrimaryKey" parameterType="cn.singno.commonsframework.entity.Student">
+                update student
+                set name = #{name,jdbcType=VARCHAR},
+                sex = #{sex,jdbcType=SMALLINT},
+                birthday = #{birthday,jdbcType=DATE},
+                class_id = #{classId,jdbcType=INTEGER},
+                is_delete = #{isDelete,jdbcType=BIT}
+                where id = #{id,jdbcType=INTEGER}
+        </update>
+        <select id="selectByName" parameterType="string" resultType="student">
+                select * from student where name like "%"#{name}"%"
+        </select>
+        <insert id="insertList" parameterType="list">
+                <selectKey resultType="int" keyProperty="id" order="AFTER">
+                        select last_insert_id()
+                </selectKey>
+                insert into student
+                        (id, name, sex, birthday, class_id, is_delete)
+                values 
+                <foreach collection="list" item="item" separator=",">
+                        (#{item.id}, #{item.name}, #{item.sex}, #{item.birthday}, #{item.classId}, #{item.isDelete})
+                </foreach>
+        </insert>
+        <select id="selectAll" resultMap="BaseResultMap">
+                select 
+                <include refid="Base_Column_List" />
+                from student
+        </select>
+</mapper>
