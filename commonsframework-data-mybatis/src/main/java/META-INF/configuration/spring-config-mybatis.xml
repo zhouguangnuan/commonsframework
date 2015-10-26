@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+       ">
+
+	<!-- 读取dbconfig.properties文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:config/dbconfig.properties" />
+	
+	<!-- 配置 druid 数据源 -->
+	<bean name="parentDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="initialSize" value="${druid.initialSize}" />
+		<property name="maxActive" value="${druid.maxActive}" />
+		<property name="maxWait" value="${druid.maxWait}" />
+		<property name="minIdle" value="${druid.minIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="${druid.validationQuery}" />
+		<property name="testWhileIdle" value="${druid.testWhileIdle}" />
+		<property name="testOnBorrow" value="${druid.testOnBorrow}" />
+		<property name="testOnReturn" value="${druid.testOnReturn}" />
+		<property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}" />
+		<property name="removeAbandoned" value="${druid.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" />
+		<property name="logAbandoned" value="${druid.logAbandoned}" />
+		<property name="filters" value="${druid.filters}" />
+	</bean>
+
+	<!-- master -->
+	<bean id="writeDataSource" parent="parentDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${db.write.url}" />
+		<property name="username" value="${db.write.username}" />
+		<property name="password" value="${db.write.password}" />
+		<property name="driverClassName" value="${db.write.driverClassName}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="writeDataSource" />
+		<property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:cn/singno/commonsframework/dao/impl/*Mapper.xml" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.singno.commonsframework.dao" />
+	</bean>
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="writeDataSource" />
+	</bean>
+	<!-- 拦截器方式配置事物 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="create*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="modify*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="edit*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="execute*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="login*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+
+			<tx:method name="list*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="search*" read-only="true" />
+			<tx:method name="select*" read-only="true" />
+			<tx:method name="check*" read-only="true" />
+			<tx:method name="is*" read-only="true" />
+			<tx:method name="has*" read-only="true" />
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 
+		<aop:pointcut id="transactionPointcut" expression="execution(* cn.singno.commonsframework..*ServiceImpl.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" /> 
+		-->
+	</aop:config>
+</beans>
