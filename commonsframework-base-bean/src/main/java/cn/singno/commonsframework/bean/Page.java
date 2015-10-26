@@ -9,59 +9,61 @@ import java.util.List;
 @SuppressWarnings("all")
 public class Page<T> implements Serializable 
 {
-	int number;// 当前页数（从0开始）
+	Integer number = 0;// 当前页数（从0开始）
 	
-	int size;// 每页记录数
+	Integer size = 10;// 每页记录数
 	
-	int totalPages;// 总页数
+	Integer totalPages;// 总页数
 	
-	int numberOfElements;// 当前记录所在下标
-	
-	long totalElements;// 总记录数
+	Long totalElements;// 总记录数
 	
 	private List<T> content;// 内容
-
-	public int getNumber() {
-		return number;
+	
+	public Page()
+	{
+		super();
 	}
 
-	public void setNumber(int number) {
+	public Page(Integer number, Integer size)
+	{
+		super();
 		this.number = number;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
 		this.size = size;
 	}
 
-	public int getTotalPages() {
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
+	public Integer getTotalPages() {
 		return totalPages;
 	}
 
-	public void setTotalPages(int totalPages) {
+	public void setTotalPages(Integer totalPages) {
 		this.totalPages = totalPages;
 	}
 
-	public int getNumberOfElements() {
-		return numberOfElements;
-	}
-
-	public void setNumberOfElements(int numberOfElements) {
-		this.numberOfElements = numberOfElements;
-	}
-
-	public long getTotalElements() {
+	public Long getTotalElements() {
 		return totalElements;
 	}
 
-	public void setTotalElements(long totalElements) {
+	public void setTotalElements(Long totalElements) {
 		this.totalElements = totalElements;
 	}
 
-	public List<T> getContent() {
+	public List<?> getContent() {
 		return content;
 	}
 

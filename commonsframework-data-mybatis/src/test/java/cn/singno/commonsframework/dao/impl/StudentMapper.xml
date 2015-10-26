@@ -128,4 +128,40 @@
                 <include refid="Base_Column_List" />
                 from student
         </select>
+        <select id="selectByPage" resultMap="BaseResultMap">
+                select 
+                <include refid="Base_Column_List" />
+                from student
+                <where>
+                        <if test="filter.name!=null and filter.name!=''">
+                                name like "%"#{filter.name}"%"
+                        </if>
+                        <if test="filter.classId!=null">
+                                and class_id = #{filter.classId}
+                        </if>
+                </where>
+        </select>
+        <select id="selectByPage2" parameterType="cn.singno.commonsframework.bean.Page" resultMap="BaseResultMap">
+                select 
+                <include refid="Base_Column_List" />
+                from student
+        </select>
+        <select id="selectByPage3" parameterType="searchModel" resultMap="BaseResultMap">
+                select 
+                <include refid="Base_Column_List" />
+                from student
+                <where>
+                        <if test="name!=null and name!=''">
+                                name like "%"#{name}"%"
+                        </if>
+                        <if test="classId!=null">
+                                and class_id = #{classId}
+                        </if>
+                </where>
+        </select>
+        <select id="selectByP" parameterType="cn.singno.commonsframework.bean.Page" resultMap="BaseResultMap">
+                select 
+                <include refid="Base_Column_List" />
+                from student
+        </select>
 </mapper>
