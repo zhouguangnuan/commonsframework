@@ -13,7 +13,6 @@
         <name>commonsframework-data-mybatis</name>
         <packaging>jar</packaging>
 
-
         <dependencies>
                 <dependency>
                         <groupId>mysql</groupId>

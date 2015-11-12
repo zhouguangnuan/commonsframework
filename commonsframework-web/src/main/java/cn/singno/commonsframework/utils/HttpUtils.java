@@ -257,10 +257,7 @@ public class HttpUtils
 		String responseStr = null;
 		try
 		{
-			// System.out.println("WESHOP API-URL: "+url);
-			// System.out.println("WESHOP API-PARAMS: "+params+" "+field+" "+filename);
 			responseStr = httpclient.execute(hp, responseHandler);
-			// System.out.println("WESHOP API-RESULT: "+responseStr);
 		} catch (ClientProtocolException e)
 		{
 			logger.error("客户端连接协议错误：" + e);
