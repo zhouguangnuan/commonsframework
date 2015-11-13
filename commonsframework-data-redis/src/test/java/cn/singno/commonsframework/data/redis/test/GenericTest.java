@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextHierarchy(@ContextConfiguration(locations = {"classpath:config/spring-config-redis.xml"}))
+@ContextHierarchy(@ContextConfiguration(locations = {"classpath:config/spring-config-redis2.xml"}))
 public class GenericTest
 {
 	/**
