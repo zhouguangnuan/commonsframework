@@ -55,5 +55,11 @@ public class HttpUtilsTest
 		System.out.println(result);
 	}
 	
-	
+	@Test
+	public void testname4() throws Exception
+	{
+		String url = "http://123.56.162.129/demo2/common/test6";
+		String result = HttpUtils.get(url);
+		System.out.println(result);
+	}
 }

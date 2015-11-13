@@ -7,7 +7,7 @@
         <version>4.0.0-RELEASES</version>
         <packaging>pom</packaging>
         <url>http://commonsframework.singno.cn</url>
-        <description>整合spring + springMVC + JPA + Hibernate 的�?用web框架</description>
+        <description>整合spring + springMVC + JPA + Hibernate 的通用web框架</description>
 
         <properties>
                 <!-- 项目版本 -->
@@ -70,6 +70,10 @@
                 <mybatis-spring.version>1.2.2</mybatis-spring.version>
                 <mybatis-generator.version>1.3.2</mybatis-generator.version>
                 <cglib.version>2.2.2</cglib.version>
+                <!-- redis -->
+                <spring-data-redis.version>1.6.0.RELEASE</spring-data-redis.version>
+                <jedis.version>2.7.3</jedis.version>
+                <jackson-databind.version>2.6.3</jackson-databind.version>
                 <!-- commons -->
                 <commons-configuration.version>1.9</commons-configuration.version>
                 <commons-collections.version>3.2</commons-collections.version>
@@ -103,6 +107,7 @@
                 <!-- log -->
                 <log4j.version>1.2.17</log4j.version>
                 <slf4j.version>1.7.5</slf4j.version>
+                <commons-logging.version>1.1.1</commons-logging.version>
                 <!-- joda-time -->
                 <joda-time.version>2.3</joda-time.version>
                 <!-- druid -->
@@ -130,15 +135,15 @@
         </properties>
 
         <modules>
-                <module>commonsframework-demo2</module>
                 <module>commonsframework-demo</module>
+                <module>commonsframework-demo2</module>
+                <module>commonsframework-demo-freemarker</module>
                 <module>commonsframework-base-bean</module>
                 <module>commonsframework-base-utils</module>
                 <module>commonsframework-log</module>
                 <module>commonsframework-web</module>
                 <module>commonsframework-validation</module>
                 <module>commonsframework-test</module>
-                <module>commonsframework-data-jpa</module>
                 <module>commonsframework-cache</module>
                 <module>commonsframework-scheduling</module>
                 <module>commonsframework-RPC-dubbo</module>
@@ -147,8 +152,9 @@
                 <module>commonsframework-office</module>
                 <module>commonsframework-lightApp</module>
                 <module>commonsframework-IM</module>
-                <module>commonsframework-demo-freemarker</module>
+                <module>commonsframework-data-jpa</module>
                 <module>commonsframework-data-mybatis</module>
+                <module>commonsframework-data-redis</module>
         </modules>
 
         <!-- 项目依赖 -->
@@ -341,23 +347,41 @@
                                 <artifactId>hibernate-memcached</artifactId>
                                 <version>${hibernate-memcached.version}</version>
                         </dependency>
-                        <!-- mybatis -->
-                        <dependency>
-                                <groupId>org.mybatis</groupId>
-                                <artifactId>mybatis</artifactId>
-                                <version>${mybatis.version}</version>
-                        </dependency>
                         <!-- mybatis-spring -->
                         <dependency>
                                 <groupId>org.mybatis</groupId>
                                 <artifactId>mybatis-spring</artifactId>
                                 <version>${mybatis-spring.version}</version>
                         </dependency>
+                        <!-- mybatis -->
+                        <dependency>
+                                <groupId>org.mybatis</groupId>
+                                <artifactId>mybatis</artifactId>
+                                <version>${mybatis.version}</version>
+                        </dependency>
                         <!-- mybatis-generator-core -->
                         <dependency>
                                 <groupId>org.mybatis.generator</groupId>
                                 <artifactId>mybatis-generator-core</artifactId>
                                 <version>${mybatis-generator.version}</version>
+                        </dependency>
+                        <!-- spring-data-redis -->
+                        <dependency>
+                                <groupId>org.springframework.data</groupId>
+                                <artifactId>spring-data-redis</artifactId>
+                                <version>${spring-data-redis.version}</version>
+                        </dependency>
+                        <!-- jedis -->
+                        <dependency>
+                                <groupId>redis.clients</groupId>
+                                <artifactId>jedis</artifactId>
+                                <version>${jedis.version}</version>
+                        </dependency>
+                        <!-- jackson-databind -->
+                        <dependency>
+                                <groupId>com.fasterxml.jackson.core</groupId>
+                                <artifactId>jackson-databind</artifactId>
+                                <version>${jackson-databind.version}</version>
                         </dependency>
                         <!-- cglib -->
                         <dependency>
@@ -522,6 +546,11 @@
                                 <artifactId>slf4j-log4j12</artifactId>
                                 <version>${slf4j.version}</version>
                         </dependency>
+                        <dependency>
+                                <groupId>commons-logging</groupId>
+                                <artifactId>commons-logging</artifactId>
+                                <version>${commons-logging.version}</version>
+                        </dependency>
                         <!-- joda-time -->
                         <dependency>
                                 <groupId>joda-time</groupId>
@@ -658,12 +687,6 @@
                                 <artifactId>commonsframework-test</artifactId>
                                 <version>4.0.0-RELEASES</version>
                         </dependency>
-                        <!-- date-jpa -->
-                        <dependency>
-                                <groupId>cn.singno.commonsframework</groupId>
-                                <artifactId>commonsframework-data-jpa</artifactId>
-                                <version>4.0.0-RELEASES</version>
-                        </dependency>
                         <!-- cache -->
                         <dependency>
                                 <groupId>cn.singno.commonsframework</groupId>
@@ -710,6 +733,24 @@
                         <dependency>
                                 <groupId>cn.singno.commonsframework</groupId>
                                 <artifactId>commonsframework-IM</artifactId>
+                                <version>4.0.0-RELEASES</version>
+                        </dependency>
+                        <!-- date-jpa -->
+                        <dependency>
+                                <groupId>cn.singno.commonsframework</groupId>
+                                <artifactId>commonsframework-data-jpa</artifactId>
+                                <version>4.0.0-RELEASES</version>
+                        </dependency>
+                        <!-- data-mybatis -->
+                        <dependency>
+                                <groupId>cn.singno.commonsframework</groupId>
+                                <artifactId>commonsframework-data-mybatis</artifactId>
+                                <version>4.0.0-RELEASES</version>
+                        </dependency>
+                        <!-- data-redis -->
+                        <dependency>
+                                <groupId>cn.singno.commonsframework</groupId>
+                                <artifactId>commonsframework-data-redis</artifactId>
                                 <version>4.0.0-RELEASES</version>
                         </dependency>
                 </dependencies>
@@ -761,7 +802,7 @@
                                         <include>**/*.properties</include>
                                         <include>**/*.xml</include>
                                 </includes>
-                                <!-- 是否替换资源中的属性 -->
+                                <!-- 是否替换资源中的属�? -->
                                 <filtering>false</filtering>
                         </resource>
                         <resource>
