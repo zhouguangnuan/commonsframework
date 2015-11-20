@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.singno.commonsframework.utils.NetworkUtils;
 
 import com.alibaba.druid.support.http.util.IPAddress;
+import com.alibaba.fastjson.JSON;
 
 /**
  * 通用接口
@@ -49,6 +50,20 @@ public class TestCommonController
 		System.out.println("netIp：" + netIp);
 		System.out.println("remortIpStr：" + remortIpStr);
 		
+		return "SUCCESS";
+	}
+	
+	@RequestMapping(value="/prox", method=RequestMethod.GET)
+	@ResponseBody
+	public Object prox_get(HttpServletRequest request)
+	{	
+		return "SUCCESS";
+	}
+	
+	@RequestMapping(value="/prox", method=RequestMethod.POST)
+	@ResponseBody
+	public Object prox_post(HttpServletRequest request)
+	{	
 		return "SUCCESS";
 	}
 }
