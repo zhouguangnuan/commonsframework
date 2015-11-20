@@ -1,8 +1,10 @@
 package cn.singno.commonsframework.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
@@ -17,14 +19,15 @@ import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.ClientProtocolException;
@@ -35,18 +38,21 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.conn.ssl.SSLContextBuilder;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+
+import com.google.common.collect.Maps;
 
 import cn.singno.commonsframework.constants.DefaultSystemConst;
 
@@ -150,13 +156,40 @@ public class HttpUtils
 
 	/**
 	 * GET提交，不指定编码
-	 * @param url		请求地址
+	 * @param url		
 	 * @return String 	响应的内容
 	 */
 	public static String get(String url)
 	{
 		HttpGet httpGet = new HttpGet(url);
 		return exectueRequest(httpGet);
+	}
+	
+	/**
+	 * GET提交，不指定编码
+	 * @param url          请求地址
+	 * @param map       请求参数
+	 * @return
+	 * @throws URISyntaxException 
+	 */
+	public static String get(String url, Map<String, String> map)
+	{
+                List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+                for (Iterator<Entry<String, String>> it = map.entrySet().iterator(); it.hasNext();)
+                {
+                        Entry<String, String> entry = it.next();
+                        nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+                }
+                try
+                {
+                        URI uri = new URIBuilder().setPath(url).setParameters(nvps).build();
+                        HttpGet httpGet = new HttpGet(uri);
+                        return exectueRequest(httpGet);
+                } catch (URISyntaxException e)
+                {
+                        logger.error(e.getMessage(), e);
+                }
+	        return null;
 	}
 
 	/**
@@ -223,34 +256,40 @@ public class HttpUtils
 	}
 	
 	/**
-	 * Post方式提交,URL中包含提交参数, 格式：http://www.g.cn
-	 * 
-	 * @param url 		提交地址
-	 * @param params 	提交参数集, 键/值对
-	 * @return String 		响应消息
-	 * @throws Exception 
+	 * Post 文件上传
+	 * @param url                  提交地址
+	 * @param params          提交参数集, 键/值对
+	 * @param charset          参数编码方式（默认为UTF-8）
+	 * @param field               接收上传文件的字段
+	 * @param file                 上传的文件
+	 * @return
+	 * @throws Exception
 	 */
-	public static String postMultipart(String url, Map<String, String> params, String charset, String field, byte[] file, String filename, String contentType) throws Exception
+	public static String postMultipart(String url, Map<String, String> params, String charset, String field, File file) throws Exception
 	{
 		if (StringUtils.isBlank(url))
 		{
 			return null;
 		}
+		if (StringUtils.isBlank(charset))
+		{
+		        charset = DefaultSystemConst.DEFAULT_UNICODE;
+		}
 		// 创建HttpClient实例
 		HttpClient httpclient = getHttpClient();
 		HttpPost hp = new HttpPost(url);
 		MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+		multipartEntityBuilder.setCharset(Consts.UTF_8);
 		if (null != params && params.size() > 0)
 		{
-
 			for (Map.Entry<String, String> entry : params.entrySet())
 			{
-				multipartEntityBuilder.addTextBody(entry.getKey(), entry.getValue(), ContentType.create("text/html", charset));
+				multipartEntityBuilder.addTextBody(entry.getKey(), entry.getValue(), ContentType.create(MediaType.TEXT_PLAIN_VALUE, charset));
 			}
 		}
-		if (StringUtils.isNotEmpty(field))
+		if (StringUtils.isNotBlank(field) && null != file)
 		{
-			multipartEntityBuilder.addBinaryBody(field, file, ContentType.create(contentType), filename);
+                        multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE).addPart("file", new FileBody(file, ContentType.create(MediaType.MULTIPART_FORM_DATA_VALUE, charset), file.getName()));
 		}
 		hp.setEntity(multipartEntityBuilder.build());
 		// 发送请求，得到响应
@@ -272,6 +311,7 @@ public class HttpUtils
 	}
       
       // =====================================================================================================================================
+	
       /**
        * 获取HttpClient
        * @return HttpClient HttpClient
@@ -292,26 +332,6 @@ public class HttpUtils
                 return httpClient;
 	}
 	
-	/**
-	 * 获取DefaultHttpClient实例
-	 * @param charset 参数编码集, 可空
-	 * @return DefaultHttpClient 对象
-	*/
-	private static DefaultHttpClient getDefaultHttpClient(final String charset)
-	{
-		DefaultHttpClient httpclient = new DefaultHttpClient();
-		// HttpHost proxy = new HttpHost("", port);
-		// httpclient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-		// proxy);
-		httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-		// 模拟浏览器，解决一些服务器程序只允许浏览器访问的问题
-		httpclient.getParams().setParameter(CoreProtocolPNames.USER_AGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13");
-		httpclient.getParams().setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE, Boolean.FALSE);
-		httpclient.getParams().setParameter(CoreProtocolPNames.HTTP_CONTENT_CHARSET, charset == null ? DefaultSystemConst.DEFAULT_CURRENT_PAGE : charset);
-		httpclient.setHttpRequestRetryHandler(requestRetryHandler);
-		return httpclient;
-	}
-      
       /**
        * 执行request请求，返回响应内容
        * @param request HttpRequestBase
@@ -379,17 +399,20 @@ public class HttpUtils
 		UrlEncodedFormEntity entity = null;
 		// 参数LIST
 		List<NameValuePair> paramList = new ArrayList<NameValuePair>();
-		for (Iterator<Entry<String, String>> it = map.entrySet().iterator(); it.hasNext();)
+		if(null != map)
 		{
-			Entry<String, String> entry = it.next();
-			paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+		        for (Iterator<Entry<String, String>> it = map.entrySet().iterator(); it.hasNext();)
+	                {
+	                        Entry<String, String> entry = it.next();
+	                        paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+	                }
 		}
+		if (StringUtils.isBlank(charsetName))
+                {
+                        charsetName = DefaultSystemConst.DEFAULT_UNICODE;
+                }
 		try
 		{
-			if (StringUtils.isBlank(charsetName))
-			{
-				charsetName = DefaultSystemConst.DEFAULT_UNICODE;
-			}
 			entity = new UrlEncodedFormEntity(paramList, charsetName);
 		} catch (UnsupportedEncodingException e)
 		{
