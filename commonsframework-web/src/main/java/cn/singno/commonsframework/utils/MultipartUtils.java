@@ -12,6 +12,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -61,7 +62,7 @@ public class MultipartUtils {
 	private static Set<String> TYPE_IMAGE = Sets.newHashSet("application/octet-stream","image/gif", "image/jpeg", "application/x-jpg", "application/x-png", "image/png","image/bmp");
 	
 	//文本类型
-	private static Set<String> TYPE_TEXT = Sets.newHashSet("application/octet-stream", "application/pdf", "application/x-ppt", "application/msword");
+	private static Set<String> TYPE_TEXT = Sets.newHashSet("application/octet-stream", "application/pdf", "application/x-ppt", "application/msword", "text/plain");
 	
 	//视频类型
 	private static Set<String> TYPE_VIDEO = Sets.newHashSet("video/mpeg4", "video/mpg", "video/x-mpeg", "video/mpg","application/octet-stream","audio/amr");
@@ -77,7 +78,7 @@ public class MultipartUtils {
 	private static Set<String> SUFFIX_IMAGE = Sets.newHashSet("jpg", "png",  "jpeg");
 	
 	//文本后缀
-	private static Set<String> SUFFIX_TEXT = Sets.newHashSet("doc");
+	private static Set<String> SUFFIX_TEXT = Sets.newHashSet("doc", "txt");
 	
 	//视频后缀
 	private static Set<String> SUFFIX_VIDEO = Sets.newHashSet("amr");
@@ -253,7 +254,7 @@ public class MultipartUtils {
 		byte[] fileByte = null;
 		try {
 			if(StringUtils.isNotBlank(fileName)){
-				fileName = new String(clean(fileName).getBytes(), "iso-8859-1");
+				fileName = new String(clean(fileName).getBytes(), CharEncoding.ISO_8859_1);
 			}
 			fileByte = FileUtils.readFileToByteArray(file);
 		}  catch (IOException e) {

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("all")
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextHierarchy(@ContextConfiguration(locations = {"classpath:config/spring-config-redis.xml"}))
+@ContextHierarchy(@ContextConfiguration(locations = {"classpath:config/spring-config-redis2.xml"}))
 public class GenericTest
 {
 	/**
@@ -38,6 +38,9 @@ public class GenericTest
 	protected Order order1;
 	protected Order order2;
 	protected Order order3;
+	protected Order order4;
+	protected String user1 = "user1:id";
+	protected String user2 = "user2:id";
 	protected String orderNum = "orderNum";
 	protected String totalPric = "totalPric";
 	protected String orderNO = "orderNO";
@@ -64,6 +67,12 @@ public class GenericTest
 		order3.setOrderNo("AO003");
 		order3.setPrice(300.3);
 		order3.setCreateDate(new Date());
+		
+		order4 = new Order();
+		order4.setId("40000");
+		order4.setOrderNo("AO004");
+		order4.setPrice(400.4);
+		order4.setCreateDate(new Date());
 
 		objectMapper = new ObjectMapper();
 	}
@@ -71,8 +80,8 @@ public class GenericTest
 	@After
 	public void after() throws Exception
 	{
-		redisTemplate.opsForValue().getOperations().delete(Arrays.asList(new String[]{order1.getId(), order2.getId(), order3.getId(), orderNum, totalPric, orderNO}));
-		stringRedisTemplate.opsForValue().getOperations().delete(Arrays.asList(new String[]{order1.getId(), order2.getId(), order3.getId(), orderNum, totalPric, orderNO}));
+		redisTemplate.opsForValue().getOperations().delete(Arrays.asList(new String[]{order1.getId(), order2.getId(), order3.getId(), order4.getId(), user1, user2, orderNum, totalPric, orderNO}));
+		stringRedisTemplate.opsForValue().getOperations().delete(Arrays.asList(new String[]{order1.getId(), order2.getId(), order3.getId(), order4.getId(), user1, user2, orderNum, totalPric, orderNO}));
 	}
 	
 	public String toJsonStr(Object obj) throws JsonProcessingException

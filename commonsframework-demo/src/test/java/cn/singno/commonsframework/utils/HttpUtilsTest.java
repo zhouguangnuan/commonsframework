@@ -8,8 +8,12 @@
  */
 package cn.singno.commonsframework.utils;
 
+import static org.junit.Assert.*;
+
+import java.io.File;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import com.google.common.collect.Maps;
@@ -62,4 +66,20 @@ public class HttpUtilsTest
 		String result = HttpUtils.get(url);
 		System.out.println(result);
 	}
+	
+	@Test
+        public void testname5() throws Exception
+        {
+                String url = "http://localhost:8080/commonsframework-demo2/common/upload";
+                File file = FileUtils.getFile("C:\\Users\\Administrator\\Desktop\\白帽子讲Web安全.pdf");
+                String result = HttpUtils.postMultipart(url, null, null, "file", file);
+                System.out.println(result);
+        }
+	
+	@Test
+        public void testName() throws Exception
+        {
+	        File file = FileUtils.getFile("C:\\Users\\Administrator\\Desktop\\白帽子讲Web安全阅读笔记.rar");
+	        System.out.println(file.getName());
+        }
 }

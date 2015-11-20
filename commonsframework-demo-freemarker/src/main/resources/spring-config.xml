@@ -21,9 +21,11 @@
     <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="freemarkerSettings" ref="freemarkerConfiguration" />
         <property name="templateLoaderPath" value="/WEB-INF/template"/>
+        <!-- 配置 freemarker 全局变量 -->
         <property name="freemarkerVariables">
             <map>
                 <entry key="xml_escape" value-ref="fmXmlEscape" />
+                <entry key="webRoot" value="localhost:8080" />
             </map>
         </property>
     </bean>
