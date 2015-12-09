@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,11 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.singno.commonsframework.bean.CurrentRequestHolder;
+import cn.singno.commonsframework.bean.CurrentRequestHolder2;
 import cn.singno.commonsframework.bean.FileUploadResult;
 import cn.singno.commonsframework.bean.MultipartFiles;
 import cn.singno.commonsframework.utils.HttpServletUtils;
 import cn.singno.commonsframework.utils.MultipartUtils;
 import cn.singno.commonsframework.utils.NetworkUtils;
+import cn.singno.commonsframework.utils.SessionUtils;
 
 /**
  * 通用接口
@@ -30,6 +35,9 @@ import cn.singno.commonsframework.utils.NetworkUtils;
 @RequestMapping("/common")
 public class TestCommonController
 {
+        @Autowired
+        private CurrentRequestHolder2 currentRequestHolder2;
+        
 	@RequestMapping(value="/test1", method=RequestMethod.GET)
 	@ResponseBody
 	public Object test1(String str)
@@ -133,5 +141,71 @@ public class TestCommonController
                 return result;
         };
         
+        @RequestMapping(value="/request", method=RequestMethod.GET)
+        public Object request(HttpServletRequest request, HttpServletResponse response) throws Exception
+        { 
+                HttpServletRequest request2 = CurrentRequestHolder.getCurrentRequest();
+                
+                System.out.println("request：" + JSON.toJSONString(request.getParameterMap()));
+                System.out.println("request2：" + JSON.toJSONString(request2.getParameterMap()));
+                
+                System.out.println("request thread：" + Thread.currentThread().getId());
+                System.out.println("request2 thread：" + Thread.currentThread().getId());
+                
+                System.out.println(ObjectUtils.equals(request, request2));
+                
+                
+                System.out.println(response.getHeader("name"));
+                response.setHeader("name", "name2");
+                
+                
+                SessionUtils.test();
+                
+                return null;
+        };
         
+        @RequestMapping(value="/request2", method=RequestMethod.GET)
+        public Object request2(HttpServletRequest request, HttpServletResponse response) throws Exception
+        { 
+                HttpServletRequest request2 = currentRequestHolder2.getRequest();
+                HttpServletResponse response2 = currentRequestHolder2.getResponse();
+                
+                System.out.println("request：" + JSON.toJSONString(request.getParameterMap()));
+                System.out.println("request2：" + JSON.toJSONString(request2.getParameterMap()));
+                
+                System.out.println("request thread：" + Thread.currentThread().getId());
+                System.out.println("request2 thread：" + Thread.currentThread().getId());
+                
+                System.out.println(ObjectUtils.equals(request, request2));
+                System.out.println(ObjectUtils.equals(response, response2));
+                
+                
+                System.out.println(response.getHeader("name"));
+                response.setHeader("name", "name2");
+                
+                
+                SessionUtils.test2();
+                
+                return null;
+        };
+        
+        @RequestMapping(value="/request/params", method=RequestMethod.GET)
+        public Object request_params_get(String a1, Integer a2, Boolean a3) throws Exception
+        { 
+                System.out.println("a1：" + a1);
+                System.out.println("a2：" + a2);
+                System.out.println("a3：" + a3);
+                
+                return null;
+        };
+        
+        @RequestMapping(value="/request/params", method=RequestMethod.POST)
+        public Object request_params_post(String a1, Integer a2, Boolean a3) throws Exception
+        { 
+                System.out.println("a1：" + a1);
+                System.out.println("a2：" + a2);
+                System.out.println("a3：" + a3);
+                
+                return null;
+        };
 }

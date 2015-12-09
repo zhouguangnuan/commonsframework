@@ -1,0 +1,1 @@
+2015-12-04 14:34:35 [cn.singno.commonsframework.utils.HttpUtils] [postMultipart] [305] [ERROR] IO操作异常：org.apache.http.conn.HttpHostConnectException: Connect to localhost:8080 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect

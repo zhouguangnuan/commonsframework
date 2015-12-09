@@ -19,7 +19,6 @@ public class QuartTestTask extends QuartzJobBean{
 
 	protected synchronized void executeInternal(JobExecutionContext context) throws JobExecutionException
 	{
-
 		roleDao = SpringUtils.getBean(RoleDao.class);
 		Role role = new Role();
 		role.setName("admin");

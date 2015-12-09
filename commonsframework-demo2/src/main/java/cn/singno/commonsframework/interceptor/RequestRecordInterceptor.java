@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.singno.commonsframework.bean.CurrentRequestHolder;
+import cn.singno.commonsframework.utils.SpringUtils;
+
 /**
  * 请求记录拦截器
  * @author Administrator
@@ -32,6 +35,9 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 	{
 		logger.debug("============================ 请求记录拦截器  ================================");
 		
+		CurrentRequestHolder.setCurrentRequest(request);
+		CurrentRequestHolder.setCurrentResponse(response);
+		
 		long beginTime = System.currentTimeMillis();// 开始时间  
 		startTimeThreadLocal.set(beginTime);// 线程绑定变量（该数据只有当前请求的线程可见）
         
@@ -51,6 +57,8 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception
 	{
+	        CurrentRequestHolder.clean();
+	        
 		long endTime = System.currentTimeMillis();// 结束时间  
 	        long beginTime = startTimeThreadLocal.get();// 得到线程绑定的局部变量（开始时间）  
 	        long consumeTime = endTime - beginTime;// 消耗的时间  

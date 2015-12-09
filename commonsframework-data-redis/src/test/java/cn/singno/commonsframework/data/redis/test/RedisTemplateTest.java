@@ -6,10 +6,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 
 import cn.singno.commonsframework.data.redis.demo.Order;
@@ -207,6 +210,46 @@ public class RedisTemplateTest extends GenericTest
         }
 	
 	// =============================== SetOperations ================================
+	@Test
+        public void testName() throws Exception
+        {
+	        ValueOperations<String, Integer> appdownCount = redisTemplate.opsForValue();
+        }
+	
+	@Test
+        public void SetOperations() throws Exception
+        {
+	        String appdownKey_groupkey = "appdown:resource:channel";
+	        SetOperations<String, String> setOperations = redisTemplate.opsForSet();
+	        ValueOperations<String, Integer> appdownCount = redisTemplate.opsForValue();
+	        
+	        System.out.println("================================= 下载app START =================================");
+	        for (int i = 0; i < 200; i++)
+                {
+	                Random random = new Random();
+                        String appdownkey = "appdown:resource_" + random.nextInt(5) + ":channel_" + random.nextInt(5);
+                        setOperations.add(appdownKey_groupkey, appdownkey);
+                        appdownCount.increment(appdownkey, 1);
+                }
+	        System.out.println("================================= 下载app START =================================");
+	        
+	        Set<String> appdown_key＿set = setOperations.members(appdownKey_groupkey);
+	        for (String appdown_key : appdown_key＿set)
+                {
+                        System.out.println(appdown_key + " 下载数量 : " + appdownCount.get(appdown_key));
+                        appdownCount.getOperations().delete(appdown_key);
+                }
+	        
+	        System.out.println("================================= 清空下载记录 =================================");
+	        for (String appdown_key : appdown_key＿set)
+                {
+                        System.out.println(appdown_key + " 下载数量 : " + appdownCount.get(appdown_key));
+                }
+	        
+//	        setOperations.getOperations().delete(appdownKey_groupkey);
+	        
+        }
+	
 	// =============================== ZSetOperations ================================
 	// =============================== HashOperations ================================
 }

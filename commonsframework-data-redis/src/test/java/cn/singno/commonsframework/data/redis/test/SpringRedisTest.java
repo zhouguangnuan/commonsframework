@@ -209,4 +209,18 @@ public class SpringRedisTest extends GenericTest
                         logger.debug(item);
                 }
         }
+        
+        @Test
+        public void test222() throws Exception
+        {
+                ValueOperations<String, String> valueOper = redisTemplate.opsForValue();
+//                Long num = valueOper.increment("num", 1);
+//                logger.debug(num);
+
+                valueOper.set("num", "5");
+                Object obj = valueOper.get("num");
+                logger.debug(obj);
+                
+//                        valueOper.getOperations().delete("num");
+        }
 }

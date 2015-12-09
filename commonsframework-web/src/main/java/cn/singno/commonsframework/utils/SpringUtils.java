@@ -24,8 +24,8 @@ import cn.singno.commonsframework.constants.DefaultSystemConst;
  * <p>File：SpringUtils.java</p>
  * <p>Title: Spring ApplicationContext管理工具类</p>
  * <p>Description:
- * 		以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候取出ApplicaitonContext
- * 		使用前需要在 spring-config.xml 注册
+ *              以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候取出ApplicaitonContext
+ *              使用前需要在 spring-config.xml 注册
  * </p>
  * <p>Copyright: Copyright (c) 2015 2015-2-28 下午2:25:09</p>
  * <p>Company: 8637.com</p>
@@ -56,12 +56,12 @@ public class SpringUtils implements ApplicationContextAware, DisposableBean
         String path = DefaultSystemConst.SYS_SEPARATOR;
         try
         {
-        	WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();    
+                WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();    
             if (null != webApplicationContext)
-			{
-            	ServletContext servletContext = webApplicationContext.getServletContext();
-            	path = WebUtils.getRealPath(servletContext, DefaultSystemConst.SYS_SEPARATOR);
-			}
+                        {
+                ServletContext servletContext = webApplicationContext.getServletContext();
+                path = WebUtils.getRealPath(servletContext, DefaultSystemConst.SYS_SEPARATOR);
+                        }
         }
         catch (FileNotFoundException e)
         {

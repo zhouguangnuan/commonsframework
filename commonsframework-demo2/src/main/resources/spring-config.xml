@@ -1,57 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
        ">
-    <description>spring全局配置</description>
-    
-    <!-- Annotation自动注册Bean，解决事务失效问题：在主容器中不扫描@Controller注解，在springMvc中只扫描@Controller注解 -->
-    <context:component-scan base-package="cn.singno">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-    
-    <!-- beans -->
-    <bean id="springContextHolder" class="cn.singno.commonsframework.utils.SpringUtils"/>
-    
-    <!-- FreeMarker -->
-    <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/ftls/"/>
-        <property name="freemarkerSettings">
-            <props>
-                <!--  template_update_delay = 0 模板修改后即刻见效 -->
-                <prop key="template_update_delay">0</prop>
-                <prop key="default_encoding">UTF-8</prop>
-                <prop key="locale">zh_CN</prop>
-                <prop key="tag_syntax">auto_detect</prop>
-                <prop key="whitespace_stripping">true</prop>
-                <prop key="classic_compatible">true</prop>
-                <prop key="number_format">0.######</prop>
-                <prop key="boolean_format">true,false</prop>
-                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
-                <prop key="date_format">yyyy-MM-dd</prop>
-                <prop key="time_format">HH:mm:ss</prop>
-                <prop key="object_wrapper">freemarker.ext.beans.BeansWrapper
-                </prop>
-            </props>
-        </property>
-        <property name="freemarkerVariables">
-            <map>
-                <entry key="ctx" value="/"/>
-                <!--
-                    <entry key="ctx" value="#{servletContext.contextPath}" />
-                  -->
-            </map>
-        </property>
-    </bean>
-    
-    <!-- 
-    <import resource="classpath:spring-config-cache.xml"/>
-    <import resource="classpath:spring-config-jpa.xml"/>
-    <import resource="classpath:spring-config-quartz.xml"/>
-    <import resource="classpath:spring-config-shiro.xml"/>
-    <import resource="classpath:spring-config-office.xml"/> 
-    -->
+        <description>spring全局配置</description>
+
+        <!-- Annotation自动注册Bean，解决事务失效问题：在主容器中不扫描@Controller注解，在springMvc中只扫描@Controller注解 -->
+        <context:component-scan base-package="cn.singno">
+                <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        </context:component-scan>
+
+        <!-- beans -->
+        <bean id="springContextHolder" class="cn.singno.commonsframework.utils.SpringUtils" />
+        
+        <aop:aspectj-autoproxy />
+        <bean id="currentRequestHolder2" class="cn.singno.commonsframework.bean.CurrentRequestHolder2" />
+        
+
+        <!-- FreeMarker -->
+        <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+                <property name="templateLoaderPath" value="/WEB-INF/ftls/" />
+                <property name="freemarkerSettings">
+                        <props>
+                                <!-- template_update_delay = 0 模板修改后即刻见效 -->
+                                <prop key="template_update_delay">0</prop>
+                                <prop key="default_encoding">UTF-8</prop>
+                                <prop key="locale">zh_CN</prop>
+                                <prop key="tag_syntax">auto_detect</prop>
+                                <prop key="whitespace_stripping">true</prop>
+                                <prop key="classic_compatible">true</prop>
+                                <prop key="number_format">0.######</prop>
+                                <prop key="boolean_format">true,false</prop>
+                                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                                <prop key="date_format">yyyy-MM-dd</prop>
+                                <prop key="time_format">HH:mm:ss</prop>
+                                <prop key="object_wrapper">freemarker.ext.beans.BeansWrapper
+                                </prop>
+                        </props>
+                </property>
+                <property name="freemarkerVariables">
+                        <map>
+                                <entry key="ctx" value="/" />
+                                <!-- <entry key="ctx" value="#{servletContext.contextPath}" /> -->
+                        </map>
+                </property>
+        </bean>
+
+        <import resource="classpath:spring-config-quartz.xml"/> 
+        <!-- 
+        <import resource="classpath:spring-config-cache.xml"/> 
+        <import resource="classpath:spring-config-jpa.xml"/> 
+        <import resource="classpath:spring-config-shiro.xml"/> 
+        <import resource="classpath:spring-config-office.xml"/> -->
 </beans>

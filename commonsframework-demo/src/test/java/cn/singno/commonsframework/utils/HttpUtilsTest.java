@@ -33,8 +33,8 @@ public class HttpUtilsTest
 	@Test
 	public void testname() throws Exception
 	{
-		String url = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=1&rsv_pq=f3728905000112c4&rsv_t=4400vpPnOafoXoq5ry3w9iwhu8%2BKNlJ4VRqKp%2FHWNOxWmQ004Gn9yoZMaCc&rsv_enter=1&rsv_sug3=1&rsv_sug1=1&rsv_sug2=0&inputT=296&rsv_sug4=297";
-//		String url = "http://www.baidu.com";
+//		String url = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=1&rsv_pq=f3728905000112c4&rsv_t=4400vpPnOafoXoq5ry3w9iwhu8%2BKNlJ4VRqKp%2FHWNOxWmQ004Gn9yoZMaCc&rsv_enter=1&rsv_sug3=1&rsv_sug1=1&rsv_sug2=0&inputT=296&rsv_sug4=297";
+		String url = "http://www.baidu.com?";
 		String result = HttpUtils.get(url, "GBK");
 		System.out.println(result);
 	}
@@ -70,8 +70,8 @@ public class HttpUtilsTest
 	@Test
         public void testname5() throws Exception
         {
-                String url = "http://localhost:8080/commonsframework-demo2/common/upload";
-                File file = FileUtils.getFile("C:\\Users\\Administrator\\Desktop\\白帽子讲Web安全.pdf");
+                String url = "http://localhost:8080/Mobstat_branches/Statistics/recievefile";
+                File file = FileUtils.getFile("C:\\Users\\Administrator\\Desktop\\A-20151208135047814-f95d176d-f07a-4cf9-9f5c-61f85f28e614.zip");
                 String result = HttpUtils.postMultipart(url, null, null, "file", file);
                 System.out.println(result);
         }

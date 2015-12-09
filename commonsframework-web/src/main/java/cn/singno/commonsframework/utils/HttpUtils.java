@@ -162,7 +162,7 @@ public class HttpUtils
 	public static String get(String url)
 	{
 		HttpGet httpGet = new HttpGet(url);
-		return exectueRequest(httpGet);
+		return executeRequest(httpGet);
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public class HttpUtils
                 {
                         URI uri = new URIBuilder().setPath(url).setParameters(nvps).build();
                         HttpGet httpGet = new HttpGet(uri);
-                        return exectueRequest(httpGet);
+                        return executeRequest(httpGet);
                 } catch (URISyntaxException e)
                 {
                         logger.error(e.getMessage(), e);
@@ -214,7 +214,7 @@ public class HttpUtils
 	{
 		HttpPost httpPost = new HttpPost(url);
 		httpPost.setEntity(entity);
-		return exectueRequest(httpPost);
+		return executeRequest(httpPost);
 	}
 
 	/**
@@ -382,7 +382,7 @@ public class HttpUtils
        * @param request HttpRequestBase
        * @return String 响应内容
        */
-	public static String exectueRequest(HttpRequestBase request)
+	public static String executeRequest(HttpRequestBase request)
 	{
 		return executeRequest(request, null);
 	}
