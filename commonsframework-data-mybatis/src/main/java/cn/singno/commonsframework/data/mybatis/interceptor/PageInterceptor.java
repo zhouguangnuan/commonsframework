@@ -183,7 +183,7 @@ public class PageInterceptor implements Interceptor
 			if ("mysql".equals(dialect))
 			{
 				pageSql.append(sql);
-				pageSql.append(" limit " + page.getNumber() + "," + page.getSize());
+				pageSql.append(" limit " + page.getNumber()*page.getSize() + "," + page.getSize());
 			} else if ("oracle".equals(dialect))
 			{
 				pageSql.append("select * from (select tmp_tb.*,ROWNUM row_id from (");
