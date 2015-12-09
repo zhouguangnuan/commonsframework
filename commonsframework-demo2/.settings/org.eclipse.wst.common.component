@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="commonsframework-demo2">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <dependent-module archiveName="commonsframework-base-bean-4.0.0-RELEASES.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/commonsframework-base-bean/commonsframework-base-bean">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -38,6 +38,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/commonsframework-demo2/src/main/webapp/WEB-INF/classes"/>
-        <property name="context-root" value="/commonsframework-demo2"/>
+        <property name="context-root" value="commonsframework-demo2"/>
     </wb-module>
 </project-modules>
