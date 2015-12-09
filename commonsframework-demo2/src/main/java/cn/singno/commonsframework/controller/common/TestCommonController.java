@@ -85,6 +85,20 @@ public class TestCommonController
 		return "SUCCESS";
 	}
 	
+	@RequestMapping(value="/prox", method=RequestMethod.GET)
+	@ResponseBody
+	public Object prox_get(HttpServletRequest request)
+	{	
+		return "SUCCESS";
+	}
+	
+	@RequestMapping(value="/prox", method=RequestMethod.POST)
+	@ResponseBody
+	public Object prox_post(HttpServletRequest request)
+	{	
+		return "SUCCESS";
+	}
+
 	/**
          * 当文件上传
          * @param file
