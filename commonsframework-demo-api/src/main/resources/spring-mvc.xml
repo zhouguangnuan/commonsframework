@@ -87,23 +87,6 @@
 			<mvc:mapping path="/**"/>
 			<bean class="cn.singno.commonsframework.interceptor.RequestRecordInterceptor" />
 		</mvc:interceptor>
-		<!-- 安全控制拦截器 -->
-    	<mvc:interceptor>
-			<mvc:mapping path="/mobile/app/**"/>
-			<bean class="cn.singno.commonsframework.interceptor.AppSecurityInterceptor" />
-		</mvc:interceptor>
-    	<mvc:interceptor>
-			<mvc:mapping path="/mobile/web/**"/> 
-			<mvc:mapping path="/web/**"/>
-			<mvc:mapping path="/admin/**"/>
-			<bean class="cn.singno.commonsframework.interceptor.WebSecurityInterceptor" />
-		</mvc:interceptor>
-		<!-- 用户认证拦截器 -->
-    	<mvc:interceptor>
-			<mvc:mapping path="/*/user/**"/> 
-			<mvc:mapping path="/*/*/user/**"/> 
-			<bean class="cn.singno.commonsframework.interceptor.AuthenticationInterceptor" />
-		</mvc:interceptor>
     </mvc:interceptors>
     
     <!-- 对静态资源文件的访问控制  -->
@@ -117,14 +100,6 @@
     	<property name="order" value="1"/>
     </bean>
     
-    <!-- beans -->
-    <!-- 内部资源视图解析器配置 -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    	<property name="order" value="1"/>
-        <property name="prefix" value="${web.view.prefix}"/>
-        <property name="suffix" value="${web.view.suffix}"/>
-    </bean>
-    
     <!-- 文件上传支持 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="${web.encode}"/>
@@ -134,5 +109,4 @@
         <property name="maxInMemorySize" value="${web.upload.memory}"/>
     </bean>
     
-    <!-- <import resource="classpath:spring-mvc-shiro.xml"/> -->
 </beans>
