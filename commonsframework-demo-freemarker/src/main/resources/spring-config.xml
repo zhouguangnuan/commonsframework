@@ -25,7 +25,7 @@
         <property name="freemarkerVariables">
             <map>
                 <entry key="xml_escape" value-ref="fmXmlEscape" />
-                <entry key="webRoot" value="localhost:8080" />
+                <entry key="webRoot" value="http://localhost:8080/commonsframework-demo-freemarker" />
             </map>
         </property>
     </bean>

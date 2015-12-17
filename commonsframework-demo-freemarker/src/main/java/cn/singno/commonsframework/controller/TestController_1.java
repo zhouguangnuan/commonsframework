@@ -16,6 +16,10 @@ public class TestController_1
 	{
 		
 		model.addAttribute("name", "singno");
+		model.addAttribute("isComeFromCancelPay", Boolean.TRUE);
+		
+		
+//		model.addAttribute("name2", "");
 		
 		return "test1";
 	}

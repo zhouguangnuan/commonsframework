@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+        xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <context:property-placeholder ignore-unresolvable="true" location="classpath:dbconfig.properties" />
+
+        <!-- 调度任务 -->
+        <bean id="quartTestTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+                <description>测试调度任务</description>
+                <property name="jobClass">
+                        <value>cn.singno.commonsframework.task.QuartTestTask</value>
+                </property>
+        </bean>
+        <!-- 调度触发器 -->
+        <bean id="quartTestTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                <property name="jobDetail" ref="quartTestTask" />
+                <property name="cronExpression" value="0 0/3 * * * ? *" />
+        </bean>
+
+        <!-- 调度工厂 -->
+        <bean id="quartzSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+                <property name="dataSource" ref="dataSource_quartz" />
+                <property name="applicationContextSchedulerContextKey" value="applicationContext" /> 
+                <property name="configLocation" value="classpath:quartz.properties" />
+                <property name="triggers">
+                        <list>
+                                <ref bean="quartTestTaskTrigger" />
+                        </list>
+                </property>
+        </bean>
+
+        <!-- 定义quartz数据源 -->
+        <bean id="dataSource_quartz" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+                <!-- 数据库基本配置 -->
+                <property name="driverClassName" value="${db.quartz.driverClassName}" />
+                <property name="url" value="${db.quartz.url}" />
+                <property name="username" value="${db.quartz.username}" />
+                <property name="password" value="${db.quartz.password}" />
+                <!-- 连接池配置 -->
+                <property name="initialSize" value="${druid.initialSize}" />
+                <property name="maxActive" value="${druid.maxActive}" />
+                <property name="minIdle" value="${druid.minIdle}" />
+                <property name="maxWait" value="${druid.maxWait}" />
+                <property name="validationQuery" value="${druid.validationQuery}" />
+                <property name="testOnBorrow" value="${druid.testOnBorrow}" />
+                <property name="testOnReturn" value="${druid.testOnReturn}" />
+                <property name="testWhileIdle" value="${druid.testWhileIdle}" />
+                <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+                <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+                <property name="removeAbandoned" value="${druid.removeAbandoned}" />
+                <property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" />
+                <property name="logAbandoned" value="${druid.logAbandoned}" />
+                <property name="filters" value="${druid.filters}" />
+        </bean>
+</beans>
