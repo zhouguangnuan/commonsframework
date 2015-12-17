@@ -21,9 +21,10 @@ import cn.singno.commonsframework.entity.Product;
 
 @Controller
 @RequestMapping("/jfb")
+@SuppressWarnings("all")
 public class JfbController
 {
-	@RequestMapping(value="/product/categorys", method=RequestMethod.GET)
+        @RequestMapping(value="/product/categorys", method=RequestMethod.GET)
 	@ResponseBody
 	public Object product_categorys(HttpServletRequest request)
 	{
@@ -66,6 +67,76 @@ public class JfbController
         public Object products(Page page)
         {
 	        List<Product> content = Lists.newArrayList();
+	        if(page.getNumber() % 1 == 0)
+	        {
+	                
+	                
+	                
+//	                <div class="right">
+//                        <div class="banner"><img src="${webRoot}/static/images/jfb/guanggao.png"></div>
+//                        <div class="p_one_box">
+//                                <div class="img"><img src="${webRoot}/static/images/jfb/1.jpg"></div>
+//                                <div class="name">延安宜川红富士 12粒装（70-75mm）</div>
+//                                <div class="gg">1箱</div>
+//                                <div class="price">￥39.00</div>
+//                                <div class="ad">
+//                                        <input type="button" class="del" style="display:none">
+//                                        <input type="text" class="text">
+//                                        <input type="button" class="add">
+//                                </div>
+//                        </div>
+//                        <div class="p_one_box">
+//                                <div class="img"><img src="${webRoot}/static/images/jfb/2.jpg"></div>
+//                                <div class="name">八两阳光水果玉米【4根装】</div>
+//                                <div class="gg">4根装</div>
+//                                <div class="price">￥18.80</div>
+//                                <div class="ad">
+//                                        <input type="button" class="del">
+//                                        <input type="text" class="text" value="2">
+//                                        <input type="button" class="add">
+//                                </div>
+//                        </div>
+//                        <div class="p_one_box">
+//                                <div class="img"><img src="${webRoot}/static/images/jfb/3.jpg"></div>
+//                                <div class="name">【高鹏推荐】进口山竹 大果（4A-6A） 1kg</div>
+//                                <div class="gg">1kg</div>
+//                                <div class="price">￥48.00</div>
+//                                <div class="ad">
+//                                        <input type="button" class="del">
+//                                        <input type="text" class="text" value="2">
+//                                        <input type="button" class="add">
+//                                </div>
+//                        </div>
+//                        <div class="p_one_box">
+//                                <div class="img"><img src="${webRoot}/static/images/jfb/4.jpg"></div>
+//                                <div class="name">泰国进口龙眼 特级 1kg</div>
+//                                <div class="gg">1kg</div>
+//                                <div class="price">￥25.80</div>
+//                                <div class="ad">
+//                                        <input type="button" class="del" style="display:none">
+//                                        <input type="text" class="text">
+//                                        <input type="button" class="add">
+//                                </div>
+//                        </div>
+//                        <div class="p_one_box">
+//                                <div class="img"><img src="${webRoot}/static/images/jfb/5.jpg"></div>
+//                                <div class="name">进口牛油果 4粒</div>
+//                                <div class="gg">4粒/440-520g</div>
+//                                <div class="price">￥33.80</div>
+//                                <div class="ad">
+//                                        <input type="button" class="del" style="display:none">
+//                                        <input type="text" class="text">
+//                                        <input type="button" class="add">
+//                                </div>
+//                        </div>
+//                </div>
+//        </div>
+	        } 
+	        else 
+	        {
+	                
+	        }
+	        
 	        page.setContent(content);
 	        page.setTotalElements(21L);
 	        page.setTotalPages(3);
