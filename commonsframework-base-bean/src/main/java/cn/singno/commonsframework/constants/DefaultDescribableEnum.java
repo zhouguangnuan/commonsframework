@@ -22,7 +22,7 @@ public enum DefaultDescribableEnum implements Describable
 	// 120000-129999
 	SUCCESS(1, "成功"),
 	FAIL(120001, "失敗"),
-	SYSTEM_ERROR(120002, "系统异常"),
+	SYSTEM_ERROR(120002, "系统异常，请稍后重试"),
 	AUTHORIZED_ERROR(120003, "没有权限"),
 	PARAMES_ERROR(120004, "参数异常"),
 	UPLOAD_ERROR(120005, "文件上传异常"),
