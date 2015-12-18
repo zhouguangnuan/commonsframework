@@ -345,7 +345,7 @@ public final class WeiXinUtils {
 	{
 		String userAgent = request.getHeader("User-Agent");
 		String searchSeq ="MicroMessenger";
-		return StringUtils.contains(userAgent, searchSeq);
+		return StringUtils.containsIgnoreCase(userAgent, searchSeq);
 	}
 	
 	/**

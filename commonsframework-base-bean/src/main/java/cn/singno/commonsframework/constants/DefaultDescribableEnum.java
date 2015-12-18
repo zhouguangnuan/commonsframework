@@ -31,7 +31,14 @@ public enum DefaultDescribableEnum implements Describable
 	DES_ERROR(120008, "异或码校验失败"), 
 	LEN_ERROR(120009, "数据长度校验失败"), 
 	NUL_ERROR(120010,"缺少参数或参数为空"),
-	EXISTS_EMOJI(120011,"输入的内容里存在系统不支持的字符")
+	EXISTS_EMOJI(120011,"输入的内容里存在系统不支持的字符"),
+//	API_ERROR_SIGN_ISNULL(120012, "接口验签参数为空"),
+	API_ERROR_SIGN_ISERROR(120013, "接口验签参数非法"),
+//	API_ERROR_TIME_STAMP_ISNULL(120014, "接口调用时间搓参数为空"),
+//	API_ERROR_NONCE_ISERROR(120015, "接口随机秘钥非法"),
+//	API_ERROR_NONCE_ISNULL(120016, "接口随机秘钥未初始化"),
+	ILLEGAL_REQUEST(120017, "非法请求"),
+	
 	;
 	
 	private Integer code;// 描述编码
