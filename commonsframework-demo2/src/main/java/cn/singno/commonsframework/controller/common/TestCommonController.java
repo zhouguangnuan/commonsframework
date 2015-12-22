@@ -17,19 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.singno.commonsframework.bean.CurrentRequestHolder;
 import cn.singno.commonsframework.bean.CurrentRequestHolder2;
 import cn.singno.commonsframework.bean.FileUploadResult;
 import cn.singno.commonsframework.bean.JsonResult;
 import cn.singno.commonsframework.bean.MultipartFiles;
 import cn.singno.commonsframework.constants.DefaultDescribableEnum;
-import cn.singno.commonsframework.utils.ApiUtils;
 import cn.singno.commonsframework.utils.HttpServletUtils;
 import cn.singno.commonsframework.utils.MultipartUtils;
 import cn.singno.commonsframework.utils.NetworkUtils;
 import cn.singno.commonsframework.utils.SessionUtils;
-
-import com.alibaba.fastjson.JSON;
 
 /**
  * 通用接口
