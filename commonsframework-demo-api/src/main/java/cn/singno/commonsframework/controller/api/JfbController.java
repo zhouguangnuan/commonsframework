@@ -68,36 +68,87 @@ public class JfbController
         public Object products(Page page)
         {
 	        List<Product> content = Lists.newArrayList();
-	        if(page.getNumber() % 1 == 0)
-	        {
-	                content.add(new Product("/static/images/jfb/1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
-	                content.add(new Product("/static/images/jfb/2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
-	                content.add(new Product("/static/images/jfb/3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
-	                content.add(new Product("/static/images/jfb/4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
-	                content.add(new Product("/static/images/jfb/5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
-	                content.add(new Product("/static/images/jfb/1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
-                        content.add(new Product("/static/images/jfb/2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
-                        content.add(new Product("/static/images/jfb/3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
-                        content.add(new Product("/static/images/jfb/4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
-                        content.add(new Product("/static/images/jfb/5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
-	        } 
-	        else 
-	        {
-	                content.add(new Product("/static/images/jfb/1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
-                        content.add(new Product("/static/images/jfb/2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
-                        content.add(new Product("/static/images/jfb/3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
-                        content.add(new Product("/static/images/jfb/4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
-                        content.add(new Product("/static/images/jfb/5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
-                        content.add(new Product("/static/images/jfb/1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
-                        content.add(new Product("/static/images/jfb/2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
-                        content.add(new Product("/static/images/jfb/3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
-                        content.add(new Product("/static/images/jfb/4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
-                        content.add(new Product("/static/images/jfb/5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
-	        }
+	        switch (page.getNumber() % 5)
+                {
+                case 0:
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        
+                        
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+//                        content.add(new Product("1.jpg", "延安宜川红富士 12粒装（70-75mm）", "箱", "1", 39.00));
+                        break;
+                case 1:         
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        content.add(new Product("2.jpg", "八两阳光水果玉米【4根装】", "根", "4", 18.80));
+                        break;
+                case 2:
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        content.add(new Product("3.jpg", "【高鹏推荐】进口山竹 大果（4A-6A） 1kg", "kg", "1", 48.00));
+                        break;
+                case 3:
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        content.add(new Product("4.jpg", "泰国进口龙眼 特级 1kg", "kg", "1", 25.80));
+                        break;
+                case 4:
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        content.add(new Product("5.jpg", "进口牛油果 4粒", "粒", "4", 33.80));
+                        break;
+                }
 	        
 	        page.setContent(content);
-	        page.setTotalElements(21L);
-	        page.setTotalPages(3);
+	        page.setTotalElements(50L);
+	        page.setTotalPages(5);
 	        
 	        JsonResult jsonResult = new JsonResult(DefaultDescribableEnum.SUCCESS, page);
                 return jsonResult;
