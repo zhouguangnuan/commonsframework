@@ -13,3 +13,4 @@ hs_err_pid*
 /commonsframework-demo/src/main/webapp/src
 /commonsframework-demo-freemarker
 /.gitignore
+/commonsframework-demo-api
