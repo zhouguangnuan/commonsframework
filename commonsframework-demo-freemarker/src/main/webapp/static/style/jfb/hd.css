@@ -1,0 +1,57 @@
+@charset "UTF-8";
+/* CSS Document */
+.hd_img{ float:left; width:100%; position:relative;}
+.hd_img img{ width:100%;}
+.jrgwc{ position:absolute; right: 4%; top: 9%; width: 36%; height: 20%; text-indent:-9999px;background:url(../../images/jfb/hd/btn.png) no-repeat; background-size:cover;}
+.bottom_btn{ background:none;}
+.bottom_btn .bgbgbg{ background-color:#000; opacity:0.4;filter:alpha(opacity=40); position:absolute; bottom:0; height:50px; left:0; right:0; z-index:500;}
+.bgbgbg1{ position:absolute; left:0; right:0; width:100%; height:50px; bottom:0; z-index:502;}
+.bottom_btn .btn { border:0;}
+.fffff{ float:left; height:50px; width:100%; background-color:#fc391d;}
+.bottom_btn .price{ line-height:50px; padding-left:10px;}
+.bottom_btn .btn .js_btn{ background-color:#fc391d !important;}
+.dh{ -webkit-animation: huadong 1.5s ease;
+    -moz-animation: huadong 1.5s ease;
+    -o-animation: huadong 1.5s ease;
+    animation: huadong 1.5s ease;
+    -webkit-animation-fill-mode: backwards;
+    -moz-animation-fill-mode: backwards;
+    -o-animation-fill-mode: backwards;
+    animation-fill-mode: backwards;}
+.none{}
+
+@keyframes huadong {
+	0%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	30%{ width:56%; height:28%;right: 0%; top: 8%; }
+	70%{ width:20%; height:11%;right: 12%; top: 14%; }
+	100%{width: 36%; height: 20%;right: 4%; top: 9%; }
+
+	}
+@-webkit-keyframes huadong {
+	0%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	30%{ width:56%; height:28%;right: 0%; top: 8%; }
+	70%{ width:20%; height:11%;right: 12%; top: 14%; }
+	100%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	}
+
+@-ms-keyframes huadong {
+		0%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	30%{ width:56%; height:28%;right: 0%; top: 8%; }
+	70%{ width:20%; height:11%;right: 12%; top: 14%; }
+	100%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	}
+@-moz-keyframes huadong {
+		0%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	30%{ width:56%; height:28%;right: 0%; top: 8%; }
+	70%{ width:20%; height:11%;right: 12%; top: 14%; }
+	100%{width: 36%; height: 20%;right: 4%; top: 9%; }
+
+	}
+@-o-keyframes huadong {
+		0%{width: 36%; height: 20%;right: 4%; top: 9%; }
+	30%{ width:56%; height:28%;right: 0%; top: 8%; }
+	70%{ width:20%; height:11%;right: 12%; top: 14%; }
+	100%{width: 36%; height: 20%;right: 4%; top: 9%; }
+
+	}
+

@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, inital-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="telephone=no" name="format-detection">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<!--[if lt IE 9]> 
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script> 
+<![endif]--> 
+<title>快速登录</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="top_bar">
+	<div class="back"><div class="back_img">返回</div></div>
+    <div class="c_word">快速登录</div>
+</div>
+<div class="content">
+	<div class="line">
+    	<div class="w56 input_bg"><input class="ip_text" type="text" placeholder="请输入手机号码"></div>
+        <div class="w33"><input class="ip_btn bg_color1" type="submit" value="获取验证码"></div>
+        <!-- 短信发出后隐藏上方input的class：bg_color1，60s间隔判断才可触发点击 -->
+    </div>
+    <div class="line">
+    	<div class="w92 input_bg"><input class="ip_text" type="text" placeholder="请填写验证码"></div>
+    </div>
+    <div class="line">
+    	<div class="ts_word color1">手机号格式有误</div>
+    </div>
+    <div class="line">
+    	<div class="w100 input_btn"><input class="big_btn bg_color1" type="button" value="登录"></div>
+    </div>
+</div>
+<!--短信发送成功后的弹出提示，需加上x秒后隐藏！暂定3s  开始-->
+<div class="tc_box" style="display:none">
+	<div class="word">短信已成功发送到您手机</div>
+    <div class="bg_back"></div>
+</div>
+<!--短信发送成功后的弹出提示，需加上x秒后隐藏！  结束-->
+</body>
+</html>

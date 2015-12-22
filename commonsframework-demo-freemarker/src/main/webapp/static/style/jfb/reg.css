@@ -1,0 +1,31 @@
+/*公共基础begin*/
+*{margin:0;padding:0;}
+body{padding:0;background:#F2F2F2;color:#666;font-family: "Microsoft YaHei";font-size: 12px;}
+div,table,li,input,select,dd{font-size:12px;font-family:"Microsoft YaHei"; vertical-align:middle;}
+img{border:0px; vertical-align:top;}
+ul,li{list-style: none; margin:0px; padding:0;}
+.clear{clear:both; font-size:0px; line-height:0px;}
+.display{display:none;}
+/*注册*/
+.hbg{background-color:#f2f2f2; height:26px; line-height:26px;}
+.hlgbg{width:100%; height:27px;}
+.w1200{clear: both;margin-right: auto;margin-left: auto;width:1200px;}
+.filled{height: 27px;font-style: normal;font-size: 12px;color: #FF6661;line-height: 27px;background-image: url(../../images/jfb/wrong.gif);background-repeat: no-repeat;background-position: left;padding-left: 20px;margin-left: 5px;}
+/*注册*/
+.regist{width: 990px;height: 380px;margin-right: auto;margin-left: auto;margin-top: 70px;background-color: #fff;position: relative;padding-top: 120px;border-top-width: 10px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;border-top-color:#77dbb7;border-right-color: #ddd;border-bottom-color: #ddd;border-left-color: #ddd;background-image: url(../../images/jfb/ds.png);background-position: bottom;background-repeat: no-repeat;}
+.regtitle{width: 430px;height: 36px;background-color: #fff;position: absolute;font-size: 30px;font-weight: bold;color: #525252;line-height: 36px;text-align: center;left: 436px;top: 60px;}
+.sj{width: 280px;height: 355px;position: absolute;font-size: 30px;font-weight: bold;color: #525252;line-height: 36px;text-align: center;left: 90px;top: 60px;}
+.extra{width:120px;height:25px;position: absolute;top: -25px;right: 0px; line-height:25px;}
+.registpos{margin-bottom: 26px;font-size: 14px;line-height: 36px;height: 36px;}
+.input{width:260px;height:36px;line-height: 36px;border: 1px solid #CCCCCC;}
+.yzinput{width:156px;height:36px;line-height: 36px;border: 1px solid #CCCCCC;}
+.fuser{padding-left: 450px;}
+.fexce{padding-left: 460px;}
+.regtel{padding-left: 350px; height:10px;}
+.regbuton{padding-left: 510px;}
+.line{line-height: 1px;background-color: #e4e4e4;width: 100%;height: 1px;margin-top: 30px;margin-bottom: 30px;}
+.foot{font-size: 14px;color: #434343;text-align: center;height: 90px;padding-top: 20px;}
+.foot a{color: #434343;}.foot a:hover{}
+.register2{padding-top: 120px;color: #7cbe56;font-size: 20px;line-height: 20px;text-align: center;margin-bottom: 30px;}
+.register2bon{text-align: center;}
+.filled{height: 27px;font-style: normal;font-size: 12px;color: #FF6661;line-height: 27px;background-image: url(../../images/jfb/wrong.gif);background-repeat: no-repeat;background-position: left;padding-left: 20px;margin-left: 5px;}

@@ -1,0 +1,95 @@
+@charset "UTF-8";
+/* CSS Document */
+a,img,button,dd,dl,dt,div,span,input,textarea{-webkit-tap-highlight-color:rgba(255,255,255,0);outline:none;}
+html,body{padding:0; margin:0;}
+body{line-height:1.6;font-family:"Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","微软雅黑","黑体",Arial,sans-serif;color:#232323;font-size:14px;background:url(../../images/jfb/hongbao2/bg3.jpg) repeat-y; background-size:100%; }
+button, input[type=button], input[type=reset], input[type=submit] {cursor: pointer; -webkit-appearance: button; -moz-appearance: button; }
+a,img,button,input,textarea{-webkit-tap-highlight-color:rgba(255,255,255,0);}
+p{ padding:0; margin:0;}
+li{ list-style:none;}
+input{ border:0; padding:0; margin:0; font-size:14px;outline:none;}
+
+.bg1{ float:left; background:url(../../images/jfb/hongbao2/bg1.jpg) no-repeat; width:100%; background-size:100%;} .word_logo{ width:47%; margin:0 auto;}
+.moji{ background:url(../../images/jfb/hongbao2/bg5.jpg) no-repeat !important; background-size:100% !important;}
+.word_logo img{ float:left; width:100%;}
+.mt62{ margin-top:62px !important;}
+.bg1 .bg2{ float:left; width:80%; margin-left:10%; background:url(../../images/jfb/hongbao2/bg2.png) no-repeat; background-size:cover; margin-top:20px;}
+.bg1 .bg2 .name{ color:#cb8e4d; float:left; width:70%; padding:20px 15% 8px; z-index:10; position:relative;}
+.bg1 .bg2 .name .title{ float:left; width:100%;}
+.bg1 .bg2 .name .yhq_name{ float:left; width:100%; font-size:20px;}
+.bg1 .bg2 .input{float:left; width:70%; margin:0px 15%; background-color:#ededed; border:1px solid #d5d5d5; height:29px; line-height:29px; border-radius:2px;}
+.bg1 .bg2 .input .input_tel{ background:none; height:20px; line-height:20px; margin-top:4px; width:90%; padding:0 5%;}
+.bg1 .bg2 .button{ float:left; width:100%; height:180px; margin-bottom:20px; position:relative;}
+.bg1 .bg2 .button .input_sub{ position:absolute; height:86px; z-index:999; width:86px; left:33%; top:29px; text-indent:-9999px; background:none;}
+
+.bg1 .bg6{ float:left; width:80%; margin:20px 10% 0px;background:url(../../images/jfb/hongbao2/bg6.png) no-repeat; background-size:100%;}
+.bg1 .bg6 .name1{ color:#848484; float:left; width:76%; padding:20px 0 8px 12%; text-align:center;}
+.bg1 .bg6 .input{float:left; width:60%; margin:20px 0 0 20%; background-color:#ff4b38; height:32px; line-height:32px; border-radius:2px; color:#fff; border-radius:7px;}
+.bg1 .bg6 .input .input_tel_btn{ background:none; height:32px; line-height:32px; text-align:center; float:left; width:100%; color:#fff;}
+.bg1 .bg6 .button{ float:left; width:100%; height:180px; margin-bottom:20px; position:relative;}
+
+
+.tanceng{ position:fixed; top:0; left:0; right:0; bottom:0; width:100%; z-index:30;}
+.tanceng .black{position:fixed; filter:alpha(opacity=50); width:100%; height:100%; background-color:#000; opacity:0.5; z-index:50;}
+.tanceng .tc{ position:absolute; width:50%; margin:0 25%; top:30%; left:0; z-index:51;}
+.tanceng .tc img{ float:left; width:100%;}
+
+.bg1 .bg_img{ background:url(../../images/jfb/hongbao2/bg4.png) no-repeat bottom center; width:100%; float:left; background-size:80%; padding-bottom:30px;}
+.bg1 .bg_img .bg3{ background-color:#fffef1; width:60%; padding:4%; margin-left:16%; margin-bottom:10px; -webkit-box-shadow:0 3px 7px rgba(35, 24, 21, .3);  -moz-box-shadow:0 3px 7px rgba(35, 24, 21, .3);  box-shadow:0 3px 7px rgba(35, 24, 21, .3); float:left;}
+.bg1 .bg3 .name{ color:#cb8e4d; float:left; width:100%; font-size:16px;}
+.bg1 .bg3 .yhq_price{ float:left; width:100%; text-align:center; color:#e11200; font-size:16px;}
+.bg1 .bg3 .yhq_price b{ display:inline-block; font-size:48px; padding-left:4px;}
+.bg1 .bg3 .zh{ font-size:12px; color:#ff4b38; float:left; width:100%;}
+.bg1 .bg3 .zh span{ padding:0 6px;}
+.bg1 .bg3 .button{ float:left;  width:60%; margin:20px 0 10px 20%;}
+.bg1 .bg3 .button .input_btn{ float:left; height:32px; line-height:32px; width:100%; background:#ff4b38; color:#fff; text-align:center; border-radius:7px;}
+.bg3 .yhq{ width:88%; float:left; margin-left:6%; margin-top:10px; height:65px; overflow:hidden; background-color:#ffefc1; position:relative;}
+.bg3 .yhq .bg_left{ background:url(../../images/jfb/hongbao2/bg_left.png) no-repeat; background-size:11px; position:absolute; left:0; top:0; height:65px; width:10px;}
+.bg3 .yhq .bg_right{ background:url(../../images/jfb/hongbao2/bg_right.png) no-repeat; background-size:11px; position:absolute; right:0; top:0; height:65px; width:10px;}
+.bg3 .yhq .bg_center{ position:relative; background:none; z-index:2;}
+.bg3 .yhq .bg_center .l{ width:32%; margin:14px 0px; border-right:1px solid #ff4b38; height:37px; line-height:37px; color:#ff4b38; text-align:center; font-size:22px; float:left;}
+.bg3 .yhq .bg_center .r{ width:66%; float:left; color:#ff4b38; font-size:12px;}
+.bg_center .yhqname{ margin-top:16px; font-size:14px; line-height:16px; padding-left:5%; width:95%; float:left;}
+.bg_center .time{padding-left:5%; width:95%; float:left;}
+
+.guize{ float:left; width:100%; background-color:#fffef1; color:#e11200; padding:10px 0px; font-size:12px;}
+.guize h3{ padding:0; margin:0; width:90%; padding:0 5%;}
+.guize p{ padding:0; margin:0; line-height:16px; padding:0 5%;}
+.mtb20px{ margin:20px 26%; float:left;}
+
+@media screen and (min-width: 391px) and (max-width:440px){
+	 .bg1 .bg2 .button .input_sub{ height: 113px; width: 113px; left: 33%; top:68px;}
+}
+@media screen and (min-width: 360px) and (max-width:390px){
+.bg1 .bg2 .button .input_sub{height: 113px; width: 113px; left: 31%; top: 47px;}}
+@media screen and (max-width: 440px){.bg1 .bg2_top,.bg1 .bg2_bottom{ display:none;}}
+@media screen and (min-width: 441px){
+	.mt62{ margin-top:100px !important;}
+	.bg1 .bg2{ background:none; position:relative;}
+	.bg1 .bg2_top{ background:url(../../images/jfb/hongbao2/bg8.png) repeat-y; background-size:100%; float:left; width:100%; height:200px; z-index:1; position:absolute; top:0px; left:0;}
+	.bg1 .bg2_c{ margin:10px 0 0; width:100%; background:url(../../images/jfb/hongbao2/bg7.png) no-repeat bottom; position:relative; background-size:100%; z-index:3; float:left;}
+	.bg2_bottom{ background:url(../../images/jfb/hongbao2/bottom.png) no-repeat; width:100%; float:left; background-size:100%; height:100px;}
+	.bg1 .bg6{ background:url(../../images/jfb/hongbao2/bg8.png)  repeat-y; background-size:100%; margin-bottom:50px; padding-bottom:20px;}
+	.bg1 .bg6 .button{ display:none;}
+	}
+@media screen and (min-width: 441px) and (max-width:560px){
+	.bg1 .bg2 .button{ margin-bottom:0;}
+	.bg1 .bg2 .button .input_sub{ width:154px; height:154px; top:12px;}
+	}
+@media screen and (min-width: 561px) and (max-width:720px){
+	.bg1 .bg2 .button{ margin-bottom:0; height:240px;}
+	.bg1 .bg2 .button .input_sub{ width:172px; height:172px; top:54px;}
+	
+	}
+@media screen and (min-width: 721px){
+	.mt62{ margin-top:130px !important;}
+	}
+@media screen and (min-width: 721px) and (max-width:850px){
+	.bg1 .bg2 .button{ margin-bottom:0; height:300px;}
+	.bg1 .bg2 .button .input_sub{ width:200px; height:200px; top:84px;}
+	}
+@media screen and (min-width: 851px) and (max-width:1040px){
+	.bg1 .bg2_c{ margin:10px 0 0; width:100%; background:url(../../images/jfb/hongbao2/bg9.png) no-repeat bottom; position:relative; background-size:100%; z-index:3; float:left;}
+	.bg1 .bg2 .button{ margin-bottom:0; height:300px;}
+	.bg1 .bg2 .button .input_sub{ width:200px; height:200px; top:84px; background:url(../../images/jfb/hongbao2/button.png) no-repeat; background-size:100%; left:38%;}
+	}

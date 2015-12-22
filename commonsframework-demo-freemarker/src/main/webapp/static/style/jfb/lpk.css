@@ -1,0 +1,37 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.zffs{}
+.zffs input.zffs_check{ visibility:hidden;}
+.zffs_check{ height:0px;}
+.zffs label.zffs_label { float:left; background:url(../../images/jfb/check_box@2x.png) no-repeat 12px 12px; background-size:18px; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease;-ms-transition: all .5s ease; transition: all .5s ease;cursor: pointer;}
+.zffs input.zffs_check:checked + label{background:url(../../images/jfb/lpk/check_box.png) no-repeat 12px 12px;background-size:18px; color:#232323;}
+.zffs_label{position: absolute;height:44px; text-indent:34px; width:100%;top: 0;left: 0;z-index: 1; color:#969696;}
+.ljk_yhq,.zff_yh,.zffs_ljk{ float:left; width:100%; position:relative; min-height:44px; line-height:44px;}
+.zffs_ljk .right{ position:absolute; right:12px; text-align:right; color:#fd6059;}
+.zffs_yhq_input{float:left; height:44px; width:100%; position:relative;}
+.zffs_yhq_input .text{ width:92%; margin:0 4%; height:36px; float:left; background-color:#f1f2f5; text-indent:10px; position:relative; z-index:5; border:1px solid #d8d8d8;}
+.zffs_yhq_input .submit{position:absolute; right:4%; top:0; bottom:0; height:36px; width:90px; background:#fd6059; color:#fff; z-index:5;}
+.zffs_yhq_input .sub_qx{ background-color:#42bada !important;}
+.zffs_ky_yhq{ float:left; width:96%; position:relative; margin-left:4%; height:44px; line-height:44px; border-top:1px solid #d8d8d8;}
+.zffs_ky_yhq .radio{ width:100%;}
+.zff_yh .first{ margin:0 !important; padding-left:4% !important;}
+.zffs_ky_yhq .radio input{ visibility:hidden;height:0px;}
+.zffs_ky_yhq .radio label { float:left; background:url(../../images/jfb/check_box@2x.png) no-repeat 96% 12px; background-size:18px; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease;-ms-transition: all .5s ease; transition: all .5s ease;cursor: pointer; width:100%; height:44px; position:absolute; text-indent:0;}
+.zffs_ky_yhq .radio input:checked + label{background:url(../../images/jfb/lpk/radio.png) no-repeat 96% 12px;background-size:18px; color:#fd6059;}
+.new_pay{ background-color:#ffeddc;}
+.new_pay .r{ width:60%;}
+.new_pay .radio{ width:50%;}
+.new_pay .radio input:checked + label{background:url(../../images/jfb/lpk/radio.png) no-repeat 0 12px;background-size:18px; color:#fd6059;}
+.height500{min-height:500px; position:relative}
+.residual{ position:relative; margin-bottom:10px; top:0; background:#fff; border-bottom:1px solid #fd6059; left:0; right:0; width:100%; height:80px; border-top:1px dashed #c8c8c8; color:#666; font-size:18px; overflow:hidden;}
+.residual .residual_name{ position:absolute; left:12px; top:12px;}
+.residual .residual_amount{ right:12px; bottom:-12px; width:100%; position:absolute; text-align:right;}
+.residual .residual_amount b{ font-size:60px; color:#fd6059;}
+.residual .residual_amount em{ padding:0 6px;color:#fd6059;}
+
+.lpk_jl{ float:left; width:100%; color:#666;}
+.lpk_no{ float:left; height:36px; width:100%; line-height:36px; text-indent:12px;}
+.lpk_table{ background:#FFFFFF; width:100%; float:left; overflow:hidden; border-top:1px solid #c8c8c8;}
+.lpk_tbale_t,.lpk_tbale_d{ float:left; width:102%;}
+.lpk_table span{ width:24.6%; float:left; border-right:1px solid #c8c8c8; text-align:center; border-bottom:1px solid #c8c8c8; height:36px; line-height:36px;s}

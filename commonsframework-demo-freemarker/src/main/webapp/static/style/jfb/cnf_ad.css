@@ -1,0 +1,275 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.search {
+	background-color: #fff;
+	border-bottom: 1px solid #c8c8c8;
+	float: left;
+	width: 100%;
+	padding: 8px 0px 8px 0px;
+}
+.search .word {
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	width: 100%;
+	text-indent: 10px;
+	font-size: 13px;
+	color: #676767;
+}
+.search .search_box {
+	margin: 0 4%;
+	float: left;
+	width: 92%;
+	height: 36px;
+}
+.search .search_box .l {
+	float: left;
+	width: 100%;
+	z-index: 150;
+	position: relative;
+}
+.search .search_box .l >input {
+	float: left;
+	border-radius: 5px;
+	height: 34px;
+	border: 1px solid #ececec;
+	line-height: 34px;
+	width: 80%;
+	background: url(../../images/jfb/search.png) no-repeat #f0f2f5 5px 9px;
+	background-size: 14px;
+	text-indent: 22px;
+	position: relative;
+	z-index: 150;
+}
+.search .search_box .r {
+	float: right;
+	width: 20%;
+	z-index: 150;
+	position: relative;
+}
+.search .search_box .r input {
+	float: left;
+	border-radius: 5px;
+	height: 34px;
+	border: 1px solid #fd6059;
+	line-height: 34px;
+	width: 100%;
+	color: #fff;
+	background-color: #fd6059;
+	background-image: -webkit-1s-gradient(to bottom, #fd6059, #f4564f) !important;
+	background-image: 1s-gradient(to bottom, #fd6059, #f4564f) !important;
+	color: #fff !important;
+}
+.choose_wz {
+	float: left;
+	width: 100%;
+	background-color: #fff;
+	font-size: 13px;
+	color: #676767;
+	position: relative;
+}
+.choose_wz .now,.choose_wz .time {
+	float: left;
+	width: 92%;
+	padding: 0 4%;
+	position: relative;
+}
+.choose_wz .now .icon {
+	background: url(../../images/jfb/lbg1.png) no-repeat #fff;
+}
+.choose_wz .time .icon {
+	background: url(../../images/jfb/lbg2.png) no-repeat #fff;
+}
+.choose_wz .now .first .icon {
+	background: url(../../images/jfb/zb.png) no-repeat #fff;
+}
+.choose_wz .time .first .icon {
+	background: url(../../images/jfb/time.png) no-repeat #fff;
+}
+.choose_wz .icon {
+	background-size: 36px !important;
+	width: 36px;
+	height: 44px;
+	position: absolute;
+	top: -1px;
+	left: -4%;
+}
+.choose_wz .tt {
+	float: left;
+	width: 100%;
+	text-indent: -7px;
+	height: 20px;
+	margin-top: 6px;
+}
+.choose_wz .btn {
+	position: absolute;
+	right: 4%;
+	top: 10px;
+	width: 83px;
+	height: 60px;
+	z-index: 400;
+}
+.choose_wz .btn .bd {
+	border-radius: 5px;
+	border: 1px solid #c8c8c8;
+	text-indent: 24px;
+	height: 22px;
+	overflow: hidden;
+	line-height: 24px;
+	width: 100%;
+	float: right;
+}
+.choose_wz .now .bd {
+	background: url(../../images/jfb/dw.png) no-repeat 6px 4px;
+	background-size: 14px;
+	border-color: #f95c55 !important;
+	color: #f95c55 !important;
+}
+.choose_wz .time .bd {
+	background: url(../../images/jfb/dw.png) no-repeat 6px 4px;
+	background-size: 14px;
+	border-color: #f95c55 !important;
+	color: #f95c55 !important;
+}
+.choose_wz .now .tt {
+	color: #f95c55;
+}
+.choose_wz .time .tt {
+	color: #42bada;
+}
+.choose_wz .word {
+	float: left;
+	width: 100%;
+	height: 44px;
+	line-height: 18px;
+	font-size: 13px;
+	border-top: 1px solid #e8e8e8;
+	position: relative;
+}
+.choose_wz .first {
+	border: 0;
+}
+.choose_wz .word .adr {
+	float: left;
+	margin-top: 5px;
+	text-indent: 26px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #676767;
+}
+.choose_wz .word .qy {
+	float: left;
+	text-indent: 26px;
+	font-size: 12px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #b8b8b8;
+}
+.choose_wz .word .qy span {
+	padding-right: 8px;
+}
+.choose_wz .error .adr {
+	color: #fd6059 !important;
+}
+.choose_wz .span {
+	float: left;
+	width: 96%;
+	margin-left: 4%;
+	border-bottom: 1px solid #e8e8e8;
+	height: 44px;
+	position: relative;
+}
+.choose_wz .span .adr {
+	margin-top: 5px;
+	height: 18px
+}
+.choose_wz .span .qy {
+	float: left;
+	font-size: 12px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #b8b8b8;
+}
+.choose_wz .span .qy span {
+	padding-right: 8px;
+}
+.choose_wz .clear_line {
+	height: 1px;
+	background-color: #e8e8e8;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0px;
+	width: 100%;
+}
+.footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 44px;
+	background-color: #fd6059;
+	background-image: -webkit-1s-gradient(to bottom, #fd6059, #f4564f) !important;
+	background-image: 1s-gradient(to bottom, #fd6059, #f4564f) !important;
+	color: #fff !important;
+	text-align: center;
+	z-index: 100;
+}
+.footer .cont_f {
+	height: 20px;
+	line-height: 20px;
+	width: 125px;
+	background: url(../../images/jfb/ad.png) no-repeat;
+	background-size: 18px;
+	display: block;
+	margin: 14px auto 0;
+}
+.choose_wz .error .adr {
+	color: #fd6059 !important;
+}
+.sa_box {
+	float: left;
+	width: 100%;
+	position: relative;
+	z-index: 101;
+}
+.sa_box .black {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	filter: alpha(opacity=10);
+	opacity: 0.1;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	z-index: 110;
+}
+.sa_box .seach_line {
+	background-color: #fff;
+	position: relative;
+	float: left;
+	width: 100%;
+	z-index: 120;
+	box-shadow: 0px 2px 10px #c8c8c8;
+	-moz-box-shadow: 0px 2px 10px #c8c8c8;
+	-webkit-box-shadow: 0px 2px 10px #c8c8c8;
+}
+.sa_box .seach_line .s_line {
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	border-bottom: 1px solid #c8c8c8;
+	border-left: 1px solid #c8c8c8;
+	border-right: 1px solid #c8c8c8;
+	text-indent: 10px;
+}

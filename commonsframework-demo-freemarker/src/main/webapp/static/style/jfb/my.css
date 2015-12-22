@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/* CSS Document */
+/*公共部分*/
+.my_top,.img,.word,.top_list,.order,.order_zt,.order_img,.order_btn,.address,.adr,.title,.input,.moren{ float:left;}
+.del{position:absolute; right:0; top:0; bottom:0; cursor:pointer; min-width:60px; z-index:10;}
+.del_img{ background:url(../../images/jfb/del@2x.png) no-repeat 20px 20px; width:21px; height:23px; background-size:21px; float:right; text-indent:-9999px; margin-top:15px; border-left:1px solid #c8c8c8; padding:20px;}
+
+/*个人中心*/
+.my_top{ background:#fff; width:100%; border-bottom:1px solid #c8c8c8; padding:10px 0; overflow:hidden;}
+.my_top .img,.my_top .word{ padding-left:12px;}
+.my_top .img img{ width:44px; height:44px;}
+.my_top .word{ line-height:22px; padding-top:2px;}
+.wb_line .nu{ float:right; padding-right:30px;}
+.wb_line .word{ padding-right:12px;}
+/*我的订单*/
+.top_list{ height:44px; line-height:44px; background:#fff; border-bottom:1px solid #c8c8c8; width:100%;}
+.top_list li{ float:left; width:25%; text-align:center; color:#969696; cursor:pointer; height:44px; position:relative;}
+.top_list li i{ display:none; text-indent:-9999px;}
+.top_list li.wcol_red i{ display:block; height:3px; background-color:#fd6059; width:80%; margin:0 auto; position:absolute; left:0; bottom:0; right:0;}
+.top_list li span{ position:absolute; left:0; border-right:1px solid #c8c8c8; width:100%; float:left; height:18px; line-height:18px; margin:13px 0 0;}
+.order{ padding:0px 4%; width:92%; border-top:1px solid #c8c8c8; border-bottom:1px solid #c8c8c8; background-color:#fff; margin-top:10px;}
+.order .order_zt{ width:100%; height:36px; line-height:36px; border-bottom:1px solid #c8c8c8;}
+.order .order_img{ width:100%; padding:10px 0px; height:55px; border-bottom:1px solid #c8c8c8;}
+.order .order_img img{ width:55px; height:55px; border:1px solid #e4e4e4; margin:0px 10px 0px 0px; padding:0;}
+.order .order_img .l{ width:210px; overflow:hidden;}
+.order .order_img .wcol_red{ font-size:18px; text-align:right; padding-top:3px;}
+.order .order_img .wcol_gray{ text-align:right;}
+.order .order_btn{ width:100%;}
+.order .order_btn .l{ line-height:52px;}
+.order .order_btn .wcol_red{ border-radius:4px; border:1px solid #fd6059; padding:4px 6px; float:right; margin:10px 0px 10px 10px;}
+.order .order_btn .wcol_blue{ border-radius:4px; border:1px solid #42bada; padding:4px 6px;float:right; margin:10px 0px;}
+.order .order_btn .word{line-height:52px; color:#fd6059;}
+/*我的收货地址*/
+.address{ width:100%;}
+.address .bq{ height:36px; line-height:36px; float:left;border-bottom:1px solid #c8c8c8; width:100%; text-indent:12px;}
+.address .details{ background:#fff; border-bottom:1px solid #c8c8c8; height:70px; float:left; width:92%; padding:10px 4%; position:relative;}
+.address .details .l{ width:78%; cursor:pointer;}
+.wb_line .title{ padding-left:12px; color:#676767;}
+.wb_line .input{ width:72%;}
+.min_select{ outline:none; border:0; background-color:#fff; width:48%;height:44px; line-height:44px; font-size:14px; }
+.all_select{outline:none; border:0; background-color:#fff; width:98%; height:44px; line-height:44px; float:right;font-size:14px;}
+/*优惠券*/
+.yhq{ float:left; position:relative; width:88%; margin:10px 6% 0px; background-image:-webkit-linear-gradient(to bottom, #fd6059, #f4564f);background-image:linear-gradient(to bottom,#fd6059,#f4564f); color:#fff; height:75px; }
+.yhq .l{ background:url(../../images/jfb/yh_left.png) no-repeat; width:7px; background-size:7px; position:absolute; left:-5px; height:75px; top:0;}
+.yhq .r{ background:url(../../images/jfb/yh_right.png) no-repeat; width:7px; background-size:7px; position:absolute; right:-5px; height:75px; top:0;}
+.yhq .time{ position:absolute; left:5px; top:2px; width:98%; height:18px; line-height:18px; font-size:11px;}
+.yhq .bianma{ position:absolute; bottom:2px; left:5px; font-size:11px;}
+.yhq .lx{ position:absolute; right:5px; bottom:20px;font-size:11px;}
+.yhq .xz{ position:absolute; right:5px; bottom:2px;font-size:11px;}
+.yhq .price{ position:absolute; left:0; right:0; width:50%; margin:0 auto; top:21px; font-size:40px; text-align:center; height:40px; line-height:40px; z-index:10;}
+.clear_name{ float:left; width:92%; margin:10px 4% 0; height:26px; line-height:26px; color:#969696;}
+.sx .l,.bk .l{background:url(../../images/jfb/sx_left.png) no-repeat;  background-size:7px;}
+.sx .r,.bk .r{background:url(../../images/jfb/sx_right.png) no-repeat;  background-size:7px;}
+.sx,.bk{ background:#bbb !important;}
+.sx .time{ background:url(../../images/jfb/sx.png) no-repeat right top; height:75px; z-index:2; background-size:99px;}
+.sx1 .time{ background:url(../../images/jfb/sx1.png) no-repeat right top !important; height:75px; z-index:2; background-size:99px;}
+.sx2 .time{ background:url(../../images/jfb/sx2.png) no-repeat right top !important; height:75px; z-index:2; background-size:99px;}
+
+.top_list .half{ float:left; width:50%; text-align:center; color:#969696; cursor:pointer; height:44px; position:relative;}
+.top_list .half em{ display:none; text-indent:-9999px;}
+.top_list .wcol_red em{ display:block; height:3px; background-color:#fd6059; width:80%; margin:0 auto; position:absolute; left:0; bottom:0; right:0;}
+.top_list .half span{ position:absolute; left:0; border-right:1px solid #c8c8c8; width:100%; float:left; height:18px; line-height:18px; margin:13px 0 0;}
+
+.moren{  height:18px; line-height:16px; margin:14px 0px 0px 4%;width:92%; position: relative;}
+.moren input[type=checkbox] {visibility: hidden;}
+.moren label {display: block; background:url(../../images/jfb/check_box_1@2x.png) no-repeat; background-size:14px; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease;-ms-transition: all .5s ease; transition: all .5s ease;cursor: pointer;position: absolute;padding-left:21px;height:36px;top: 0;left: 0;z-index: 1;}
+.moren input[type=checkbox]:checked + label {background:url(../../images/jfb/check_box_on_1@2x.png) no-repeat;background-size:14px;}
+/*取消订单*/
+.cancel_w{ float:left; width:100%; height:44px; line-height:44px; text-indent:10px;}
+.cancel{ border-top:1px solid #c8c8c8; float:left; width:100%; height:44px; line-height:44px; position:relative;}
+.cancel input{ visibility:hidden;}
+.cancel label {float:left; background:url(../../images/jfb/check_box@2x.png) no-repeat 12px 12px; background-size:18px; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; -o-transition: all .5s ease;-ms-transition: all .5s ease; transition: all .5s ease;cursor: pointer;position: absolute;height:44px; text-indent:38px; width:100%;top: 0px;right: 0px;z-index: 1; color:#969696;}
+.cancel input:checked + label{background:url(../../images/jfb/check_box_on@2x.png) no-repeat 12px 12px;background-size:18px; color:#232323;}
+.cancel1{ height:140px;}
+.cancel1 textarea{ margin-top:44px; width:92%; float:left; margin-left:4%; height:80px; border:1px solid #eee; outline:none;}

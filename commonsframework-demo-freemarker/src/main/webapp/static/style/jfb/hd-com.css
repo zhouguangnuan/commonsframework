@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/* CSS Document */
+img{border:0;}
+/* .rt_gwc{ position:absolute; right:0px; padding-right:12px; width:60px; height:44px; }
+.rt_gwc .gwc{background:url(../../images/jfb/hd_com/gwc.png) no-repeat right;background-size:23px; height:23px; width:23px;display: block; float:right; margin-top:10px;}
+.rt_gwc i{ position:absolute; border-radius:100px; background-color:#fc3e1a; color:#fff; text-align:center; right:4px; top:4px; width:20px; height:20px; line-height:20px;} */
+.content img{ float:left; width:100%;}
+.hd_details,.hd_title{ float:left; width:100%;}
+.hd_details .hdd{ margin-top:10px; float:left; width:100%; border-top:1px solid #e8e8e8; border-bottom:1px solid #e8e8e8; position:relative; background-color:#fff;}
+.hd_details .hdd_img{ float:left; width:100%; border-bottom:1px dashed #e8e8e8;}
+.hd_details .hdd_name{ float:left; width:92%; margin:0 4%; position:relative;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; font-size:15px; height:30px; line-height:30px; padding-top:6px;}
+.hd_details .hdd_other{float:left; width:92%; margin:0 4%; position:relative; }
+.hdd_other .ms{ color:#fc391d; float:left; width:100%; font-size:11px;}
+.hdd_other .price{ float:left; width:100%; font-size:18px; padding-bottom:6px; color:#fc3e1a;}
+.hdd_other .price em{ font-style:normal; font-size:12px; color:#999; text-decoration:line-through;}
+
+.ad{ position:absolute; right:10px; bottom:12px !important; width:75px; height:22px; }
+.ad .add{background: url("../../images/jfb/add.png") no-repeat 20px 44px;background-size:22px;  top: -44px; right: -20px; position: absolute; height: 78px; width: 60px; float: right; z-index:80;}
+.ad .del{ background:url(../../images/jfb/del.png) no-repeat 13px 44px;top:-44px;left:-13px; position:absolute; background-size:22px;  height:78px; width:47px; float:left; z-index:80;}
+.ad .del input{cursor:auto; background:none; position:absolute; left:-3px; top:-26px; height:55px; width:40px;}
+.ad .text{ background:none; width:75px; height:22px; line-height:22px; font-size:18px; float:left; text-align:center;}
+.btm_images{ float:left; width:100%; margin-top:15px;}
+.fffff{height:50px !important;}
