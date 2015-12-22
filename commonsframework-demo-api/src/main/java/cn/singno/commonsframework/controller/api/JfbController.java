@@ -55,8 +55,8 @@ public class JfbController
                 list.add(parant_1);
                 list.add(parant_2);
                 list.add(parant_3);
-	        
-                JsonResult jsonResult = new JsonResult(DefaultDescribableEnum.SUCCESS);
+                
+                JsonResult jsonResult = new JsonResult(DefaultDescribableEnum.NOT_LOGIN);
                 Map<String, Object> data = Maps.newHashMap();
                 data.put("list", list);
                 jsonResult.setData(data);

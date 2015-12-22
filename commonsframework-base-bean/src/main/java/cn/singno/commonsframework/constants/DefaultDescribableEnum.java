@@ -21,7 +21,8 @@ public enum DefaultDescribableEnum implements Describable
 {
 	// 120000-129999
 	SUCCESS(1, "成功"),
-	FAIL(120001, "失敗"),
+	FAIL(120000, "失敗"),
+	NOT_LOGIN(120001, "用户未登录"),
 	SYSTEM_ERROR(120002, "系统异常，请稍后重试"),
 	AUTHORIZED_ERROR(120003, "没有权限"),
 	PARAMES_ERROR(120004, "参数异常"),

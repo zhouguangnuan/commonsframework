@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-        version="3.0" metadata-complete="false">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0" metadata-complete="false">
 
         <display-name>xml形式web配置</display-name>
 
@@ -29,9 +28,8 @@
         <!-- <context-param> <description>根据环境自动切换配置</description> <param-name>spring.profiles.active</param-name> <param-value>development</param-value> </context-param> -->
 
         <!-- filter -->
-        <!-- <filter> <description>shiro 安全过滤器</description> <filter-name>shiroFilter</filter-name> <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> <async-supported>true</async-supported> 
-                <init-param> <param-name>targetFilterLifecycle</param-name> <param-value>true</param-value> </init-param> </filter> <filter-mapping> <filter-name>shiroFilter</filter-name> <url-pattern>/*</url-pattern> 
-                <dispatcher>REQUEST</dispatcher> </filter-mapping> -->
+        <!-- <filter> <description>shiro 安全过滤器</description> <filter-name>shiroFilter</filter-name> <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> <async-supported>true</async-supported> <init-param> <param-name>targetFilterLifecycle</param-name> <param-value>true</param-value> 
+                </init-param> </filter> <filter-mapping> <filter-name>shiroFilter</filter-name> <url-pattern>/*</url-pattern> <dispatcher>REQUEST</dispatcher> </filter-mapping> -->
         <filter>
                 <description>字符编码强制转换</description>
                 <filter-name>encodingFilter</filter-name>
@@ -51,9 +49,16 @@
                 <filter-name>encodingFilter</filter-name>
                 <url-pattern>/*</url-pattern>
         </filter-mapping>
-        <!-- <filter> <description>JPA延迟加载处理</description> <filter-name>OpenEntityManagerInViewFilter</filter-name> <filter-class>org.springframework.orm.jpa.OpenEntityManagerInViewFilter</filter-class> 
-                </filter> <filter-mapping> <filter-name>OpenEntityManagerInViewFilter</filter-name> <url-pattern>/*</url-pattern> </filter-mapping> -->
-
+        <!-- <filter> <description>JPA延迟加载处理</description> <filter-name>OpenEntityManagerInViewFilter</filter-name> <filter-class>org.springframework.orm.jpa.OpenEntityManagerInViewFilter</filter-class> </filter> <filter-mapping> <filter-name>OpenEntityManagerInViewFilter</filter-name> <url-pattern>/*</url-pattern> 
+                </filter-mapping> -->
+        <filter>
+                <filter-name>CorsFilter</filter-name>
+                <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+        </filter>
+        <filter-mapping>
+                <filter-name>CorsFilter</filter-name>
+                <url-pattern>/*</url-pattern>
+        </filter-mapping>
 
         <!-- listener -->
         <listener>
