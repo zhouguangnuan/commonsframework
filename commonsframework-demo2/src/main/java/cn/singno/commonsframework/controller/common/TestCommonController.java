@@ -226,11 +226,13 @@ public class TestCommonController
                 return null;
         };
 		
-		@RequestMapping(value="/apiTest", method=RequestMethod.POST)
+	@RequestMapping(value="/apiTest", method=RequestMethod.POST)
         @ResponseBody
         public Object apiTest(HttpServletRequest request) throws Exception
         { 
         	ApiUtils.checkParameter(request);
                 return new JsonResult(DefaultDescribableEnum.SUCCESS);
         };
+        
+        
 }
