@@ -1,18 +1,20 @@
 package cn.singno.commonsframework.interceptor;
 
-import org.apache.log4j.Logger;
+import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
-
 import cn.singno.commonsframework.bean.CurrentRequestHolder;
-import cn.singno.commonsframework.utils.SpringUtils;
+
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 
 /**
  * 请求记录拦截器
@@ -43,6 +45,14 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
         
 		logger.info("uri:     " + request.getRequestURI());
 		logger.info("params:     " + JSON.toJSONString(request.getParameterMap()));
+		Enumeration<String> headerNames = request.getHeaderNames();
+		Map<String, String> header = Maps.newHashMap();
+		while (headerNames.hasMoreElements())
+                {
+			String headerName = headerNames.nextElement();
+			header.put(headerName, JSON.toJSONString(request.getHeaders(headerName)));
+                }
+		logger.info("header:     " + JSON.toJSONString(header));
 		
 		return true; 
 	}

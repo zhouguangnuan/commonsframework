@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -28,7 +29,6 @@ public class JfbController
 	@ResponseBody
 	public Object product_categorys(HttpServletRequest request)
 	{
-                
                 List<Category> list = Lists.newArrayList();
                 Category parant_1 = new Category(1, "聚方便", "no_category_01", null, 1);
                 

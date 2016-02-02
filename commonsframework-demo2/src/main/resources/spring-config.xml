@@ -51,8 +51,8 @@
                 </property>
         </bean>
 
-        <import resource="classpath:spring-config-quartz.xml"/> 
         <!-- 
+        <import resource="classpath:spring-config-quartz.xml"/> 
         <import resource="classpath:spring-config-cache.xml"/> 
         <import resource="classpath:spring-config-jpa.xml"/> 
         <import resource="classpath:spring-config-shiro.xml"/> 
