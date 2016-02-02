@@ -61,6 +61,7 @@
                 <xsream.version>1.1</xsream.version>
                 <!-- mysql-connector-java -->
                 <mysql-connector-java.version>5.1.30</mysql-connector-java.version>
+                <mongo-java-driver.version>2.9.1</mongo-java-driver.version>
                 <!-- hibernate -->
                 <hibernate.version>4.2.8.Final</hibernate.version>
                 <hibernate-validator.version>5.0.2.Final</hibernate-validator.version>
@@ -141,6 +142,7 @@
                 <module>commonsframework-base-bean</module>
                 <module>commonsframework-base-utils</module>
                 <module>commonsframework-log</module>
+                <module>commonsframework-log-mongodb</module>
                 <module>commonsframework-web</module>
                 <module>commonsframework-validation</module>
                 <module>commonsframework-test</module>
@@ -323,6 +325,12 @@
                                 <groupId>mysql</groupId>
                                 <artifactId>mysql-connector-java</artifactId>
                                 <version>${mysql-connector-java.version}</version>
+                        </dependency>
+                        <!-- mongodb -->
+                        <dependency>
+                                <groupId>org.mongodb</groupId>
+                                <artifactId>mongo-java-driver</artifactId>
+                                <version>${mongo-java-driver.version}</version>
                         </dependency>
                         <!-- hibernate -->
                         <dependency>
@@ -668,6 +676,12 @@
                         <dependency>
                                 <groupId>cn.singno.commonsframework</groupId>
                                 <artifactId>commonsframework-log</artifactId>
+                                <version>4.0.0-RELEASES</version>
+                        </dependency>
+                        <!-- log-mongodb -->
+                        <dependency>
+                                <groupId>cn.singno.commonsframework</groupId>
+                                <artifactId>commonsframework-log-mongodb</artifactId>
                                 <version>4.0.0-RELEASES</version>
                         </dependency>
                         <!-- web -->
