@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
+
+import cn.singno.commonsframework.bean.Config;
 import cn.singno.commonsframework.bean.CurrentRequestHolder;
 import cn.singno.commonsframework.bean.CurrentRequestHolder2;
 import cn.singno.commonsframework.bean.FileUploadResult;
@@ -29,8 +34,6 @@ import cn.singno.commonsframework.utils.MultipartUtils;
 import cn.singno.commonsframework.utils.NetworkUtils;
 import cn.singno.commonsframework.utils.SessionUtils;
 
-import com.alibaba.fastjson.JSON;
-
 /**
  * 通用接口
  */
@@ -40,6 +43,26 @@ public class TestCommonController
 {
         @Autowired
         private CurrentRequestHolder2 currentRequestHolder2;
+        
+        @RequestMapping(value="/testConfig")
+        @ResponseBody
+        public Object testConfig(HttpServletRequest request)
+        {
+                if (StringUtils.equalsIgnoreCase(request.getMethod(), "GET"))
+                {
+                        return Config.weixin.getInt("APP_ID");
+                } else {
+                        Config.weixin.setProperty("APP_ID", "3333333");  
+                        try
+                        {
+                                Config.weixin.save();
+                        } catch (ConfigurationException e)
+                        {
+                                e.printStackTrace();
+                        }
+                        return "success";
+                }
+        }
         
 	@RequestMapping(value="/test1", method=RequestMethod.GET)
 	@ResponseBody
