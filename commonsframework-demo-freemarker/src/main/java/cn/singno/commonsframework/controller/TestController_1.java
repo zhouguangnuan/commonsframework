@@ -2,6 +2,7 @@ package cn.singno.commonsframework.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TestController_1
 {
 	@RequestMapping(value="/test1", method=RequestMethod.GET)
-	public String test2(Model model)
+	public String test1(Model model)
 	{
 		
 		model.addAttribute("name", "singno");
@@ -21,6 +22,12 @@ public class TestController_1
 		
 //		model.addAttribute("name2", "");
 		
-		return "test1";
+		return "test1"; 
 	}
+	
+	@RequestMapping(value="/test/{viewPage}", method=RequestMethod.GET)
+        public String test2(@PathVariable String viewPage)
+        {
+                return viewPage; 
+        }
 }
