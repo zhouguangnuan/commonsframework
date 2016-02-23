@@ -35,24 +35,24 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
 	{
-		logger.debug("============================ 请求记录拦截器  ================================");
-		
-		CurrentRequestHolder.setCurrentRequest(request);
-		CurrentRequestHolder.setCurrentResponse(response);
-		
-		long beginTime = System.currentTimeMillis();// 开始时间  
-		startTimeThreadLocal.set(beginTime);// 线程绑定变量（该数据只有当前请求的线程可见）
-        
-		logger.info("uri:     " + request.getRequestURI());
-		logger.info("params:     " + JSON.toJSONString(request.getParameterMap()));
-		Enumeration<String> headerNames = request.getHeaderNames();
-		Map<String, String> header = Maps.newHashMap();
-		while (headerNames.hasMoreElements())
-                {
-			String headerName = headerNames.nextElement();
-			header.put(headerName, JSON.toJSONString(request.getHeaders(headerName)));
-                }
-		logger.info("header:     " + JSON.toJSONString(header));
+//		logger.debug("============================ 请求记录拦截器  ================================");
+//		
+//		CurrentRequestHolder.setCurrentRequest(request);
+//		CurrentRequestHolder.setCurrentResponse(response);
+//		
+//		long beginTime = System.currentTimeMillis();// 开始时间  
+//		startTimeThreadLocal.set(beginTime);// 线程绑定变量（该数据只有当前请求的线程可见）
+//        
+//		logger.info("uri:     " + request.getRequestURI());
+//		logger.info("params:     " + JSON.toJSONString(request.getParameterMap()));
+//		Enumeration<String> headerNames = request.getHeaderNames();
+//		Map<String, String> header = Maps.newHashMap();
+//		while (headerNames.hasMoreElements())
+//                {
+//			String headerName = headerNames.nextElement();
+//			header.put(headerName, JSON.toJSONString(request.getHeaders(headerName)));
+//                }
+//		logger.info("header:     " + JSON.toJSONString(header));
 		
 		return true; 
 	}
@@ -67,15 +67,15 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception
 	{
-	        CurrentRequestHolder.clean();
-	        
-		long endTime = System.currentTimeMillis();// 结束时间  
-	        long beginTime = startTimeThreadLocal.get();// 得到线程绑定的局部变量（开始时间）  
-	        long consumeTime = endTime - beginTime;// 消耗的时间  
-	        if(consumeTime > slowFlag) {  
-	        //TODO 记录到日志文件  
-        	
-        	logger.info(String.format("%s consume %d millis", request.getRequestURI(), consumeTime)); 
-        }
+//	        CurrentRequestHolder.clean();
+//	        
+//		long endTime = System.currentTimeMillis();// 结束时间  
+//	        long beginTime = startTimeThreadLocal.get();// 得到线程绑定的局部变量（开始时间）  
+//	        long consumeTime = endTime - beginTime;// 消耗的时间  
+//	        if(consumeTime > slowFlag) {  
+//	        //TODO 记录到日志文件  
+//        	
+//        	logger.info(String.format("%s consume %d millis", request.getRequestURI(), consumeTime)); 
+//	        }
 	}
 }
