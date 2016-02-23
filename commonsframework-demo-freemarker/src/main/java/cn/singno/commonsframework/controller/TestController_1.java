@@ -31,4 +31,11 @@ public class TestController_1
 		System.out.println("=============== 刷新了页面 ===============");
 		return "test2";
 	}
+	
+	@RequestMapping(value="/test2/{page}", method=RequestMethod.GET)
+	public String test2(@PathVariable String page)
+	{
+		System.out.println("=============== 刷新了页面 ===============");
+		return "test2";
+	}
 }
