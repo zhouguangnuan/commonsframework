@@ -21,30 +21,17 @@ import com.google.common.collect.Maps;
 /**
  * <p>名称：DynamicDataSourceProcessor.java</p>
  * <p>描述：</p>
- * <pre>
- * 	
- *    1.supports : 只读情况：读从库
-					写+读情况：写主库，读主库
-					优势：可以防止写完后可能读不到刚才写的数据
-	  2：NOT_SUPPORTS: 只读情况：读从库
-						写+读情况：写主库，读从库
- * </pre>
- * @author 鲍建明
+ * @author 
  * @date 2014年8月18日 下午5:36:49
  * @version 1.0.0
  */
 public class DynamicDataSourceProcessor implements BeanPostProcessor{
-
-	
 	
 	private static final Logger log = LoggerFactory.getLogger(DynamicDataSourceProcessor.class);
-	    
 	
 	private static Map<String, Boolean> readMethodMap = Maps.newHashMap();
 	
-	
 	private  boolean IS_SUPPORTS = Boolean.FALSE;				//默认不强迫选择读
-	
 	
 	/**
 	 * 
@@ -62,9 +49,7 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 		IS_SUPPORTS = iS_SUPPORTS;
 	}
 
-
 	/**
-	 * 
 	 * <p>描述：AOP切入根据方法名和读写策略选择相应的数据源</p>
 	 * <pre>
 	 *    
@@ -74,7 +59,6 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 	 * @throws Throwable
 	 */
 	public Object changeDataSource(ProceedingJoinPoint pjp) throws Throwable {
-		
 		String methodName = pjp.getSignature().getName();
 		if (isChangeRead(methodName)) {
 			DynamicDataSourceHolder.setRead();
@@ -88,7 +72,6 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 		}
 	}
 
-
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName)
 			throws BeansException {
@@ -100,24 +83,24 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 				Map<String, TransactionAttribute> map = (Map<String, TransactionAttribute>)field.get(bean);
 				for(Entry<String, TransactionAttribute> entry : map.entrySet() ){
 					RuleBasedTransactionAttribute attr = (RuleBasedTransactionAttribute)entry.getValue();
-				    //仅对read-only的处理
-	                if(!attr.isReadOnly()) {
-	                    continue;
-	                }
-	                
-	                String methodName = entry.getKey();
-	                Boolean isForceChoiceRead = Boolean.FALSE;
-	                if( IS_SUPPORTS ) {
-	                    //不管之前操作是写，默认强制从读库读 （设置为NOT_SUPPORTED即可）
-	                    //NOT_SUPPORTED会挂起之前的事务
-	                    attr.setPropagationBehavior(Propagation.NOT_SUPPORTED.value());
-	                    isForceChoiceRead = Boolean.TRUE;
-	                } else {
-	                    //否则 设置为SUPPORTS（这样可以参与到写事务）
-	                    attr.setPropagationBehavior(Propagation.SUPPORTS.value());
-	                }
-	                log.debug("read/write transaction process  method:{} force read:{}", methodName, isForceChoiceRead);
-	                readMethodMap.put(methodName, isForceChoiceRead);
+					//仅对read-only的处理
+                	                if(!attr.isReadOnly()) {
+                	                    continue;
+                	                }
+                	                
+                	                String methodName = entry.getKey();
+                	                Boolean isForceChoiceRead = Boolean.FALSE;
+                	                if( IS_SUPPORTS ) {
+                	                    //不管之前操作是写，默认强制从读库读 （设置为NOT_SUPPORTED即可）
+                	                    //NOT_SUPPORTED会挂起之前的事务
+                	                    attr.setPropagationBehavior(Propagation.NOT_SUPPORTED.value());
+                	                    isForceChoiceRead = Boolean.TRUE;
+                	                } else {
+                	                    //否则 设置为SUPPORTS（这样可以参与到写事务）
+                	                    attr.setPropagationBehavior(Propagation.SUPPORTS.value());
+                	                }
+                	                log.debug("read/write transaction process  method:{} force read:{}", methodName, isForceChoiceRead);
+                	                readMethodMap.put(methodName, isForceChoiceRead);
 				}
 			} catch (Exception  e) {
 				log.error("读写分离设置失败", e);
@@ -133,9 +116,7 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 		return bean;
 	}
 	
-	
 	/**
-	 * 
 	 * <p>描述：是否选择读库</p>
 	 * <pre>
 	 *    
@@ -143,36 +124,40 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 	 * @param methodName
 	 * @return
 	 */
-	private boolean isChangeRead(String methodName) {
-		String bestNameMatch = null;
-		for (String mappedName : readMethodMap.keySet()) {
-			if (isMatch(methodName, mappedName)) {
-				bestNameMatch = mappedName;
-				break;
-			}
-		}
-		Boolean isForceChoiceRead = readMethodMap.get(bestNameMatch);
-        //表示强制选择 读 库
-        if(isForceChoiceRead == Boolean.TRUE) {
-            return true;
+        private boolean isChangeRead(String methodName)
+        {
+                String bestNameMatch = null;
+                for (String mappedName : readMethodMap.keySet())
+                {
+                        if (isMatch(methodName, mappedName))
+                        {
+                                bestNameMatch = mappedName;
+                                break;
+                        }
+                }
+                Boolean isForceChoiceRead = readMethodMap.get(bestNameMatch);
+                // 表示强制选择 读 库
+                if (isForceChoiceRead == Boolean.TRUE)
+                {
+                        return true;
+                }
+
+                // 如果之前选择了写库 现在还选择 写库
+                if (DynamicDataSourceHolder.isWrite())
+                {
+                        return false;
+                }
+
+                // 表示应该选择读库
+                if (isForceChoiceRead != null)
+                {
+                        return true;
+                }
+                // 默认选择 写库
+                return false;
         }
-        
-        //如果之前选择了写库 现在还选择 写库
-        if(DynamicDataSourceHolder.isWrite()) {
-            return false;
-        }
-        
-        //表示应该选择读库
-        if(isForceChoiceRead != null) {
-            return true;
-        }
-        //默认选择 写库
-        return false;
-	}
-	
 	
 	 /**
-	  * 
 	  * <p>描述：方法名匹配</p>
 	  * <pre>
 	  *    
@@ -185,18 +170,15 @@ public class DynamicDataSourceProcessor implements BeanPostProcessor{
 		return PatternMatchUtils.simpleMatch(mappedName, methodName);
 	}
 
-	private class ReadWriteDataSourceTransactionException extends
-			NestedRuntimeException {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 6554230316746573118L;
+        private class ReadWriteDataSourceTransactionException extends NestedRuntimeException
+        {
+                private static final long serialVersionUID = 6554230316746573118L;
 
-		public ReadWriteDataSourceTransactionException(String message,
-				Throwable cause) {
-			super(message, cause);
-		}
-	}
+                public ReadWriteDataSourceTransactionException(String message, Throwable cause)
+                {
+                        super(message, cause);
+                }
+        }
 	
 	
 	/*************************************************************************************************************************************/
