@@ -54,6 +54,7 @@ public class StudentMapperTest extends GenericTest
 			list.add(new Student("菜鸟" + i, classId));
 		}
 		studentMapper.insertList(list);
+		System.out.println(JSON.toJSONString(list));
 	}
 
 	@Test

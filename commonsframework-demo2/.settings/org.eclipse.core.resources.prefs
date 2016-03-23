@@ -11,6 +11,7 @@ encoding//src/main/resources/memcached.properties=UTF-8
 encoding//src/main/resources/quartz.properties=UTF-8
 encoding//src/main/resources/spring-mvc.properties=UTF-8
 encoding//src/main/resources/spring-mvc.xml=UTF-8
+encoding//src/main/resources/test/weixin.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/wgw.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

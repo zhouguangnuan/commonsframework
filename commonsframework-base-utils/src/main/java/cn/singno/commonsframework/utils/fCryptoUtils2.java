@@ -33,9 +33,9 @@ import cn.singno.commonsframework.constants.DefaultSystemConst;
  * @author 周光暖
  * @version 1.0
  */
-public class CryptoUtils
+public class fCryptoUtils2
 {
-	private static final Logger logger = Logger.getLogger(CryptoUtils.class);
+	private static final Logger logger = Logger.getLogger(fCryptoUtils2.class);
 
 	// 编码格式
 	private static final String CHARSET 		= 		DefaultSystemConst.DEFAULT_UNICODE;
@@ -47,9 +47,9 @@ public class CryptoUtils
 		public class HASH
 		{
 			public static final String SHA_1 			= 		"SHA-1";
-			public static final String SHA_256 		= 		"SHA-256";
+			public static final String SHA_256 			= 		"SHA-256";
 			public static final String SHA_384			= 		"SHA-384";
-			public static final String SHA_512 		= 		"SHA-512";
+			public static final String SHA_512 			= 		"SHA-512";
 			public static final String MD2 			= 		"MD2";
 			public static final String MD5 			= 		"MD5";
 		}
@@ -75,7 +75,7 @@ public class CryptoUtils
 	private static final Provider provider = new BouncyCastleProvider();
 
 	// 私有构造器，防止类的实例化
-	private CryptoUtils()
+	private fCryptoUtils2()
 	{
 		super();
 	}
@@ -191,7 +191,7 @@ public class CryptoUtils
 		KeyPairGenerator kpg;
 		try
 		{
-			kpg = KeyPairGenerator.getInstance(CryptoUtils.ALGORITHM.ASYMMERTIC.RSA);
+			kpg = KeyPairGenerator.getInstance(fCryptoUtils2.ALGORITHM.ASYMMERTIC.RSA);
 			kpg.initialize(keyLength);
 			KeyPair keyPair = kpg.generateKeyPair();
 			return keyPair;
@@ -329,7 +329,7 @@ public class CryptoUtils
 		Cipher cipher;
 		try
 		{
-			cipher = Cipher.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
+			cipher = Cipher.getInstance(fCryptoUtils2.ALGORITHM.SYMMETRY.DES);
 			cipher.init(Cipher.ENCRYPT_MODE, generatorKey(secretKey));
 			byteFina = cipher.doFinal(byteS);
 		} catch (Exception e)
@@ -348,7 +348,7 @@ public class CryptoUtils
 		byte[] byteFina = null;
 		try
 		{
-			cipher = Cipher.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
+			cipher = Cipher.getInstance(fCryptoUtils2.ALGORITHM.SYMMETRY.DES);
 			cipher.init(Cipher.DECRYPT_MODE, generatorKey(secretKey));
 			byteFina = cipher.doFinal(byteD);
 		} catch (Exception e)
@@ -367,7 +367,7 @@ public class CryptoUtils
 		KeyGenerator generator = null;
 		try
 		{
-			generator = KeyGenerator.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
+			generator = KeyGenerator.getInstance(fCryptoUtils2.ALGORITHM.SYMMETRY.DES);
 		} catch (NoSuchAlgorithmException e)
 		{
 			logger.error(e);

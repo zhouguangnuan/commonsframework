@@ -51,7 +51,7 @@
 
         <!-- ========================================================  druid 数据源二 START  ================================================== -->
         <!-- master2 -->
-        <bean id="writeDataSource2" parent="parentDataSource" init-method="init" destroy-method="close">
+        <!-- <bean id="writeDataSource2" parent="parentDataSource" init-method="init" destroy-method="close">
                 <property name="url" value="${db.write.url2}"/>
                 <property name="username" value="${db.write.username2}"/>
                 <property name="password" value="${db.write.password2}"/>
@@ -65,7 +65,7 @@
         <bean id="mapperScannerConfigurer2" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
                 <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory2"/>
                 <property name="basePackage" value="cn.singno.commonsframework.userDao"/>
-        </bean>
+        </bean> -->
         <!-- ========================================================  druid 数据源二 END  ================================================== -->
 
 

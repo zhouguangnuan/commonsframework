@@ -1,10 +1,9 @@
 package cn.singno.commonsframework.interceptor;
 
-import org.apache.log4j.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 
 import cn.singno.commonsframework.bean.CurrentRequestHolder;
-import cn.singno.commonsframework.utils.SpringUtils;
 
 /**
  * 请求记录拦截器
