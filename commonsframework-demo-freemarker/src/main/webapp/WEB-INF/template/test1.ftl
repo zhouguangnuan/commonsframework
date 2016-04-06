@@ -1,4 +1,5 @@
 <html>
+<script type="text/javascript" src="${mRoot}/static/js/jfb/base/zepto.min.js?v=1.1.6" ></script>
 <script type="text/javascript">
 var isComeFromCancelPay;
 <#if isComeFromCancelPay>

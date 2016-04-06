@@ -65,7 +65,7 @@ public class WeiXinUtilsTest
 	@Test
 	public void testGetAuthToken() throws Exception 
 	{
-		String code = "031ac79df644d47b07d66fa2268d697e"; 
+		String code = "01104ef45939dd6f4796565b4fe14eer"; 
 		JSONObject jsonObject = WeiXinUtils.getAuthToken(code);
 		System.out.println(jsonObject.toString());
 	}

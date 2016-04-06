@@ -17,8 +17,8 @@
                 <!-- sourceEncoding -->
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <!-- nexus host -->
-                <!-- <nexus.host>http://localhost:8081</nexus.host> -->
-                <nexus.host>http://123.56.162.129:8081</nexus.host>
+                <nexus.host>http://121.40.187.54:8002</nexus.host>
+                <!-- <nexus.host>http://123.56.162.129:8081</nexus.host> -->
 
 
                 <!-- 插件 -->
@@ -133,6 +133,9 @@
                 <freemarker.version>2.3.19</freemarker.version>
                 <!-- metamorphosis -->
                 <metamorphosis-client-extension.version>1.4.3</metamorphosis-client-extension.version>
+                <!-- poi -->
+                <org.apache.poi.version>3.9</org.apache.poi.version>
+                <org.apache.poi.version>3.8-beta5</org.apache.poi.version>
         </properties>
 
         <modules>
@@ -658,6 +661,17 @@
                                 <groupId>com.taobao.metamorphosis</groupId>
                                 <artifactId>metamorphosis-client-extension</artifactId>
                                 <version>${metamorphosis-client-extension.version}</version>
+                        </dependency>
+                        <!-- poi -->
+                        <dependency>
+                                <groupId>org.apache.poi</groupId>
+                                <artifactId>poi</artifactId>
+                                <version>${org.apache.poi.version}</version>
+                        </dependency>
+                        <dependency>
+                                <groupId>org.apache.poi</groupId>
+                                <artifactId>poi-excelant</artifactId>
+                                <version>${org.apache.poi.version}</version>
                         </dependency>
                         <!-- commonsframework -->
                         <!-- base-bean -->
