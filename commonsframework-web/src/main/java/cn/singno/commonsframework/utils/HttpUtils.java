@@ -18,8 +18,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.Header;
@@ -51,8 +52,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-
-import com.google.common.collect.Maps;
 
 import cn.singno.commonsframework.constants.DefaultSystemConst;
 
@@ -126,6 +125,107 @@ public class HttpUtils
 	};
 
 	// =====================================================================================================================================
+	
+	public static String getScheme(HttpServletRequest request)
+        {
+//                String https_head = request.getHeader("https_head");
+//                if (StringUtils.isBlank(https_head) || !StringUtils.equalsIgnoreCase(https_head, "mbenlai"))
+//                {
+//                        return "http";
+//                }
+//                return "https";
+	        return request.getScheme();
+        }
+	
+	/**
+	 * 如：http://m01shqa.benlai.com 或 https://m01shqa.benlai.com
+	 * @param request
+	 * @return
+	 */
+	public static String getWebRoot(HttpServletRequest request){
+                StringBuilder sb = new StringBuilder(getScheme(request)).append("://");
+                String serverName = request.getServerName();
+                if(ValidateUtils.isIpAddress(serverName)){
+                        sb.append(serverName).append(":").append(request.getLocalPort()).append(request.getContextPath());
+                } else {
+                        sb.append(serverName).append(request.getContextPath()); 
+                }
+                return sb.toString();
+        }
+	
+	/**
+         * 如：https://m01shqa.benlai.com
+         * @param request
+         * @return
+         */
+	public static String getHttpsWebRoot(HttpServletRequest request){
+                StringBuilder sb = new StringBuilder("https://");
+                String serverName = request.getServerName();
+                if(ValidateUtils.isIpAddress(serverName)){
+                        sb.append(serverName).append(":").append(request.getLocalPort()).append(request.getContextPath());
+                } else {
+                        sb.append(serverName).append(request.getContextPath()); 
+                }
+                return sb.toString();
+        }
+        
+	 /**
+         * 获取当前请求的绝对路径（带参数）
+         * 如：http://m01shqa.benlai.com/sh/productOffsale?name=value
+         * @param request
+         * @param whitQueryString       是否带参数
+         * @return
+         */
+        public static String getURL(HttpServletRequest request)
+        {
+                return getURL(request, Boolean.TRUE);
+        }
+
+        /**
+         * 获取当前请求的绝对路径
+         * 如：http://m01shqa.benlai.com/sh/productOffsale?name=value
+         * @param request
+         * @param whitQueryString       是否带参数
+         * @return
+         */
+        public static String getURL(HttpServletRequest request, Boolean whitQueryString)
+        {
+                return getWebRoot(request) + getSubURL(request, whitQueryString);
+        }
+
+        /**
+         * 获取当前请求的相对路径（带参数）
+         * 如：/sh/productOffsale?name=value
+         * @param request
+         * @return
+         */
+        public static String getSubURL(HttpServletRequest request)
+        {
+                return getSubURL(request, Boolean.TRUE);
+        }
+
+        /**
+         * 获取当前请求的相对路径
+         * 如：/sh/productOffsale?name=value
+         * @param request
+         * @param whitQueryString       是否带参数
+         * @return
+         */
+        public static String getSubURL(HttpServletRequest request, Boolean whitQueryString)
+        {
+                StringBuffer sb = new StringBuffer(request.getRequestURI());
+                String url = null;
+                if (ObjectUtils.equals(Boolean.TRUE, whitQueryString))
+                {
+                        url = StringUtils.isNotBlank(request.getQueryString()) ? sb.append("?").append(request.getQueryString()).toString() : sb.toString();
+                } else
+                {
+                        url = sb.toString();
+                }
+
+                url = org.apache.commons.lang3.StringUtils.remove(url, request.getContextPath());
+                return url;
+        }
 	
 	/**
 	 * 根据手机号码获取号码所在地区
