@@ -135,7 +135,6 @@
                 <metamorphosis-client-extension.version>1.4.3</metamorphosis-client-extension.version>
                 <!-- poi -->
                 <org.apache.poi.version>3.9</org.apache.poi.version>
-                <org.apache.poi.version>3.8-beta5</org.apache.poi.version>
         </properties>
 
         <modules>
