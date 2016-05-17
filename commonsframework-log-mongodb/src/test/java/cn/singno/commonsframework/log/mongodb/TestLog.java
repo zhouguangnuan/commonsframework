@@ -1,4 +1,4 @@
-package java.cn.singno.commonsframework.log.mongodb;
+package cn.singno.commonsframework.log.mongodb;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;

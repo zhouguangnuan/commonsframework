@@ -819,6 +819,40 @@
                                         <encoding>${project.build.sourceEncoding}</encoding>
                                 </configuration>
                         </plugin>
+                        
+                        <!-- 非web项目中，将依赖的jar包统一放到lib目录中 -->
+                        <!-- <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>copy-dependencies</id>
+                                    <phase>prepare-package</phase>
+                                    <goals>
+                                        <goal>copy-dependencies</goal>
+                                    </goals>
+                                    <configuration>
+                                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                        <overWriteReleases>false</overWriteReleases>
+                                        <overWriteSnapshots>false</overWriteSnapshots>
+                                        <overWriteIfNewer>true</overWriteIfNewer>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-jar-plugin</artifactId>
+                            <configuration>
+                                <archive>
+                                    <manifest>
+                                        <addClasspath>true</addClasspath>
+                                        <classpathPrefix>lib/</classpathPrefix>
+                                        <mainClass>theMainClass</mainClass>
+                                    </manifest>
+                                </archive>
+                            </configuration>
+                        </plugin> -->
 
                         <!-- 生成javadoc -->
                         <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> <version>2.4</version> </plugin> -->
