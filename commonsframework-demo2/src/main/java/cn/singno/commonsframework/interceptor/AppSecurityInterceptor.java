@@ -25,7 +25,7 @@ public class AppSecurityInterceptor  implements HandlerInterceptor
 	{
 		logger.debug("============================ 移动原生app接口安全认证拦截器  ================================");
 		// TODO N app安全校验算法
-		if(true)
+		if(false)
 		{
 			throw new BusinessException(ResultStateEnum.CLINET_UNAUTO_ERROR, "请在app客户端访问");
 		}

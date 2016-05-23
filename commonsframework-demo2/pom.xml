@@ -28,7 +28,7 @@
 			<groupId>cn.singno.commonsframework</groupId>
 			<artifactId>commonsframework-base-bean</artifactId>
 		</dependency>
-		<!-- base-bean -->
+		<!-- base-utils -->
 		<dependency>
 			<groupId>cn.singno.commonsframework</groupId>
 			<artifactId>commonsframework-base-utils</artifactId>
@@ -64,6 +64,7 @@
 			<groupId>cn.singno.commonsframework</groupId>
 			<artifactId>commonsframework-scheduling</artifactId>
 		</dependency>
+		<!-- MQ -->
 		<dependency>
 			<groupId>cn.singno.commonsframework</groupId>
 			<artifactId>commonsframework-MQ-metaQ</artifactId>
@@ -88,6 +89,11 @@
 		<dependency>
 			<groupId>cn.singno.commonsframework</groupId>
 			<artifactId>commonsframework-lightApp</artifactId>
+		</dependency>
+		<!-- data-apidoc -->
+		<dependency>
+			<groupId>cn.singno.commonsframework</groupId>
+			<artifactId>commonsframework-apidoc</artifactId>
 		</dependency>
 
 		<dependency>
@@ -119,23 +125,11 @@
 				</configuration>
 			</plugin>
 
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<warName>test</warName>
-					<webResources>
-						<resource>
-							<directory>${project.basedir}/lib</directory>
-							<targetPath>WEB-INF/lib</targetPath>
-							<includes>
-								<include>**/*.jar</include>
-							</includes>
-						</resource>
-					</webResources>
-				</configuration> 
-			</plugin> -->
-			
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<configuration> <warName>test</warName> <webResources> <resource> <directory>${project.basedir}/lib</directory> 
+				<targetPath>WEB-INF/lib</targetPath> <includes> <include>**/*.jar</include> 
+				</includes> </resource> </webResources> </configuration> </plugin> -->
+
 		</plugins>
 	</build>
 </project>

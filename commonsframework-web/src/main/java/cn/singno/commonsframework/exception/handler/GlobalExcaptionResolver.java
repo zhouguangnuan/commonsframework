@@ -17,12 +17,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
+
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 
 import cn.singno.commonsframework.bean.JsonResult;
 import cn.singno.commonsframework.constants.DefaultDescribableEnum;
@@ -32,9 +39,6 @@ import cn.singno.commonsframework.exception.ConstraintViolationException;
 import cn.singno.commonsframework.exception.DescribableException;
 import cn.singno.commonsframework.utils.ConstraintValidateUtils;
 import cn.singno.commonsframework.utils.ExceptionUtils;
-
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 
 /**
  * <p>名称：GlobalExcaptionResolver.java</p>
@@ -53,6 +57,9 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 	 * Logger for this class
 	 */
 	private static final Logger logger = Logger.getLogger(GlobalExcaptionResolver.class);
+	
+//	private static final String MEDIA_TYPE_APPLICATION_JSON = "application/json; charset=utf-8";
+	private static final String MEDIA_TYPE_APPLICATION_JSON = MediaType.APPLICATION_JSON_VALUE;
 
 	private HttpMessageConverter<Object> jsonMessageConverter;
 
@@ -118,7 +125,7 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 	{
 		HttpMessageConverter<Object> messageConverter = getJsonMessageConverter();
 		HttpOutputMessage outputMessage = new ServletServerHttpResponse(response);
-		outputMessage.getHeaders().add("Content-Type", "text/plain;charset=UTF-8");
+		outputMessage.getHeaders().add("Content-Type", MEDIA_TYPE_APPLICATION_JSON);
 		JsonResult jsonResult = getExceptionJsonMessage(ex);
 		messageConverter.write(jsonResult, MediaType.APPLICATION_JSON, outputMessage);
 		return new ModelAndView();
@@ -165,13 +172,28 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 		{
 			return true;
 		}
+		
 		ResponseBody responseBody = null;
+		RestController restController = null;
+		String[] produces = null;
 		if (handler instanceof HandlerMethod)
 		{
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			responseBody = handlerMethod.getMethodAnnotation(ResponseBody.class);
+			restController = handlerMethod.getBeanType().getAnnotation(RestController.class);
+			RequestMapping requestMapping = handlerMethod.getMethodAnnotation(RequestMapping.class);
+			if(null != requestMapping){
+				produces = requestMapping.produces();
+			}
 		}
-		return responseBody != null;
+		if(null!=responseBody || null!=restController){
+			return true;
+		}
+		if(ArrayUtils.isNotEmpty(produces) && ArrayUtils.contains(produces, MEDIA_TYPE_APPLICATION_JSON)){
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**
@@ -188,8 +210,20 @@ public class GlobalExcaptionResolver extends AbstractHandlerExceptionResolver
 		{
 			describableException = new BusinessException(DefaultDescribableEnum.AUTHORIZED_ERROR);
 		}
+		
 		// 属性绑定异常
-		if (ex instanceof BindException)
+		if(ex instanceof MethodArgumentNotValidException){
+			MethodArgumentNotValidException ex2 = (MethodArgumentNotValidException) ex;
+			BindingResult bindingResult = ex2.getBindingResult();
+			List<String> errorList = Lists.newArrayList();
+			for (ObjectError error : bindingResult.getAllErrors())
+			{
+				errorList.add(error.getDefaultMessage());
+			}
+			describableException = new ConstraintViolationException(DefaultDescribableEnum.PARAMES_ERROR, ArrayUtils.toString(errorList));
+		
+		}
+		else if (ex instanceof BindException)
 		{
 			List<String> errorList = Lists.newArrayList();
 			for (ObjectError error : ((BindException) ex).getAllErrors())

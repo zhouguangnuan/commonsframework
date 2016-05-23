@@ -23,28 +23,16 @@
 		<param-name>log4jRefreshInterval</param-name>
 		<param-value>60000</param-value>
 	</context-param>
-	<!-- <context-param>
-		<description>根据环境自动切换配置</description>
-		<param-name>spring.profiles.active</param-name>
-		<param-value>development</param-value>
-	</context-param> -->
+	<!-- <context-param> <description>根据环境自动切换配置</description> <param-name>spring.profiles.active</param-name> 
+		<param-value>development</param-value> </context-param> -->
 
 	<!-- filter -->
-    <!-- <filter>
-    	<description>shiro 安全过滤器</description>
-        <filter-name>shiroFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <async-supported>true</async-supported>
-        <init-param>
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping> -->
+	<!-- <filter> <description>shiro 安全过滤器</description> <filter-name>shiroFilter</filter-name> 
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+		<async-supported>true</async-supported> <init-param> <param-name>targetFilterLifecycle</param-name> 
+		<param-value>true</param-value> </init-param> </filter> <filter-mapping> 
+		<filter-name>shiroFilter</filter-name> <url-pattern>/*</url-pattern> <dispatcher>REQUEST</dispatcher> 
+		</filter-mapping> -->
 	<filter>
 		<description>字符编码强制转换</description>
 		<filter-name>encodingFilter</filter-name>
@@ -68,7 +56,14 @@
 		<filter-class>org.springframework.orm.jpa.OpenEntityManagerInViewFilter</filter-class> 
 		</filter> <filter-mapping> <filter-name>OpenEntityManagerInViewFilter</filter-name> 
 		<url-pattern>/*</url-pattern> </filter-mapping> -->
-
+	<filter>
+		<filter-name>HttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!-- listener -->
 	<listener>
@@ -83,7 +78,7 @@
 		<description>spring防止内存溢出监听器</description>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-    
+
 	<!-- servlet -->
 	<servlet>
 		<description>springMVC控制器</description>
@@ -102,70 +97,70 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	
-	<!-- Druid,监控数据库,以及WEB访问连接信息 -->  
-	<!-- 参考: https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_%E9%85%8D%E7%BD%AEWebStatFilter -->  
-	<filter>  
-	    <filter-name>DruidWebStatFilter</filter-name>  
-	    <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>  
-	    <init-param>  
-	        <param-name>exclusions</param-name>  
-	        <param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,*.jsp,/druid/*,/download/*</param-value>  
-	    </init-param>  
-	    <init-param>  
-	        <param-name>sessionStatMaxCount</param-name>  
-	        <param-value>2000</param-value>  
-	    </init-param>  
-	    <init-param>  
-	        <param-name>sessionStatEnable</param-name>  
-	        <param-value>true</param-value>  
-	    </init-param>  
-	    <init-param>  
-	        <param-name>principalSessionName</param-name>  
-	        <param-value>session_user_key</param-value>  
-	    </init-param>  
-	    <init-param>  
-	        <param-name>profileEnable</param-name>  
-	        <param-value>true</param-value>  
-	    </init-param>  
-	</filter>  
-	<filter-mapping>  
-	    <filter-name>DruidWebStatFilter</filter-name>  
-	    <url-pattern>/*</url-pattern>  
-	</filter-mapping>  
-	<!-- 配置 Druid 监控信息显示页面 -->  
-	<servlet>  
-	    <servlet-name>DruidStatView</servlet-name>  
-	    <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>  
-	    <!-- 允许清空统计数据 --> 
-	    <init-param>   
-	        <param-name>resetEnable</param-name>  
-	        <param-value>true</param-value>  
-	    </init-param>  
-	    <!-- 用户名 -->
-	    <init-param>    
-	        <param-name>loginUsername</param-name>  
-	        <param-value>singno</param-value>  
-	    </init-param>  
-	    <!-- 密码 --> 
-	    <init-param>   
-	        <param-name>loginPassword</param-name>  
-	        <param-value>1314ainana</param-value>  
-	    </init-param> 
-	    <!-- 允许访问的IP -->  
-	    <init-param>
-	      <param-name>allow</param-name>
-	        <param-value>192.168.1.5</param-value>
-	    </init-param>
-	    <!-- ？ --> 
-	    <init-param> 
-	        <param-name>deny</param-name>
-	        <param-value>192.168.1.5</param-value>
-	    </init-param>
-	</servlet>  
-	<servlet-mapping>  
-	    <servlet-name>DruidStatView</servlet-name>  
-	    <url-pattern>/druid/*</url-pattern>  
+
+	<!-- Druid,监控数据库,以及WEB访问连接信息 -->
+	<!-- 参考: https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_%E9%85%8D%E7%BD%AEWebStatFilter -->
+	<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,*.jsp,/druid/*,/download/*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sessionStatMaxCount</param-name>
+			<param-value>2000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sessionStatEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>session_user_key</param-value>
+		</init-param>
+		<init-param>
+			<param-name>profileEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 配置 Druid 监控信息显示页面 -->
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<!-- 允许清空统计数据 -->
+		<init-param>
+			<param-name>resetEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 用户名 -->
+		<init-param>
+			<param-name>loginUsername</param-name>
+			<param-value>singno</param-value>
+		</init-param>
+		<!-- 密码 -->
+		<init-param>
+			<param-name>loginPassword</param-name>
+			<param-value>1314ainana</param-value>
+		</init-param>
+		<!-- 允许访问的IP -->
+		<init-param>
+			<param-name>allow</param-name>
+			<param-value>192.168.1.5</param-value>
+		</init-param>
+		<!-- ？ -->
+		<init-param>
+			<param-name>deny</param-name>
+			<param-value>192.168.1.5</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
@@ -174,9 +169,9 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>  
+	</welcome-file-list>
 
-	
+
 
 	<!-- welcome-file -->
 	<!-- error-page -->

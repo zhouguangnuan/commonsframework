@@ -32,10 +32,10 @@ public class TestMobileController
 	public String wgw_view(HttpServletRequest request, HttpServletResponse response)
 	{
 		// 验证消息来自微信
-		if (!WeiXinUtils.comeFromWxBrowser(request))
-		{
-			return ""; 
-		}
+//		if (!WeiXinUtils.comeFromWxBrowser(request))
+//		{
+//			return ""; 
+//		}
 		
 		return "wgw";
 	}

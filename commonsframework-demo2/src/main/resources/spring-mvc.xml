@@ -12,16 +12,10 @@
     
     <!-- 加载属性文件 -->
     <context:property-placeholder ignore-unresolvable="true" location="classpath:spring-mvc.properties"/>
-   
     
-    <!-- Annotation自动注册Bean，在springMvc中只扫描@Controller注解 -->
-    <context:component-scan base-package="cn.singno" use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.validation.annotation.Validated"/>
-    </context:component-scan>
+    <context:component-scan base-package="cn.singno" />
     
     <!-- 消息转化器 -->
-    <bean id="byteArrayHttpMessageConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
     <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" >
         <constructor-arg value= "UTF-8"/>
         <property name= "supportedMediaTypes">
@@ -31,24 +25,6 @@
             </list>
         </property>
     </bean >
-    <!-- JSON支持，避免IE执行AJAX时,返回JSON出现下载文件 -->
-    <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" >
-        <property name= "supportedMediaTypes">
-            <list>
-                <value>${web.mediaType.html.type}</value >
-                <value>${web.mediaType.text.type}</value >
-                <value>${web.mediaType.json.type}</value >
-            </list>
-        </property>
-        <property name="features">
-	      	<array value-type="com.alibaba.fastjson.serializer.SerializerFeature">
-	        	<value>DisableCircularReferenceDetect</value>
-	      	</array>
-	    </property>
-    </bean >
-    <bean id="DisableCircularReferenceDetect" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
-    	<property name="staticField" value="com.alibaba.fastjson.serializer.SerializerFeature.DisableCircularReferenceDetect"></property>
-	</bean>
 
 	<!-- ConversionService -->
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"> 
@@ -73,10 +49,8 @@
 	</bean>
 	<!-- 指定自己定义的validator -->
     <mvc:annotation-driven validator="validator" conversion-service="conversionService" >
-        <mvc:message-converters register-defaults="false" >
-            <ref bean= "byteArrayHttpMessageConverter" />
+        <mvc:message-converters register-defaults="true" >
             <ref bean= "stringHttpMessageConverter" />
-            <ref bean= "fastJsonHttpMessageConverter" />
         </mvc:message-converters>
     </mvc:annotation-driven >
 	
@@ -110,9 +84,28 @@
     <mvc:default-servlet-handler/>
     <!-- <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources mapping="/log/**" location="/log/"/> -->
+    <!-- <mvc:resources mapping="/document/**" location="/document/"/> -->
     
+    <!-- JSON支持，避免IE执行AJAX时,返回JSON出现下载文件 -->
+    <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" >
+        <property name= "supportedMediaTypes">
+            <list>
+                <value>${web.mediaType.html.type}</value >
+                <value>${web.mediaType.text.type}</value >
+                <value>${web.mediaType.json.type}</value >
+            </list>
+        </property>
+        <property name="features">
+	      	<array value-type="com.alibaba.fastjson.serializer.SerializerFeature">
+	        	<value>DisableCircularReferenceDetect</value>
+	      	</array>
+	    </property>
+    </bean >
+    <bean id="DisableCircularReferenceDetect" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    	<property name="staticField" value="com.alibaba.fastjson.serializer.SerializerFeature.DisableCircularReferenceDetect"></property>
+	</bean>
     <!-- 全局异常处理器 -->
-    <bean id="globalExcaptionResolver" class=" cn.singno.commonsframework.exception.handler.MyGlobalExcaptionResolver">
+    <bean id="globalExcaptionResolver" class="cn.singno.commonsframework.exception.handler.MyGlobalExcaptionResolver">
     	<property name="jsonMessageConverter" ref="fastJsonHttpMessageConverter" />
     	<property name="order" value="1"/>
     </bean>

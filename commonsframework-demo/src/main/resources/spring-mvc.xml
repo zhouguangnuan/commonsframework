@@ -135,7 +135,7 @@
     <bean id="defaultExceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver">
     	<property name="order" value="1" />
     </bean>
-    <bean id="globalExcaptionResolver" class=" cn.singno.commonsframework.exception.handler.GlobalExcaptionResolver">
+    <bean id="globalExcaptionResolver" class="cn.singno.commonsframework.exception.handler.GlobalExcaptionResolver">
     	<property name="jsonMessageConverter" ref="fastJsonHttpMessageConverter" />
     	<property name="order" value="2"/>
     </bean>
