@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.mangofactory.swagger.annotations.ApiIgnore;
 
 /**
  * 通用接口
  */
+@ApiIgnore
 @RestController
 @RequestMapping("/api")
-public class TestApiController extends ApiBaseController
+public class TestApiController
 {
 	@RequestMapping(value="/test1" , method=RequestMethod.PUT)
 	public Object putTest1(HttpServletRequest request, String productId, Integer count){

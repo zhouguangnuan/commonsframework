@@ -12,9 +12,10 @@ import com.mangofactory.swagger.annotations.ApiIgnore;
 /**
  * 后台管理接口
  */
+@ApiIgnore
 @Controller
 @RequestMapping("/admin")
-public class TestAdminController extends AdminBaseController
+public class TestAdminController
 {
 	@RequestMapping(value="/test1", method=RequestMethod.GET)
 //	@ResponseBody

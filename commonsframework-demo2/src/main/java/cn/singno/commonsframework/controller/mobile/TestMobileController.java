@@ -8,17 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cn.singno.commonsframework.utils.WeiXinUtils;
-
 import com.alibaba.fastjson.JSONObject;
+import com.mangofactory.swagger.annotations.ApiIgnore;
+
+import cn.singno.commonsframework.utils.WeiXinUtils;
 
 /**
  * 移动端接口
  * @author Administrator
  */
+@ApiIgnore
 @Controller
 @RequestMapping("/mobile")
-public class TestMobileController extends MobileBaseController
+public class TestMobileController
 {
 	/**
 	 * 微官网

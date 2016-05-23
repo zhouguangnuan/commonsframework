@@ -4,20 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cn.singno.commonsframework.utils.WeiXinUtils;
-
-import com.alibaba.fastjson.JSONObject;
+import com.mangofactory.swagger.annotations.ApiIgnore;
 
 /**
  * 管网接口
  */
+@ApiIgnore
 @Controller
 @RequestMapping("/web")
-public class TestWebController extends WebBaseController
+public class TestWebController
 {
 	/**
 	 * 测试

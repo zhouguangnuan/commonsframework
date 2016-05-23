@@ -33,7 +33,7 @@ import cn.singno.commonsframework.validation.groups.SaveGroups;
 @Api(value="orders", description="订单模块")
 @RequestMapping("/api/orders")
 @RestController
-public class OrderController extends ApiBaseController
+public class OrderController
 {
 	@ApiOperation(value="创建订单", response=AddOrder.class, notes="用户创建订单")
 	@RequestMapping(method=RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)

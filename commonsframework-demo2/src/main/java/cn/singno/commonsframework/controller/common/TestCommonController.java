@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.mangofactory.swagger.annotations.ApiIgnore;
 
 import cn.singno.commonsframework.bean.Config;
 import cn.singno.commonsframework.bean.CurrentRequestHolder;
@@ -37,9 +38,10 @@ import cn.singno.commonsframework.utils.SessionUtils;
 /**
  * 通用接口
  */
+@ApiIgnore
 @Controller
 @RequestMapping("/common")
-public class TestCommonController extends CommonBaseController
+public class TestCommonController
 {
         @Autowired
         private CurrentRequestHolder2 currentRequestHolder2;

@@ -7,6 +7,8 @@
  */
 package cn.singno.commonsframework.utils;
 
+import static org.junit.Assert.*;
+
 import java.security.KeyPair;
 
 import org.apache.commons.lang3.CharEncoding;
@@ -38,6 +40,13 @@ public class CryptoUtilsTest
 //		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.SHA_384);// 9a0a82f0c0cf31470d7affede3406cc9aa8410671520b727044eda15b4c25532a9b5cd8aaf9cec4919d76255b6bfb00f
 //		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.SHA_512);// 3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2
 		System.out.println(encryptedStr);
+	}
+	
+	@Test
+	public void testName() throws Exception {
+		String plaintext = "100" + System.currentTimeMillis();
+		String s = CryptoUtils.HASHencrypt(plaintext, CryptoUtils.ALGORITHM.HASH.MD5);
+		System.out.println(s + "，length：" + s.length());
 	}
 	
 	@Test

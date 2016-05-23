@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.common.collect.Lists;
+import com.mangofactory.swagger.annotations.ApiIgnore;
+
 import cn.singno.commonsframework.bean.WxSendMsgBuilder;
 import cn.singno.commonsframework.utils.WeiXinUtils;
 import cn.singno.commonsframework.weixin.msg.receive.ReceiveMsg;
@@ -24,12 +27,10 @@ import cn.singno.commonsframework.weixin.msg.receive.event.R_e_unsubscribeMsg;
 import cn.singno.commonsframework.weixin.msg.send.SendMsg;
 import cn.singno.commonsframework.weixin.msg.send.passiveReply.Item;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
-
+@ApiIgnore
 @Controller
 @RequestMapping("/mobile/wx")
-public class WxMessageHandlerController extends MobileBaseController
+public class WxMessageHandlerController
 {
 	/**
 	 * Logger for this class
