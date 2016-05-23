@@ -29,7 +29,8 @@ import com.google.common.collect.Lists;
 
 @Controller
 @RequestMapping("/mobile/wx")
-public class WxMessageHandlerController {
+public class WxMessageHandlerController extends MobileBaseController
+{
 	/**
 	 * Logger for this class
 	 */

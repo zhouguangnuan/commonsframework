@@ -16,7 +16,7 @@ import com.google.common.collect.Maps;
  */
 @RestController
 @RequestMapping("/api")
-public class TestApiController
+public class TestApiController extends ApiBaseController
 {
 	@RequestMapping(value="/test1" , method=RequestMethod.PUT)
 	public Object putTest1(HttpServletRequest request, String productId, Integer count){

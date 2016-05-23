@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 @Controller
 @RequestMapping("/mobile")
-public class TestMobileController 
+public class TestMobileController extends MobileBaseController
 {
 	/**
 	 * 微官网

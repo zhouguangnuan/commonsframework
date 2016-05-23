@@ -39,7 +39,7 @@ import cn.singno.commonsframework.utils.SessionUtils;
  */
 @Controller
 @RequestMapping("/common")
-public class TestCommonController
+public class TestCommonController extends CommonBaseController
 {
         @Autowired
         private CurrentRequestHolder2 currentRequestHolder2;

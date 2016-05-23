@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mangofactory.swagger.annotations.ApiIgnore;
+
 /**
  * 后台管理接口
  */
 @Controller
 @RequestMapping("/admin")
-public class TestAdminController
+public class TestAdminController extends AdminBaseController
 {
 	@RequestMapping(value="/test1", method=RequestMethod.GET)
 //	@ResponseBody

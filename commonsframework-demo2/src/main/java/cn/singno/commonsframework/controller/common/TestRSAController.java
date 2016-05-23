@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.singno.commonsframework.bean.JsonResult;
 import cn.singno.commonsframework.constants.DefaultDescribableEnum;
+import cn.singno.commonsframework.controller.common.CommonBaseController;
 import cn.singno.commonsframework.utils.CryptoUtils;
 import cn.singno.commonsframework.utils.PublicKeyMap;
 import cn.singno.commonsframework.utils.RSAUtils;
@@ -26,7 +27,7 @@ import com.google.common.collect.Maps;
  */
 @Controller
 @RequestMapping("/common/testRSA")
-public class TestRSAController
+public class TestRSAController extends CommonBaseController
 {
 	private static final String PUBLIC_KEY_MAP = "PUBLIC_KEY_MAP";
 	

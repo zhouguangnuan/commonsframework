@@ -17,7 +17,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 @Controller
 @RequestMapping("/web")
-public class TestWebController 
+public class TestWebController extends WebBaseController
 {
 	/**
 	 * 测试
