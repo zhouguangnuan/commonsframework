@@ -43,13 +43,13 @@ public class UserServiceImpl implements UserService
 	
 	public Set<String> findRoles(String userName)
 	{
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	public Set<String> findPermissions(String userName)
 	{
-		// TODO Auto-generated method stub
+		
 		return Sets.newHashSet();
 	}
 

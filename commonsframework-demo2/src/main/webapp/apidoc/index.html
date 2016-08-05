@@ -28,7 +28,7 @@
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
-        url = "http://192.168.1.146:8080/commonsframework-demo2/api-docs";
+        url = "http://172.10.10.28:8880/commonsframework-demo2/api-docs";
       }
       window.swaggerUi = new SwaggerUi({
         url: url,
@@ -36,7 +36,7 @@
         supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
         onComplete: function(swaggerApi, swaggerUi){
           if(typeof initOAuth == "function") {
-            /*
+            /* 
             initOAuth({
               clientId: "your-client-id",
               realm: "your-realms",

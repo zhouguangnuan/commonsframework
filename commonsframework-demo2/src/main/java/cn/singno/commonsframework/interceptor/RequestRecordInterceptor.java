@@ -42,13 +42,19 @@ public class RequestRecordInterceptor  implements HandlerInterceptor
 		logger.info("uri:     " + request.getRequestURI());
 		logger.info("params:     " + JSON.toJSONString(request.getParameterMap()));
 		
+		
+		logger.info("version：" + request.getHeader("version"));
+		logger.info("timestamp：" + request.getHeader("timestamp"));
+		logger.info("token：" + request.getHeader("token"));
+		logger.info("sign：" + request.getHeader("sign"));
+		
 		return true; 
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception
 	{
-		// TODO Auto-generated method stub
+		
 
 	}
 

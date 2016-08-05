@@ -32,8 +32,9 @@ public class CryptoUtilsTest
 	@Test
 	public void testHASHencrypt() throws Exception
 	{
+		String encryptedStr = CryptoUtils.HASHencrypt(SerialUtils.buildRefrenceId(), CryptoUtils.ALGORITHM.HASH.MD5);// ef1fedf5d32ead6b7aaf687de4ed1b71
 //		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.Base64);
-		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.MD2);// ef1fedf5d32ead6b7aaf687de4ed1b71
+//		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.MD2);// ef1fedf5d32ead6b7aaf687de4ed1b71
 //		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.MD5);// 202cb962ac59075b964b07152d234b70
 //		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.SHA_1);// 40bd001563085fc35165329ea1ff5c5ecbdbbeef
 //		String encryptedStr = CryptoUtils.HASHencrypt("123", CryptoUtils.ALGORITHM.HASH.SHA_256);// a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
