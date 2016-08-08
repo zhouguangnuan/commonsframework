@@ -3,7 +3,7 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
-	<title>小柏家护在线学习服务</title>
+	<title>视频demo测试</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="renderer" content="webkit" />
 	<meta name="keywords" content="" />

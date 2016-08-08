@@ -56,12 +56,12 @@ public class SpringUtils implements ApplicationContextAware, DisposableBean
         String path = DefaultSystemConst.SYS_SEPARATOR;
         try
         {
-                WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();    
+            WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();    
             if (null != webApplicationContext)
-                        {
+            {
                 ServletContext servletContext = webApplicationContext.getServletContext();
                 path = WebUtils.getRealPath(servletContext, DefaultSystemConst.SYS_SEPARATOR);
-                        }
+            }
         }
         catch (FileNotFoundException e)
         {

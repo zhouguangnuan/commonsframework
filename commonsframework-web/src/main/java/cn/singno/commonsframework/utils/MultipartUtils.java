@@ -65,7 +65,7 @@ public class MultipartUtils {
 	private static Set<String> TYPE_TEXT = Sets.newHashSet("application/octet-stream", "application/pdf", "application/x-ppt", "application/msword", "text/plain");
 	
 	//视频类型
-	private static Set<String> TYPE_VIDEO = Sets.newHashSet("video/mpeg4", "video/mpg", "video/x-mpeg", "video/mpg","application/octet-stream","audio/amr");
+	private static Set<String> TYPE_VIDEO = Sets.newHashSet("video/mp4", "video/mpeg4", "video/mpg", "video/x-mpeg", "video/mpg", "application/octet-stream", "audio/amr");
 	
 	//压缩文件类型
 	private static Set<String> TYPE_ZIP = null;
@@ -81,7 +81,7 @@ public class MultipartUtils {
 	private static Set<String> SUFFIX_TEXT = Sets.newHashSet("doc", "txt");
 	
 	//视频后缀
-	private static Set<String> SUFFIX_VIDEO = Sets.newHashSet("amr");
+	private static Set<String> SUFFIX_VIDEO = Sets.newHashSet("amr", "mp4", "mkv");
 	
 	//压缩后缀
 	private static Set<String> SUFFIX_ZIP = null;
@@ -95,7 +95,7 @@ public class MultipartUtils {
 		TEXT(SUFFIX_TEXT, TYPE_TEXT), // 文本
 		VIDEO(SUFFIX_VIDEO, TYPE_VIDEO), // 视频
 		ZIP(SUFFIX_ZIP, TYPE_ZIP), // 压缩文件
-		APP(SUFFIX_APP, TYPE_APP) // app应用
+		APP(SUFFIX_APP, TYPE_APP), // app应用
 		;
 		
 		private Set<String> suffixSet;
@@ -329,7 +329,7 @@ public class MultipartUtils {
 	
 	public static List<FileUploadResult> uploadFile(MultipartFiles files, FileType fileType)
 	{
-		if (null == files)
+		if (null==files || files.isEmpty())
 		{
 			throw new FileUploadException(DefaultDescribableEnum.UPLOAD_ERROR, "上传文件不能为空");
 		}

@@ -389,7 +389,7 @@ public class HttpUtils
 		}
 		if (StringUtils.isNotBlank(field) && null != file)
 		{
-                        multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE).addPart("file", new FileBody(file, ContentType.create(MediaType.MULTIPART_FORM_DATA_VALUE, charset), file.getName()));
+			multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE).addPart("file", new FileBody(file, ContentType.create(MediaType.MULTIPART_FORM_DATA_VALUE, charset), file.getName()));
 		}
 		hp.setEntity(multipartEntityBuilder.build());
 		// 发送请求，得到响应
