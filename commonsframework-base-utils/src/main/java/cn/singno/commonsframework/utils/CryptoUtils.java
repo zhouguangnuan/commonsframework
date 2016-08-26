@@ -11,11 +11,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.PublicKey;
-import java.security.SecureRandom;
 import java.security.interfaces.RSAPublicKey;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
@@ -39,16 +41,16 @@ public class CryptoUtils
 
 	// 编码格式
 	private static final String CHARSET 		= 		DefaultSystemConst.DEFAULT_UNICODE;
-
+	
 	// 加密算法常量
 	public class ALGORITHM
 	{
 		// 散列算法
 		public class HASH
 		{
-			public static final String SHA_1 			= 		"SHA-1";
+			public static final String SHA_1 		= 		"SHA-1";
 			public static final String SHA_256 		= 		"SHA-256";
-			public static final String SHA_384			= 		"SHA-384";
+			public static final String SHA_384		= 		"SHA-384";
 			public static final String SHA_512 		= 		"SHA-512";
 			public static final String MD2 			= 		"MD2";
 			public static final String MD5 			= 		"MD5";
@@ -70,6 +72,9 @@ public class CryptoUtils
 	// RSA Padding算法
 //	private static final String RSA_ECB_PKCS1_PADDING = "RSA/ECB/PKCS1Padding";
 	private static final String RSA_ECB_PKCS1_PADDING = "RSA";
+	
+	// DES Padding算法
+	private static final String DES_CBC = "DES/CBC/PKCS5Padding";
 
 	// BouncyCastle加密实现
 	private static final Provider provider = new BouncyCastleProvider();
@@ -126,8 +131,9 @@ public class CryptoUtils
 	 * @param 	plaintext 		明文
 	 * @param	secretKey		秘钥
 	 * @return 	ciphertext 	密文
+	 * @throws Exception 
 	 */
-	public static String DESencrypt(String plaintext, String secretKey)
+	public static String DESencrypt(String plaintext, String secretKey) throws Exception
 	{
 		byte[] byteCiphertext = null;
 		byte[] bytePlaintext = null;
@@ -323,14 +329,15 @@ public class CryptoUtils
 
 	// =========================================================================================
 
-	private static byte[] encryptByte(byte[] byteS, String secretKey)
+	private static byte[] encryptByte(byte[] byteS, String secretKey) throws Exception
 	{
 		byte[] byteFina = null;
 		Cipher cipher;
 		try
 		{
-			cipher = Cipher.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
-			cipher.init(Cipher.ENCRYPT_MODE, generatorKey(secretKey));
+			cipher = Cipher.getInstance(DES_CBC);
+	        IvParameterSpec zeroIv = new IvParameterSpec(secretKey.getBytes(CHARSET));
+			cipher.init(Cipher.ENCRYPT_MODE, generatorKey(secretKey), zeroIv);
 			byteFina = cipher.doFinal(byteS);
 		} catch (Exception e)
 		{
@@ -344,12 +351,13 @@ public class CryptoUtils
 
 	private static byte[] decryptByte(byte[] byteD, String secretKey)
 	{
-		Cipher cipher;
 		byte[] byteFina = null;
+		Cipher cipher;
 		try
 		{
-			cipher = Cipher.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
-			cipher.init(Cipher.DECRYPT_MODE, generatorKey(secretKey));
+			cipher = Cipher.getInstance(DES_CBC);
+	        IvParameterSpec zeroIv = new IvParameterSpec(secretKey.getBytes(CHARSET));
+			cipher.init(Cipher.DECRYPT_MODE, generatorKey(secretKey), zeroIv);
 			byteFina = cipher.doFinal(byteD);
 		} catch (Exception e)
 		{
@@ -361,32 +369,39 @@ public class CryptoUtils
 		return byteFina;
 	}
 
-	private static Key generatorKey(String secretKey)
+	private static Key generatorKey(String secretKey) throws Exception
 	{
-		Key key = null;
-		KeyGenerator generator = null;
-		try
-		{
-			generator = KeyGenerator.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
-		} catch (NoSuchAlgorithmException e)
-		{
-			logger.error(e);
-		}
-		if (null != generator)
-		{
-			SecureRandom secureRandom = null;
-			try
-			{
-				secureRandom = SecureRandom.getInstance("SHA1PRNG");
-			} catch (NoSuchAlgorithmException e)
-			{
-				logger.error(e);
-			}
-			secureRandom.setSeed(secretKey.getBytes(Charset.forName(CHARSET)));
-			generator.init(secureRandom);
-			key = generator.generateKey();
-			generator = null;
-		}
-		return key;
+//		Key key = null;
+//		KeyGenerator generator = null;
+//		try
+//		{
+//			generator = KeyGenerator.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);
+//		} catch (NoSuchAlgorithmException e)
+//		{
+//			logger.error(e);
+//		}
+//		if (null != generator)
+//		{
+//			SecureRandom secureRandom = null;
+//			try
+//			{
+//				secureRandom = SecureRandom.getInstance("SHA1PRNG");
+//			} catch (NoSuchAlgorithmException e)
+//			{
+//				logger.error(e);
+//			}
+//			secureRandom.setSeed(secretKey.getBytes(Charset.forName(CHARSET)));
+//			generator.init(secureRandom);
+//			key = generator.generateKey();
+//			generator = null;
+//		}
+//		return key;
+		
+		
+		// TODO 这种方式必须密码8位以上
+		DESKeySpec desKey = new DESKeySpec(secretKey.getBytes());  
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(CryptoUtils.ALGORITHM.SYMMETRY.DES);  
+        SecretKey securekey = keyFactory.generateSecret(desKey);  
+        return (Key)securekey;
 	}
 }

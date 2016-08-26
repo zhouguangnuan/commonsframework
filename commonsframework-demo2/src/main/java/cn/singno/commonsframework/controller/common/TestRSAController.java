@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.mangofactory.swagger.annotations.ApiIgnore;
 
@@ -43,7 +44,7 @@ public class TestRSAController
 	public Object keyPair(HttpServletRequest request) throws Exception
 	{
 		PublicKeyMap publicKeyMap = RSAUtils.getPublicKeyMap();
-		System.out.println(publicKeyMap);
+		System.out.println(JSON.toJSONString(publicKeyMap));
 		
 		JsonResult result = new JsonResult(DefaultDescribableEnum.SUCCESS);
 		Map<String, String> data = Maps.newHashMap();
@@ -71,6 +72,8 @@ public class TestRSAController
 	@ResponseBody
 	public Object login2(String password) throws Exception
 	{
+		System.out.println(JSON.toJSONString(RSAUtils.getKeyPair().getPrivate()));
+		
 		byte[] byteCiphertext = Hex.decodeHex(password.toCharArray());
 		byte[] pwd = CryptoUtils.RSAdecrypt(byteCiphertext, RSAUtils.getKeyPair().getPrivate());
 		

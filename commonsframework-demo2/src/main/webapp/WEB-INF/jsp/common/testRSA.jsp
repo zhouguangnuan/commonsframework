@@ -9,17 +9,17 @@
 <script type="text/javascript">
         $(function(){
             $("#btn").click(function(){
-            $.getJSON('${ctxBase}/common/testRSA/keyPair',function(jsonResult) {
-                        var modulus = jsonResult.data.modulus;
-                        var exponent = jsonResult.data.exponent;
-                        var epwd = $('#password').val();
-                        epwd = encodeURIComponent(epwd);// 兼容中文
-                        if (epwd.length != 256) {
-                            var publicKey = RSAUtils.getKeyPair(exponent, '', modulus);
-                            $('#password').val(RSAUtils.encryptedString(publicKey, epwd));
-                        }
-                        $("#login").submit();
-                    });
+            	$.getJSON('${ctxBase}/common/testRSA/keyPair',function(jsonResult) {
+                   var modulus = jsonResult.data.modulus;
+                   var exponent = jsonResult.data.exponent;
+                   var epwd = $('#password').val();
+                   epwd = encodeURIComponent(epwd);// 兼容中文
+                   if (epwd.length != 256) {
+                       var publicKey = RSAUtils.getKeyPair(exponent, '', modulus);
+                       $('#password').val(RSAUtils.encryptedString(publicKey, epwd));
+                   }
+                   $("#login").submit();
+               });
             });
         });
 </script>

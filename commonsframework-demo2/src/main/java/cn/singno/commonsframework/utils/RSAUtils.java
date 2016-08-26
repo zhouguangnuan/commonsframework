@@ -33,6 +33,8 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSON;
  
 /**
  * RSA算法加密/解密工具类。
@@ -420,6 +422,7 @@ public abstract class RSAUtils {
     public static PublicKeyMap getPublicKeyMap() {
         PublicKeyMap publicKeyMap = new PublicKeyMap();
         RSAPublicKey rsaPublicKey = getDefaultPublicKey();
+        System.out.println(JSON.toJSONString(rsaPublicKey));
         publicKeyMap.setModulus(new String(Hex.encodeHex(rsaPublicKey.getModulus().toByteArray())));
         publicKeyMap.setExponent(new String(Hex.encodeHex(rsaPublicKey.getPublicExponent().toByteArray())));
         return publicKeyMap;

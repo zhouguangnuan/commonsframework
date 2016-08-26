@@ -91,17 +91,15 @@ public class TestCommonController
 	}
 	
 	@RequestMapping(value="/test3", method=RequestMethod.GET)
-        @ResponseBody
-        public Object test3()
-        {
-	        Map<String, String[]> params = HttpServletUtils.getRequest().getParameterMap();
-	        System.out.println(JSON.toJSON(params));
-	        
-	        
-	        HttpServletResponse response = HttpServletUtils.getResponse();
-	        
-                return "SUCCESS";
-        }
+    @ResponseBody
+    public Object test3()
+    {
+        Map<String, String[]> params = HttpServletUtils.getRequest().getParameterMap();
+        System.out.println(JSON.toJSON(params));
+        
+        HttpServletResponse response = HttpServletUtils.getResponse();
+        return "SUCCESS";
+    }
 	
 	@RequestMapping(value="/ip", method=RequestMethod.GET)
 	@ResponseBody
@@ -110,7 +108,7 @@ public class TestCommonController
 //		localIp		10.172.17.249
 //		netIp		123.56.162.129
 //		remortIpStr	115.231.212.10
-//     
+
 		
 		String localIp =  NetworkUtils.getLocalIp();
 		String netIp = NetworkUtils.getNetIp();

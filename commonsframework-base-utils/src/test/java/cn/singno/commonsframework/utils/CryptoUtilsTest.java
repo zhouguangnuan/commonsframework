@@ -7,13 +7,17 @@
  */
 package cn.singno.commonsframework.utils;
 
-import static org.junit.Assert.*;
-
 import java.security.KeyPair;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.CharEncoding;
-import org.apache.commons.lang3.CharSetUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 /**<p>名称：EncryptUtilsTest.java</p>
@@ -27,7 +31,7 @@ import org.junit.Test;
  */
 public class CryptoUtilsTest
 {
-	private static String secretKey = "singno";
+	private static String secretKey = "12345678";
 	
 	@Test
 	public void testHASHencrypt() throws Exception
@@ -53,10 +57,13 @@ public class CryptoUtilsTest
 	@Test
 	public void testDESencrypt_DESdecrypt() throws Exception
 	{
-		String ciphertext = CryptoUtils.DESencrypt("123", secretKey);
-		System.out.println(ciphertext);// Oj6SGTpjju4=
+		String plaintext = "中国人民爱你";
 		
-		String plaintext = CryptoUtils.DESdecrypt(ciphertext, secretKey);
+		String ciphertext = CryptoUtils.DESencrypt(plaintext, secretKey);
+		System.out.println(ciphertext);// SiQu8unOTKY=
+		 
+		
+		plaintext = CryptoUtils.DESdecrypt(ciphertext, secretKey);
 		System.out.println(plaintext);// 123
 	}
 	
@@ -86,5 +93,29 @@ public class CryptoUtilsTest
 		System.out.println(plaintext);// 你好
 		
 //		System.out.println(EncodeUtils.getXorString("A", CharEncoding.UTF_8));// 41
+	}
+	
+	@Test
+	public void testName2() throws Exception {
+	     String encryptString = "test";
+	     String encryptKey = "12345678";
+	     String resultStr = null;
+	     
+	     byte[] iv = encryptKey.getBytes();
+         IvParameterSpec zeroIv = new IvParameterSpec(iv);
+//         IvParameterSpec zeroIv = null;
+         SecretKeySpec key = new SecretKeySpec(encryptKey.getBytes(), "DES");
+         
+         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+//         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS7Padding");
+//         Cipher cipher = Cipher.getInstance("DES");
+//         cipher.init(Cipher.ENCRYPT_MODE, key, zeroIv);
+         cipher.init(Cipher.ENCRYPT_MODE, key, zeroIv);
+         byte[] encryptedData = cipher.doFinal(encryptString.getBytes());
+         resultStr = Base64.encodeBase64String(encryptedData);
+         System.out.println(resultStr);
+         
+         
+         //System.out.println(CryptoUtils.DESencrypt(encryptString, encryptKey));
 	}
 }
